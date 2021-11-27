@@ -1,0 +1,4 @@
+(fp_lib_table
+  (lib (name "Macro Keyboard")(type KiCad)(uri "${KIPRJMOD}/Macro Keyboard.pretty")(options "")(descr ""))
+  (lib (name TMPPCB_R2)(type KiCad)(uri ${KIPRJMOD}/TMPPCB_R2.pretty)(options "")(descr ""))
+)

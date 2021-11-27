@@ -1,0 +1,136 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 4 29
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L power:+5V #PWR0402
+U 1 1 61A863EC
+P 5500 3050
+F 0 "#PWR0402" H 5500 2900 50  0001 C CNN
+F 1 "+5V" H 5515 3223 50  0000 C CNN
+F 2 "" H 5500 3050 50  0001 C CNN
+F 3 "" H 5500 3050 50  0001 C CNN
+	1    5500 3050
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3V3 #PWR0404
+U 1 1 61A86F52
+P 5700 3050
+F 0 "#PWR0404" H 5700 2900 50  0001 C CNN
+F 1 "+3V3" H 5715 3223 50  0000 C CNN
+F 2 "" H 5700 3050 50  0001 C CNN
+F 3 "" H 5700 3050 50  0001 C CNN
+	1    5700 3050
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0403
+U 1 1 61A8764F
+P 5600 4350
+F 0 "#PWR0403" H 5600 4100 50  0001 C CNN
+F 1 "GND" H 5605 4177 50  0000 C CNN
+F 2 "" H 5600 4350 50  0001 C CNN
+F 3 "" H 5600 4350 50  0001 C CNN
+	1    5600 4350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5600 4200 5600 4250
+Wire Wire Line
+	5200 4000 5200 4250
+Wire Wire Line
+	5200 4250 5600 4250
+Connection ~ 5600 4250
+Wire Wire Line
+	5600 4250 5600 4350
+Wire Wire Line
+	5500 3050 5500 3250
+Wire Wire Line
+	5700 3050 5700 3250
+$Comp
+L Device:C_Small C401
+U 1 1 61A88161
+P 5400 3250
+F 0 "C401" V 5171 3250 50  0000 C CNN
+F 1 "1 uF 10% 10V" V 5262 3250 50  0000 C CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 5400 3250 50  0001 C CNN
+F 3 "http://www.samsungsem.com/kr/support/product-search/mlcc/CL21B105KPFNNNE.jsp" H 5400 3250 50  0001 C CNN
+F 4 "1276-1275-1-ND" H 5400 3250 50  0001 C CNN "Digikey PN"
+F 5 "Samsung Electro-Mechanics" H 5400 3250 50  0001 C CNN "MFG"
+F 6 "CL21B105KPFNNNE" H 5400 3250 50  0001 C CNN "MFG #"
+	1    5400 3250
+	0    1    1    0   
+$EndComp
+Connection ~ 5500 3250
+Wire Wire Line
+	5500 3250 5500 3400
+$Comp
+L Device:C_Small C402
+U 1 1 61A889D1
+P 5800 3250
+F 0 "C402" V 5571 3250 50  0000 C CNN
+F 1 "1 uF 10% 10V" V 5662 3250 50  0000 C CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 5800 3250 50  0001 C CNN
+F 3 "http://www.samsungsem.com/kr/support/product-search/mlcc/CL21B105KPFNNNE.jsp" H 5800 3250 50  0001 C CNN
+F 4 "1276-1275-1-ND" H 5800 3250 50  0001 C CNN "Digikey PN"
+F 5 "Samsung Electro-Mechanics" H 5800 3250 50  0001 C CNN "MFG"
+F 6 "CL21B105KPFNNNE" H 5800 3250 50  0001 C CNN "MFG #"
+	1    5800 3250
+	0    1    1    0   
+$EndComp
+Connection ~ 5700 3250
+Wire Wire Line
+	5700 3250 5700 3400
+$Comp
+L power:GND #PWR0405
+U 1 1 61A88CCE
+P 5900 3250
+F 0 "#PWR0405" H 5900 3000 50  0001 C CNN
+F 1 "GND" H 5905 3077 50  0000 C CNN
+F 2 "" H 5900 3250 50  0001 C CNN
+F 3 "" H 5900 3250 50  0001 C CNN
+	1    5900 3250
+	1    0    0    -1  
+$EndComp
+$Comp
+L TMPCB_R2:PI4ULS5V201TAEX U401
+U 1 1 61A85D29
+P 5600 3800
+F 0 "U401" H 6000 3550 50  0000 L CNN
+F 1 "PI4ULS5V201TAEX" H 5950 3450 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23-6" H 5600 3350 50  0001 C CNN
+F 3 "https://www.diodes.com/assets/Datasheets/PI4ULS5V201.pdf" H 4700 3150 50  0001 C CNN
+F 4 "Diodes Inc" H 6100 4000 50  0001 C CNN "MFG"
+F 5 "PI4ULS5V201TAEX" H 6250 4050 50  0001 C CNN "MFG #"
+F 6 "PI4ULS5V201TAEXCT-ND" H 5600 3800 50  0001 C CNN "Digikey PN"
+	1    5600 3800
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0401
+U 1 1 61A89F0F
+P 5300 3250
+F 0 "#PWR0401" H 5300 3000 50  0001 C CNN
+F 1 "GND" H 5305 3077 50  0000 C CNN
+F 2 "" H 5300 3250 50  0001 C CNN
+F 3 "" H 5300 3250 50  0001 C CNN
+	1    5300 3250
+	1    0    0    -1  
+$EndComp
+Text HLabel 5200 3800 0    50   Output ~ 0
+D_OUT_5V
+Text HLabel 6000 3800 2    50   Input ~ 0
+D_IN_3V3
+$EndSCHEMATC

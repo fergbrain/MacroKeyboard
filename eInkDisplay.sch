@@ -1,0 +1,506 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 29 29
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+NoConn ~ 7800 2650
+NoConn ~ 7800 2950
+$Comp
+L Connector_Generic:Conn_01x24 J2901
+U 1 1 61A8C93F
+P 8000 3750
+F 0 "J2901" H 8080 3742 50  0000 L CNN
+F 1 "FPC 1x24" H 8080 3651 50  0000 L CNN
+F 2 "Macro Keyboard:Molex_502244_1x24_FPC" H 8000 3750 50  0001 C CNN
+F 3 "https://www.molex.com/pdm_docs/sd/5052782433_sd.pdf" H 8000 3750 50  0001 C CNN
+F 4 "WM20872CT-ND" H 8000 3750 50  0001 C CNN "Digikey PN"
+F 5 "Molex" H 8000 3750 50  0001 C CNN "MFG"
+F 6 "5052782433" H 8000 3750 50  0001 C CNN "MFG #"
+	1    8000 3750
+	1    0    0    -1  
+$EndComp
+NoConn ~ 7800 3150
+NoConn ~ 7800 3250
+NoConn ~ 7800 4450
+$Comp
+L Device:Q_PJFET_GDS Q2901
+U 1 1 61A8EEB3
+P 6000 2750
+F 0 "Q2901" H 5850 2650 50  0000 L CNN
+F 1 "Q_PJFET_GDS" H 5500 2900 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 6200 2850 50  0001 C CNN
+F 3 "https://www.taiwansemi.com/assets/uploads/datasheet/TSM850N06CX_C1811.pdf" H 6000 2750 50  0001 C CNN
+F 4 "TSM850N06CXRFGCT-ND" H 6000 2750 50  0001 C CNN "Digikey PN"
+F 5 "Taiwan Semiconductor Corporation" H 6000 2750 50  0001 C CNN "MFG"
+F 6 "TSM850N06CX RFG" H 6000 2750 50  0001 C CNN "MFG #"
+	1    6000 2750
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	7800 2750 6200 2750
+$Comp
+L Device:L_Small L2901
+U 1 1 61A90080
+P 4750 2550
+F 0 "L2901" V 4935 2550 50  0000 C CNN
+F 1 "10 uH 20% 0.8A" V 4844 2550 50  0000 C CNN
+F 2 "Inductor_SMD:L_Taiyo-Yuden_NR-40xx_HandSoldering" H 4750 2550 50  0001 C CNN
+F 3 "https://www.yuden.co.jp/productdata/catalog/wound04_e.pdf" H 4750 2550 50  0001 C CNN
+F 4 "587-1659-1-ND" H 4750 2550 50  0001 C CNN "Digikey PN"
+F 5 "Taiyo Yuden" H 4750 2550 50  0001 C CNN "MFG"
+F 6 "NR4012T100M" H 4750 2550 50  0001 C CNN "MFG #"
+	1    4750 2550
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:+3V3 #PWR02901
+U 1 1 61A90F00
+P 4400 2350
+F 0 "#PWR02901" H 4400 2200 50  0001 C CNN
+F 1 "+3V3" H 4415 2523 50  0000 C CNN
+F 2 "" H 4400 2350 50  0001 C CNN
+F 3 "" H 4400 2350 50  0001 C CNN
+	1    4400 2350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4400 2350 4400 2550
+Wire Wire Line
+	4400 2550 4650 2550
+Wire Wire Line
+	4850 2550 5150 2550
+$Comp
+L Device:R_Small_US R2901
+U 1 1 61A9164C
+P 5900 3300
+F 0 "R2901" H 5968 3346 50  0000 L CNN
+F 1 "470 5%" H 5968 3255 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" H 5900 3300 50  0001 C CNN
+F 3 "https://www.seielect.com/catalog/sei-rmcf_rmcp.pdf" H 5900 3300 50  0001 C CNN
+F 4 "RMCF0805JT470RCT-ND" H 5900 3300 50  0001 C CNN "Digikey PN"
+F 5 "Stackpole Electronics Inc" H 5900 3300 50  0001 C CNN "MFG"
+F 6 "RMCF0805JT470R" H 5900 3300 50  0001 C CNN "MFG #"
+	1    5900 3300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C2901
+U 1 1 61A9221A
+P 4350 3300
+F 0 "C2901" V 4250 3200 50  0000 L CNN
+F 1 "1 uF 10% 10V" V 4450 3050 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 4350 3300 50  0001 C CNN
+F 3 "http://www.samsungsem.com/kr/support/product-search/mlcc/CL21B105KPFNNNE.jsp" H 4350 3300 50  0001 C CNN
+F 4 "1276-1275-1-ND" H 4350 3300 50  0001 C CNN "Digikey PN"
+F 5 "Samsung Electro-Mechanics" H 4350 3300 50  0001 C CNN "MFG"
+F 6 "CL21B105KPFNNNE" H 4350 3300 50  0001 C CNN "MFG #"
+	1    4350 3300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D_Schottky_Small D2902
+U 1 1 61A93B5D
+P 4850 3300
+F 0 "D2902" H 4900 3400 50  0000 R CNN
+F 1 "MBR0530" H 5050 3200 50  0000 R CNN
+F 2 "Diode_SMD:D_SOD-123" V 4850 3300 50  0001 C CNN
+F 3 "https://www.mccsemi.com/pdf/Products/MBR0520-MBR0580(SOD123).pdf" V 4850 3300 50  0001 C CNN
+F 4 "MBR0530TPMSCT-ND" H 4850 3300 50  0001 C CNN "Digikey PN"
+F 5 "Micro Commercial Co" H 4850 3300 50  0001 C CNN "MFG"
+F 6 "MBR0530-TP" H 4850 3300 50  0001 C CNN "MFG #"
+	1    4850 3300
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:D_Schottky_Small D2903
+U 1 1 61A9411A
+P 5150 2850
+F 0 "D2903" H 5100 2900 50  0000 R CNN
+F 1 "MBR0530" H 5350 2750 50  0000 R CNN
+F 2 "Diode_SMD:D_SOD-123" V 5150 2850 50  0001 C CNN
+F 3 "https://www.mccsemi.com/pdf/Products/MBR0520-MBR0580(SOD123).pdf" V 5150 2850 50  0001 C CNN
+F 4 "MBR0530TPMSCT-ND" H 5150 2850 50  0001 C CNN "Digikey PN"
+F 5 "Micro Commercial Co" H 5150 2850 50  0001 C CNN "MFG"
+F 6 "MBR0530-TP" H 5150 2850 50  0001 C CNN "MFG #"
+	1    5150 2850
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:D_Schottky_Small D2901
+U 1 1 61A94531
+P 4600 3000
+F 0 "D2901" H 4650 2900 50  0000 C CNN
+F 1 "MBR0530" H 4550 3100 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" V 4600 3000 50  0001 C CNN
+F 3 "https://www.mccsemi.com/pdf/Products/MBR0520-MBR0580(SOD123).pdf" V 4600 3000 50  0001 C CNN
+F 4 "MBR0530TPMSCT-ND" H 4600 3000 50  0001 C CNN "Digikey PN"
+F 5 "Micro Commercial Co" H 4600 3000 50  0001 C CNN "MFG"
+F 6 "MBR0530-TP" H 4600 3000 50  0001 C CNN "MFG #"
+	1    4600 3000
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:C_Small C2902
+U 1 1 61A94C59
+P 4850 2850
+F 0 "C2902" V 4750 2900 50  0000 L CNN
+F 1 "4.7 uF 10% 10V" V 4950 2700 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 4850 2850 50  0001 C CNN
+F 3 "http://www.samsungsem.com/kr/support/product-search/mlcc/CL21A475KPFNNNE.jsp" H 4850 2850 50  0001 C CNN
+F 4 "1276-1259-1-ND" H 4850 2850 50  0001 C CNN "Digikey PN"
+F 5 "Samsung Electro-Mechanics" H 4850 2850 50  0001 C CNN "MFG"
+F 6 "CL21A475KPFNNNE" H 4850 2850 50  0001 C CNN "MFG #"
+	1    4850 2850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4850 2950 4850 3000
+Wire Wire Line
+	4850 2550 4850 2750
+Connection ~ 4850 2550
+Wire Wire Line
+	5150 2750 5150 2550
+Connection ~ 5150 2550
+Wire Wire Line
+	5150 2550 5900 2550
+Wire Wire Line
+	5150 2950 5150 3050
+Wire Wire Line
+	4700 3000 4850 3000
+Connection ~ 4850 3000
+Wire Wire Line
+	4850 3000 4850 3200
+Wire Wire Line
+	4350 3200 4350 3100
+Wire Wire Line
+	4350 3000 4500 3000
+Wire Wire Line
+	4350 3400 4350 3700
+Wire Wire Line
+	4350 3700 4850 3700
+Wire Wire Line
+	5900 3700 5900 3400
+Wire Wire Line
+	5150 3400 5150 3700
+Connection ~ 5150 3700
+Wire Wire Line
+	5150 3700 5900 3700
+Wire Wire Line
+	4850 3400 4850 3700
+Connection ~ 4850 3700
+Wire Wire Line
+	4850 3700 5000 3700
+$Comp
+L Device:C_Small C2903
+U 1 1 61A91DEE
+P 5150 3300
+F 0 "C2903" V 5100 3350 50  0000 L CNN
+F 1 "1 uF 10% 10V" V 5250 3150 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 5150 3300 50  0001 C CNN
+F 3 "http://www.samsungsem.com/kr/support/product-search/mlcc/CL21B105KPFNNNE.jsp" H 5150 3300 50  0001 C CNN
+F 4 "1276-1275-1-ND" H 5150 3300 50  0001 C CNN "Digikey PN"
+F 5 "Samsung Electro-Mechanics" H 5150 3300 50  0001 C CNN "MFG"
+F 6 "CL21B105KPFNNNE" H 5150 3300 50  0001 C CNN "MFG #"
+	1    5150 3300
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR02902
+U 1 1 61A98858
+P 5000 3700
+F 0 "#PWR02902" H 5000 3450 50  0001 C CNN
+F 1 "GND" H 5005 3527 50  0000 C CNN
+F 2 "" H 5000 3700 50  0001 C CNN
+F 3 "" H 5000 3700 50  0001 C CNN
+	1    5000 3700
+	1    0    0    -1  
+$EndComp
+Connection ~ 5000 3700
+Wire Wire Line
+	5000 3700 5150 3700
+Wire Wire Line
+	5150 3050 5550 3050
+Wire Wire Line
+	5550 3100 5550 4650
+Wire Wire Line
+	5550 4650 7800 4650
+Connection ~ 5150 3050
+Wire Wire Line
+	5150 3050 5150 3200
+Wire Wire Line
+	7800 4850 4150 4850
+Wire Wire Line
+	4150 4850 4150 3100
+Wire Wire Line
+	4150 3100 4350 3100
+Connection ~ 4350 3100
+Wire Wire Line
+	4350 3100 4350 3000
+Wire Wire Line
+	7800 4050 7800 4150
+$Comp
+L power:+3V3 #PWR02903
+U 1 1 61A9BE75
+P 5750 4050
+F 0 "#PWR02903" H 5750 3900 50  0001 C CNN
+F 1 "+3V3" H 5765 4223 50  0000 C CNN
+F 2 "" H 5750 4050 50  0001 C CNN
+F 3 "" H 5750 4050 50  0001 C CNN
+	1    5750 4050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C2904
+U 1 1 61A9D08F
+P 5750 4150
+F 0 "C2904" V 5700 4200 50  0000 L CNN
+F 1 "1 uF 10% 10V" V 5850 4000 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 5750 4150 50  0001 C CNN
+F 3 "http://www.samsungsem.com/kr/support/product-search/mlcc/CL21B105KPFNNNE.jsp" H 5750 4150 50  0001 C CNN
+F 4 "1276-1275-1-ND" H 5750 4150 50  0001 C CNN "Digikey PN"
+F 5 "Samsung Electro-Mechanics" H 5750 4150 50  0001 C CNN "MFG"
+F 6 "CL21B105KPFNNNE" H 5750 4150 50  0001 C CNN "MFG #"
+	1    5750 4150
+	-1   0    0    1   
+$EndComp
+Connection ~ 5750 4050
+$Comp
+L power:GND #PWR02904
+U 1 1 61A9DB32
+P 5750 4250
+F 0 "#PWR02904" H 5750 4000 50  0001 C CNN
+F 1 "GND" H 5755 4077 50  0000 C CNN
+F 2 "" H 5750 4250 50  0001 C CNN
+F 3 "" H 5750 4250 50  0001 C CNN
+	1    5750 4250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5750 4050 7800 4050
+Connection ~ 7800 4050
+$Comp
+L Device:C_Small C2906
+U 1 1 61AA1E17
+P 7400 4350
+F 0 "C2906" V 7350 4400 50  0000 L CNN
+F 1 "1 uF 10% 10V" V 7450 4400 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 7400 4350 50  0001 C CNN
+F 3 "http://www.samsungsem.com/kr/support/product-search/mlcc/CL21B105KPFNNNE.jsp" H 7400 4350 50  0001 C CNN
+F 4 "1276-1275-1-ND" H 7400 4350 50  0001 C CNN "Digikey PN"
+F 5 "Samsung Electro-Mechanics" H 7400 4350 50  0001 C CNN "MFG"
+F 6 "CL21B105KPFNNNE" H 7400 4350 50  0001 C CNN "MFG #"
+	1    7400 4350
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:GND #PWR02911
+U 1 1 61AA39D4
+P 7800 4250
+F 0 "#PWR02911" H 7800 4000 50  0001 C CNN
+F 1 "GND" V 7805 4122 50  0000 R CNN
+F 2 "" H 7800 4250 50  0001 C CNN
+F 3 "" H 7800 4250 50  0001 C CNN
+	1    7800 4250
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	7800 4350 7500 4350
+$Comp
+L power:GND #PWR02905
+U 1 1 61AA48B6
+P 6950 4350
+F 0 "#PWR02905" H 6950 4100 50  0001 C CNN
+F 1 "GND" V 6955 4222 50  0000 R CNN
+F 2 "" H 6950 4350 50  0001 C CNN
+F 3 "" H 6950 4350 50  0001 C CNN
+	1    6950 4350
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	6950 4350 7300 4350
+$Comp
+L Device:C_Small C2907
+U 1 1 61AA58CA
+P 7400 4550
+F 0 "C2907" V 7350 4600 50  0000 L CNN
+F 1 "1 uF 10% 10V" V 7450 4600 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 7400 4550 50  0001 C CNN
+F 3 "http://www.samsungsem.com/kr/support/product-search/mlcc/CL21B105KPFNNNE.jsp" H 7400 4550 50  0001 C CNN
+F 4 "1276-1275-1-ND" H 7400 4550 50  0001 C CNN "Digikey PN"
+F 5 "Samsung Electro-Mechanics" H 7400 4550 50  0001 C CNN "MFG"
+F 6 "CL21B105KPFNNNE" H 7400 4550 50  0001 C CNN "MFG #"
+	1    7400 4550
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:GND #PWR02906
+U 1 1 61AA5BFE
+P 6950 4550
+F 0 "#PWR02906" H 6950 4300 50  0001 C CNN
+F 1 "GND" V 6955 4422 50  0000 R CNN
+F 2 "" H 6950 4550 50  0001 C CNN
+F 3 "" H 6950 4550 50  0001 C CNN
+	1    6950 4550
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	6950 4550 7300 4550
+Wire Wire Line
+	7500 4550 7800 4550
+$Comp
+L Device:C_Small C2908
+U 1 1 61AA7346
+P 7400 4750
+F 0 "C2908" V 7350 4800 50  0000 L CNN
+F 1 "1 uF 10% 10V" V 7450 4800 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 7400 4750 50  0001 C CNN
+F 3 "http://www.samsungsem.com/kr/support/product-search/mlcc/CL21B105KPFNNNE.jsp" H 7400 4750 50  0001 C CNN
+F 4 "1276-1275-1-ND" H 7400 4750 50  0001 C CNN "Digikey PN"
+F 5 "Samsung Electro-Mechanics" H 7400 4750 50  0001 C CNN "MFG"
+F 6 "CL21B105KPFNNNE" H 7400 4750 50  0001 C CNN "MFG #"
+	1    7400 4750
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	7500 4750 7800 4750
+$Comp
+L power:GND #PWR02907
+U 1 1 61AA7F23
+P 6950 4750
+F 0 "#PWR02907" H 6950 4500 50  0001 C CNN
+F 1 "GND" V 6955 4622 50  0000 R CNN
+F 2 "" H 6950 4750 50  0001 C CNN
+F 3 "" H 6950 4750 50  0001 C CNN
+	1    6950 4750
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	6950 4750 7300 4750
+$Comp
+L Device:C_Small C2909
+U 1 1 61AA8D03
+P 7400 4950
+F 0 "C2909" V 7350 5000 50  0000 L CNN
+F 1 "1 uF 10% 10V" V 7450 5000 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 7400 4950 50  0001 C CNN
+F 3 "http://www.samsungsem.com/kr/support/product-search/mlcc/CL21B105KPFNNNE.jsp" H 7400 4950 50  0001 C CNN
+F 4 "1276-1275-1-ND" H 7400 4950 50  0001 C CNN "Digikey PN"
+F 5 "Samsung Electro-Mechanics" H 7400 4950 50  0001 C CNN "MFG"
+F 6 "CL21B105KPFNNNE" H 7400 4950 50  0001 C CNN "MFG #"
+	1    7400 4950
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	7500 4950 7800 4950
+$Comp
+L power:GND #PWR02908
+U 1 1 61AA9A69
+P 6950 4950
+F 0 "#PWR02908" H 6950 4700 50  0001 C CNN
+F 1 "GND" V 6955 4822 50  0000 R CNN
+F 2 "" H 6950 4950 50  0001 C CNN
+F 3 "" H 6950 4950 50  0001 C CNN
+	1    6950 4950
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	6950 4950 7300 4950
+$Comp
+L Device:C_Small C2905
+U 1 1 61AAAB7A
+P 7400 3050
+F 0 "C2905" V 7350 3100 50  0000 L CNN
+F 1 "1 uF 10% 10V" V 7450 3100 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 7400 3050 50  0001 C CNN
+F 3 "http://www.samsungsem.com/kr/support/product-search/mlcc/CL21B105KPFNNNE.jsp" H 7400 3050 50  0001 C CNN
+F 4 "1276-1275-1-ND" H 7400 3050 50  0001 C CNN "Digikey PN"
+F 5 "Samsung Electro-Mechanics" H 7400 3050 50  0001 C CNN "MFG"
+F 6 "CL21B105KPFNNNE" H 7400 3050 50  0001 C CNN "MFG #"
+	1    7400 3050
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:GND #PWR02909
+U 1 1 61AAB511
+P 7000 3050
+F 0 "#PWR02909" H 7000 2800 50  0001 C CNN
+F 1 "GND" V 7005 2922 50  0000 R CNN
+F 2 "" H 7000 3050 50  0001 C CNN
+F 3 "" H 7000 3050 50  0001 C CNN
+	1    7000 3050
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	5900 2950 5900 3050
+Wire Wire Line
+	6600 2850 6600 3050
+Wire Wire Line
+	6600 3050 5900 3050
+Wire Wire Line
+	6600 2850 7800 2850
+Connection ~ 5900 3050
+Wire Wire Line
+	5900 3050 5900 3200
+Wire Wire Line
+	7000 3050 7300 3050
+Wire Wire Line
+	7500 3050 7800 3050
+$Comp
+L power:GND #PWR02910
+U 1 1 61AADB6B
+P 7800 3350
+F 0 "#PWR02910" H 7800 3100 50  0001 C CNN
+F 1 "GND" V 7805 3222 50  0000 R CNN
+F 2 "" H 7800 3350 50  0001 C CNN
+F 3 "" H 7800 3350 50  0001 C CNN
+	1    7800 3350
+	0    1    1    0   
+$EndComp
+Text GLabel 7800 3850 0    50   Input ~ 0
+SPI_SCLK_3V
+Text GLabel 7800 3950 0    50   Input ~ 0
+SPI_MOSI_3V
+Text HLabel 7800 3750 0    50   Input ~ 0
+DS_CS_3V3
+Text HLabel 7800 3650 0    50   Input ~ 0
+DS_D_C_3V3
+Text HLabel 7800 3450 0    50   Input ~ 0
+DS_BUSY_3V3
+$Comp
+L Device:R_Small_US R2902
+U 1 1 61AC5FE7
+P 6600 3450
+F 0 "R2902" H 6668 3496 50  0000 L CNN
+F 1 "100k 5%" H 6668 3405 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" H 6600 3450 50  0001 C CNN
+F 3 "https://www.seielect.com/catalog/sei-rmcf_rmcp.pdf" H 6600 3450 50  0001 C CNN
+F 4 "RMCF0805JT100KCT-ND" H 6600 3450 50  0001 C CNN "Digikey PN"
+F 5 "Stackpole Electronics Inc" H 6600 3450 50  0001 C CNN "MFG"
+F 6 "RMCF0805JT100K" H 6600 3450 50  0001 C CNN "MFG #"
+	1    6600 3450
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3V3 #PWR02912
+U 1 1 61AC62EF
+P 6600 3350
+F 0 "#PWR02912" H 6600 3200 50  0001 C CNN
+F 1 "+3V3" H 6615 3523 50  0000 C CNN
+F 2 "" H 6600 3350 50  0001 C CNN
+F 3 "" H 6600 3350 50  0001 C CNN
+	1    6600 3350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7800 3550 6600 3550
+$EndSCHEMATC

@@ -1,0 +1,162 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 3 29
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L TMPCB_R2:VEML7700 U302
+U 1 1 61A804E2
+P 5550 3550
+F 0 "U302" H 5778 3687 50  0000 L CNN
+F 1 "VEML7700" H 5778 3596 50  0000 L CNN
+F 2 "TMPPCB_R2:SMD4-X07Y16P127" H 5350 3800 50  0001 C CNN
+F 3 "https://media.digikey.com/pdf/Data%20Sheets/Vishay%20Semiconductors/VEML7700.pdf" H 5350 3800 50  0001 C CNN
+F 4 "Vishay Semiconductor" H 5778 3505 50  0000 L CNN "MFG"
+F 5 "VEML7700-TR" H 5778 3414 50  0000 L CNN "MFG #"
+F 6 "VEML7700CT-ND" H 5550 3550 50  0001 C CNN "Digikey PN"
+	1    5550 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3V3 #PWR0304
+U 1 1 61A81201
+P 4750 3250
+F 0 "#PWR0304" H 4750 3100 50  0001 C CNN
+F 1 "+3V3" H 4765 3423 50  0000 C CNN
+F 2 "" H 4750 3250 50  0001 C CNN
+F 3 "" H 4750 3250 50  0001 C CNN
+	1    4750 3250
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0305
+U 1 1 61A81AE1
+P 4750 3950
+F 0 "#PWR0305" H 4750 3700 50  0001 C CNN
+F 1 "GND" H 4755 3777 50  0000 C CNN
+F 2 "" H 4750 3950 50  0001 C CNN
+F 3 "" H 4750 3950 50  0001 C CNN
+	1    4750 3950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C302
+U 1 1 61A8235A
+P 4750 3550
+F 0 "C302" H 4550 3600 50  0000 L CNN
+F 1 "10 uF 10% 10V" H 4400 3500 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 4750 3550 50  0001 C CNN
+F 3 "http://www.samsungsem.com/kr/support/product-search/mlcc/CL21A106KPCLQNC.jsp" H 4750 3550 50  0001 C CNN
+F 4 "1276-2402-1-ND" H 4750 3550 50  0001 C CNN "Digikey PN"
+F 5 "Samsung Electro-Mechanics" H 4750 3550 50  0001 C CNN "MFG"
+F 6 "CL21A106KPCLQNC" H 4750 3550 50  0001 C CNN "MFG #"
+	1    4750 3550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4750 3450 4750 3400
+Wire Wire Line
+	4750 3650 4750 3700
+Wire Wire Line
+	5250 3500 4950 3500
+Wire Wire Line
+	4950 3500 4950 3400
+Wire Wire Line
+	4950 3400 4750 3400
+Connection ~ 4750 3400
+Wire Wire Line
+	4750 3400 4750 3250
+Wire Wire Line
+	5250 3600 4950 3600
+Wire Wire Line
+	4950 3600 4950 3700
+Wire Wire Line
+	4950 3700 4750 3700
+Connection ~ 4750 3700
+Wire Wire Line
+	4750 3700 4750 3950
+Text HLabel 5350 3100 2    50   Input ~ 0
+SCL
+Text HLabel 5650 4450 2    50   Input ~ 0
+SDA
+Wire Wire Line
+	5250 3400 5150 3400
+Wire Wire Line
+	5150 3400 5150 3100
+Wire Wire Line
+	5150 3100 5250 3100
+$Comp
+L power:+3V3 #PWR0306
+U 1 1 61ABAE97
+P 5250 2750
+F 0 "#PWR0306" H 5250 2600 50  0001 C CNN
+F 1 "+3V3" H 5265 2923 50  0000 C CNN
+F 2 "" H 5250 2750 50  0001 C CNN
+F 3 "" H 5250 2750 50  0001 C CNN
+	1    5250 2750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small_US R306
+U 1 1 61ABB356
+P 5250 2850
+F 0 "R306" H 5318 2896 50  0000 L CNN
+F 1 "4.7k 5%" H 5318 2805 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" H 5250 2850 50  0001 C CNN
+F 3 "https://www.seielect.com/catalog/sei-rmcf_rmcp.pdf" H 5250 2850 50  0001 C CNN
+F 4 "RMCF0805JT4K70CT-ND" H 5250 2850 50  0001 C CNN "Digikey PN"
+F 5 "Stackpole Electronics Inc" H 5250 2850 50  0001 C CNN "MFG"
+F 6 "RMCF0805JT4K70" H 5250 2850 50  0001 C CNN "MFG #"
+	1    5250 2850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5250 2950 5250 3100
+Connection ~ 5250 3100
+Wire Wire Line
+	5250 3100 5350 3100
+$Comp
+L power:+3V3 #PWR0307
+U 1 1 61ABE8BA
+P 5500 4100
+F 0 "#PWR0307" H 5500 3950 50  0001 C CNN
+F 1 "+3V3" H 5515 4273 50  0000 C CNN
+F 2 "" H 5500 4100 50  0001 C CNN
+F 3 "" H 5500 4100 50  0001 C CNN
+	1    5500 4100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small_US R307
+U 1 1 61ABE8C0
+P 5500 4200
+F 0 "R307" H 5568 4246 50  0000 L CNN
+F 1 "4.7k 5%" H 5568 4155 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" H 5500 4200 50  0001 C CNN
+F 3 "https://www.seielect.com/catalog/sei-rmcf_rmcp.pdf" H 5500 4200 50  0001 C CNN
+F 4 "RMCF0805JT4K70CT-ND" H 5500 4200 50  0001 C CNN "Digikey PN"
+F 5 "Stackpole Electronics Inc" H 5500 4200 50  0001 C CNN "MFG"
+F 6 "RMCF0805JT4K70" H 5500 4200 50  0001 C CNN "MFG #"
+	1    5500 4200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5500 4300 5500 4450
+Wire Wire Line
+	5500 4450 5650 4450
+Wire Wire Line
+	5250 3700 5250 4450
+Wire Wire Line
+	5250 4450 5500 4450
+Connection ~ 5500 4450
+$EndSCHEMATC
