@@ -1,5 +1,4 @@
 (sym_lib_table
   (lib (name Macro_Keyboard)(type Legacy)(uri "${KIPRJMOD}/Macro Keyboard.lib")(options "")(descr ""))
   (lib (name TMPCB_R2)(type Legacy)(uri ${KIPRJMOD}/TMPCB_R2.lib)(options "")(descr ""))
-  (lib (name Macro-Keyboard-rescue)(type Legacy)(uri "${KIPRJMOD}/Macro Keyboard-rescue.lib")(options "")(descr ""))
 )
