@@ -59,7 +59,7 @@
     (pad_drill 0.762)
     (pad_to_mask_clearance 0)
     (aux_axis_origin 0 0)
-    (visible_elements FFFFFF7F)
+    (visible_elements FFFFF77F)
     (pcbplotparams
       (layerselection 0x010fc_ffffffff)
       (usegerberextensions false)
@@ -282,7 +282,7 @@
   )
 
   (module TMPPCB_R2:SMD4-X07Y16P127 (layer F.Cu) (tedit 61888281) (tstamp 61A37A39)
-    (at 25.260001 18.660001)
+    (at 331.260001 232.360001)
     (path /61A0B3CD/61A804E2)
     (fp_text reference U301 (at -0.05 1.9) (layer F.SilkS)
       (effects (font (size 1 1) (thickness 0.15)))
@@ -552,7 +552,7 @@
   )
 
   (module Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder (layer F.Cu) (tedit 5F68FEEE) (tstamp 61A37C11)
-    (at 28.585001 21.645001)
+    (at 334.585001 235.345001)
     (descr "Resistor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal with elongated pad for handsoldering. (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
     (tags "resistor handsolder")
     (path /61A0B3CD/61ABE8C0)
@@ -588,7 +588,7 @@
   )
 
   (module Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder (layer F.Cu) (tedit 5F68FEEE) (tstamp 61A37C41)
-    (at 31.695001 16.575001)
+    (at 337.695001 230.275001)
     (descr "Resistor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal with elongated pad for handsoldering. (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
     (tags "resistor handsolder")
     (path /61A0B3CD/61ABB356)
@@ -824,7 +824,7 @@
   )
 
   (module Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder (layer F.Cu) (tedit 5F68FEEF) (tstamp 61A37AF1)
-    (at 23.805001 21.675001)
+    (at 329.805001 235.375001)
     (descr "Capacitor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal with elongated pad for handsoldering. (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf, https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
     (tags "capacitor handsolder")
     (path /61A0B3CD/61A8235A)
