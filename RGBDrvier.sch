@@ -14,243 +14,343 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L TMPCB_R2:NLSF595 U301
-U 1 1 61A3928E
-P 5300 1200
-F 0 "U301" H 5325 1215 50  0000 C CNN
-F 1 "NLSF595" H 5325 1124 50  0000 C CNN
-F 2 "Package_SO:TSSOP-16_4.4x5mm_P0.65mm" H 5300 1200 50  0001 C CNN
-F 3 "" H 5300 1200 50  0001 C CNN
-F 4 "Need from TeachMePCB" H 5300 1200 50  0001 C CNN "Notes"
-	1    5300 1200
-	-1   0    0    -1  
-$EndComp
-$Comp
 L Device:R_Small_US R304
 U 1 1 61A3FADF
-P 6800 1300
-F 0 "R304" V 6850 1400 50  0000 C CNN
-F 1 "1k 5%" V 6750 1450 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" H 6800 1300 50  0001 C CNN
-F 3 "https://www.seielect.com/catalog/sei-rmcf_rmcp.pdf" H 6800 1300 50  0001 C CNN
-F 4 "RMCF0805JT1K00CT-ND" H 6800 1300 50  0001 C CNN "Digikey PN"
-F 5 "Stackpole Electronics Inc" H 6800 1300 50  0001 C CNN "MFG"
-F 6 "RMCF0805JT1K00" H 6800 1300 50  0001 C CNN "MFG #"
-	1    6800 1300
+P 4450 3300
+F 0 "R304" V 4550 3300 50  0000 C CNN
+F 1 "1k 5%" V 4350 3300 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" H 4450 3300 50  0001 C CNN
+F 3 "https://www.seielect.com/catalog/sei-rmcf_rmcp.pdf" H 4450 3300 50  0001 C CNN
+F 4 "RMCF0805JT1K00CT-ND" H 4450 3300 50  0001 C CNN "Digikey PN"
+F 5 "Stackpole Electronics Inc" H 4450 3300 50  0001 C CNN "MFG"
+F 6 "RMCF0805JT1K00" H 4450 3300 50  0001 C CNN "MFG #"
+	1    4450 3300
 	0    1    1    0   
 $EndComp
 $Comp
 L Device:R_Small_US R305
 U 1 1 61A41C08
-P 6800 1750
-F 0 "R305" V 6850 1850 50  0000 C CNN
-F 1 "1k 5%" V 6750 1900 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" H 6800 1750 50  0001 C CNN
-F 3 "https://www.seielect.com/catalog/sei-rmcf_rmcp.pdf" H 6800 1750 50  0001 C CNN
-F 4 "RMCF0805JT1K00CT-ND" H 6800 1750 50  0001 C CNN "Digikey PN"
-F 5 "Stackpole Electronics Inc" H 6800 1750 50  0001 C CNN "MFG"
-F 6 "RMCF0805JT1K00" H 6800 1750 50  0001 C CNN "MFG #"
-	1    6800 1750
-	0    1    1    0   
+P 4250 4150
+F 0 "R305" V 4350 4150 50  0000 C CNN
+F 1 "1k 5%" V 4150 4150 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" H 4250 4150 50  0001 C CNN
+F 3 "https://www.seielect.com/catalog/sei-rmcf_rmcp.pdf" H 4250 4150 50  0001 C CNN
+F 4 "RMCF0805JT1K00CT-ND" H 4250 4150 50  0001 C CNN "Digikey PN"
+F 5 "Stackpole Electronics Inc" H 4250 4150 50  0001 C CNN "MFG"
+F 6 "RMCF0805JT1K00" H 4250 4150 50  0001 C CNN "MFG #"
+	1    4250 4150
+	-1   0    0    1   
 $EndComp
 $Comp
 L Device:R_Small_US R303
 U 1 1 61A429FE
-P 6500 3000
-F 0 "R303" V 6550 3100 50  0000 C CNN
-F 1 "1k 5%" V 6450 3150 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" H 6500 3000 50  0001 C CNN
-F 3 "https://www.seielect.com/catalog/sei-rmcf_rmcp.pdf" H 6500 3000 50  0001 C CNN
-F 4 "RMCF0805JT1K00CT-ND" H 6500 3000 50  0001 C CNN "Digikey PN"
-F 5 "Stackpole Electronics Inc" H 6500 3000 50  0001 C CNN "MFG"
-F 6 "RMCF0805JT1K00" H 6500 3000 50  0001 C CNN "MFG #"
-	1    6500 3000
+P 7650 3350
+F 0 "R303" V 7550 3350 50  0000 C CNN
+F 1 "1k 5%" V 7750 3350 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" H 7650 3350 50  0001 C CNN
+F 3 "https://www.seielect.com/catalog/sei-rmcf_rmcp.pdf" H 7650 3350 50  0001 C CNN
+F 4 "RMCF0805JT1K00CT-ND" H 7650 3350 50  0001 C CNN "Digikey PN"
+F 5 "Stackpole Electronics Inc" H 7650 3350 50  0001 C CNN "MFG"
+F 6 "RMCF0805JT1K00" H 7650 3350 50  0001 C CNN "MFG #"
+	1    7650 3350
 	0    1    1    0   
 $EndComp
 $Comp
 L Device:R_Small_US R301
 U 1 1 61A3D9CE
-P 6450 3600
-F 0 "R301" V 6550 3600 50  0000 C CNN
-F 1 "4.7k 5%" V 6350 3600 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" H 6450 3600 50  0001 C CNN
-F 3 "https://www.seielect.com/catalog/sei-rmcf_rmcp.pdf" H 6450 3600 50  0001 C CNN
-F 4 "RMCF0805JT4K70CT-ND" H 6450 3600 50  0001 C CNN "Digikey PN"
-F 5 "Stackpole Electronics Inc" H 6450 3600 50  0001 C CNN "MFG"
-F 6 "RMCF0805JT4K70" H 6450 3600 50  0001 C CNN "MFG #"
-	1    6450 3600
+P 4050 3750
+F 0 "R301" V 4150 3750 50  0000 C CNN
+F 1 "4.7k 5%" V 3950 3750 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" H 4050 3750 50  0001 C CNN
+F 3 "https://www.seielect.com/catalog/sei-rmcf_rmcp.pdf" H 4050 3750 50  0001 C CNN
+F 4 "RMCF0805JT4K70CT-ND" H 4050 3750 50  0001 C CNN "Digikey PN"
+F 5 "Stackpole Electronics Inc" H 4050 3750 50  0001 C CNN "MFG"
+F 6 "RMCF0805JT4K70" H 4050 3750 50  0001 C CNN "MFG #"
+	1    4050 3750
 	-1   0    0    1   
-$EndComp
-Text Label 5700 1500 0    50   ~ 0
-VCC
-Wire Wire Line
-	5600 1500 5700 1500
-Text Label 5700 1600 0    50   ~ 0
-GND
-Wire Wire Line
-	5700 1600 5600 1600
-Text Label 6450 1200 2    50   ~ 0
-VCC
-$Comp
-L power:GND #PWR0303
-U 1 1 61A3D210
-P 6600 1850
-F 0 "#PWR0303" H 6600 1600 50  0001 C CNN
-F 1 "GND" H 6605 1677 50  0000 C CNN
-F 2 "" H 6600 1850 50  0001 C CNN
-F 3 "" H 6600 1850 50  0001 C CNN
-	1    6600 1850
-	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C_Small C301
 U 1 1 61A3C95F
-P 6600 1550
-F 0 "C301" H 6508 1504 50  0000 R CNN
-F 1 "1 uF 10% 10V" H 6508 1595 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 6600 1550 50  0001 C CNN
-F 3 "http://www.samsungsem.com/kr/support/product-search/mlcc/CL21B105KPFNNNE.jsp" H 6600 1550 50  0001 C CNN
-F 4 "1276-1275-1-ND" H 6600 1550 50  0001 C CNN "Digikey PN"
-F 5 "Samsung Electro-Mechanics" H 6600 1550 50  0001 C CNN "MFG"
-F 6 "CL21B105KPFNNNE" H 6600 1550 50  0001 C CNN "MFG #"
-	1    6600 1550
+P 6800 2550
+F 0 "C301" H 6708 2504 50  0000 R CNN
+F 1 "1 uF 10% 10V" V 6900 2800 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 6800 2550 50  0001 C CNN
+F 3 "http://www.samsungsem.com/kr/support/product-search/mlcc/CL21B105KPFNNNE.jsp" H 6800 2550 50  0001 C CNN
+F 4 "1276-1275-1-ND" H 6800 2550 50  0001 C CNN "Digikey PN"
+F 5 "Samsung Electro-Mechanics" H 6800 2550 50  0001 C CNN "MFG"
+F 6 "CL21B105KPFNNNE" H 6800 2550 50  0001 C CNN "MFG #"
+	1    6800 2550
 	-1   0    0    1   
 $EndComp
-$Comp
-L power:+3V3 #PWR0302
-U 1 1 61A3A724
-P 6600 1150
-F 0 "#PWR0302" H 6600 1000 50  0001 C CNN
-F 1 "+3V3" H 6615 1323 50  0000 C CNN
-F 2 "" H 6600 1150 50  0001 C CNN
-F 3 "" H 6600 1150 50  0001 C CNN
-	1    6600 1150
-	1    0    0    -1  
-$EndComp
-Text Label 6450 1800 2    50   ~ 0
-GND
-Text Label 5700 1900 0    50   ~ 0
-RCK
-Wire Wire Line
-	5600 1900 5700 1900
-Text Label 5700 2000 0    50   ~ 0
-NOT_SCLR
-Wire Wire Line
-	5600 2000 5700 2000
-Text Label 5700 2100 0    50   ~ 0
-SCK
-Wire Wire Line
-	5600 2100 5700 2100
-Text Label 5700 2200 0    50   ~ 0
-SI
-Wire Wire Line
-	5600 2200 5700 2200
-Text Label 5700 1800 0    50   ~ 0
-NOT_OE
-Wire Wire Line
-	5600 1800 5700 1800
-Text Label 6300 3400 2    50   ~ 0
-RCK
-Text Label 7200 1300 0    50   ~ 0
-NOT_SCLR
-Text Label 6300 3000 2    50   ~ 0
-SCK
-Text Label 6300 2700 2    50   ~ 0
-SI
-Text Label 7200 1750 0    50   ~ 0
-NOT_OE
-Wire Wire Line
-	6600 1150 6600 1200
-Wire Wire Line
-	6450 1200 6600 1200
-Connection ~ 6600 1200
-Wire Wire Line
-	6450 1800 6600 1800
-Wire Wire Line
-	6600 1800 6600 1850
-Wire Wire Line
-	6600 1650 6600 1750
-Connection ~ 6600 1800
-Wire Wire Line
-	6600 1200 6600 1300
-Wire Wire Line
-	6600 1300 6700 1300
-Connection ~ 6600 1300
-Wire Wire Line
-	6600 1300 6600 1450
-Wire Wire Line
-	6900 1300 7200 1300
-Wire Wire Line
-	7200 1750 6900 1750
-Wire Wire Line
-	6700 1750 6600 1750
-Connection ~ 6600 1750
-Wire Wire Line
-	6600 1750 6600 1800
-NoConn ~ 4950 2350
-NoConn ~ 4950 2200
-NoConn ~ 4950 2100
-NoConn ~ 4950 2000
-NoConn ~ 4950 1900
-NoConn ~ 4950 1800
-Text HLabel 4750 1500 0    50   Input ~ 0
-DRIVER_LED_R
-Text HLabel 4750 1600 0    50   Input ~ 0
-DRIVER_LED_G
-Text HLabel 4750 1700 0    50   Input ~ 0
-DRIVER_LED_B
-Wire Wire Line
-	4750 1500 4950 1500
-Wire Wire Line
-	4750 1600 4950 1600
-Wire Wire Line
-	4750 1700 4950 1700
+Text HLabel 5050 3700 0    50   Input ~ 0
+DRIVER_LED_R_5V
+Text HLabel 5050 3800 0    50   Input ~ 0
+DRIVER_LED_G_5V
+Text HLabel 5050 3900 0    50   Input ~ 0
+DRIVER_LED_B_5V
 $Comp
 L Device:R_Small_US R302
 U 1 1 61A5BA43
-P 6500 2700
-F 0 "R302" V 6550 2800 50  0000 C CNN
-F 1 "1k 5%" V 6450 2850 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" H 6500 2700 50  0001 C CNN
-F 3 "https://www.seielect.com/catalog/sei-rmcf_rmcp.pdf" H 6500 2700 50  0001 C CNN
-F 4 "RMCF0805JT1K00CT-ND" H 6500 2700 50  0001 C CNN "Digikey PN"
-F 5 "Stackpole Electronics Inc" H 6500 2700 50  0001 C CNN "MFG"
-F 6 "RMCF0805JT1K00" H 6500 2700 50  0001 C CNN "MFG #"
-	1    6500 2700
+P 7650 2950
+F 0 "R302" V 7550 2950 50  0000 C CNN
+F 1 "1k 5%" V 7750 2950 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" H 7650 2950 50  0001 C CNN
+F 3 "https://www.seielect.com/catalog/sei-rmcf_rmcp.pdf" H 7650 2950 50  0001 C CNN
+F 4 "RMCF0805JT1K00CT-ND" H 7650 2950 50  0001 C CNN "Digikey PN"
+F 5 "Stackpole Electronics Inc" H 7650 2950 50  0001 C CNN "MFG"
+F 6 "RMCF0805JT1K00" H 7650 2950 50  0001 C CNN "MFG #"
+	1    7650 2950
 	0    1    1    0   
 $EndComp
-Wire Wire Line
-	6300 2700 6400 2700
-Wire Wire Line
-	6400 3000 6300 3000
-Text GLabel 7050 3000 2    50   Input ~ 0
+Text GLabel 7900 3350 2    50   Input ~ 0
 SPI_SCLK_3V
-Wire Wire Line
-	7050 3000 6600 3000
-Text GLabel 7050 2700 2    50   Input ~ 0
+Text GLabel 7900 2950 2    50   Input ~ 0
 SPI_MOSI_3V
-Wire Wire Line
-	7050 2700 6600 2700
 $Comp
 L power:GND #PWR0301
 U 1 1 61A5E7D1
-P 6450 3800
-F 0 "#PWR0301" H 6450 3550 50  0001 C CNN
-F 1 "GND" H 6455 3627 50  0000 C CNN
-F 2 "" H 6450 3800 50  0001 C CNN
-F 3 "" H 6450 3800 50  0001 C CNN
-	1    6450 3800
+P 4050 3850
+F 0 "#PWR0301" H 4050 3600 50  0001 C CNN
+F 1 "GND" H 4055 3677 50  0000 C CNN
+F 2 "" H 4050 3850 50  0001 C CNN
+F 3 "" H 4050 3850 50  0001 C CNN
+	1    4050 3850
+	1    0    0    -1  
+$EndComp
+Text HLabel 3850 3500 0    50   Input ~ 0
+DRIVER_LED_CS_3V3
+$Comp
+L power:+3V3 #PWR0101
+U 1 1 61A270A5
+P 6800 2300
+F 0 "#PWR0101" H 6800 2150 50  0001 C CNN
+F 1 "+3V3" H 6815 2473 50  0000 C CNN
+F 2 "" H 6800 2300 50  0001 C CNN
+F 3 "" H 6800 2300 50  0001 C CNN
+	1    6800 2300
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	6450 3800 6450 3700
+	6800 2450 6800 2400
+$Comp
+L power:GND #PWR0102
+U 1 1 61A29573
+P 6800 2650
+F 0 "#PWR0102" H 6800 2400 50  0001 C CNN
+F 1 "GND" H 6805 2477 50  0000 C CNN
+F 2 "" H 6800 2650 50  0001 C CNN
+F 3 "" H 6800 2650 50  0001 C CNN
+	1    6800 2650
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0103
+U 1 1 61A29979
+P 6850 3200
+F 0 "#PWR0103" H 6850 2950 50  0001 C CNN
+F 1 "GND" H 6855 3027 50  0000 C CNN
+F 2 "" H 6850 3200 50  0001 C CNN
+F 3 "" H 6850 3200 50  0001 C CNN
+	1    6850 3200
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:GND #PWR0104
+U 1 1 61A29FBA
+P 6850 3700
+F 0 "#PWR0104" H 6850 3450 50  0001 C CNN
+F 1 "GND" H 6855 3527 50  0000 C CNN
+F 2 "" H 6850 3700 50  0001 C CNN
+F 3 "" H 6850 3700 50  0001 C CNN
+	1    6850 3700
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:GND #PWR0105
+U 1 1 61A2A2ED
+P 6850 4200
+F 0 "#PWR0105" H 6850 3950 50  0001 C CNN
+F 1 "GND" H 6855 4027 50  0000 C CNN
+F 2 "" H 6850 4200 50  0001 C CNN
+F 3 "" H 6850 4200 50  0001 C CNN
+	1    6850 4200
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:GND #PWR0106
+U 1 1 61A2AAFC
+P 5050 3300
+F 0 "#PWR0106" H 5050 3050 50  0001 C CNN
+F 1 "GND" H 5055 3127 50  0000 C CNN
+F 2 "" H 5050 3300 50  0001 C CNN
+F 3 "" H 5050 3300 50  0001 C CNN
+	1    5050 3300
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR0107
+U 1 1 61A2B14E
+P 5050 4100
+F 0 "#PWR0107" H 5050 3850 50  0001 C CNN
+F 1 "GND" H 5055 3927 50  0000 C CNN
+F 2 "" H 5050 4100 50  0001 C CNN
+F 3 "" H 5050 4100 50  0001 C CNN
+	1    5050 4100
+	0    1    1    0   
+$EndComp
 Wire Wire Line
-	6450 3500 6450 3400
+	4050 3650 4050 3500
+Connection ~ 4050 3500
 Wire Wire Line
-	6450 3400 6300 3400
-Text HLabel 7050 3400 2    50   Input ~ 0
-DRIVER_LED_RCK
+	4050 3500 3850 3500
 Wire Wire Line
-	7050 3400 6450 3400
-Connection ~ 6450 3400
+	6850 3300 7150 3300
+Wire Wire Line
+	7150 3300 7150 2400
+Wire Wire Line
+	7150 2400 6800 2400
+Connection ~ 6800 2400
+Wire Wire Line
+	6800 2400 6800 2300
+Wire Wire Line
+	7300 3400 7300 2950
+Wire Wire Line
+	6850 3400 7300 3400
+Wire Wire Line
+	7450 3500 7450 3350
+Wire Wire Line
+	7450 3350 7550 3350
+Wire Wire Line
+	6850 3500 7450 3500
+Wire Wire Line
+	7300 2950 7550 2950
+Wire Wire Line
+	7900 2950 7750 2950
+Wire Wire Line
+	7750 3350 7900 3350
+NoConn ~ 6850 3800
+NoConn ~ 6850 3900
+NoConn ~ 6850 4000
+NoConn ~ 6850 4100
+NoConn ~ 6850 4300
+NoConn ~ 6850 4400
+NoConn ~ 6850 4500
+NoConn ~ 6850 4600
+NoConn ~ 5050 4000
+NoConn ~ 5050 4200
+NoConn ~ 5050 4300
+NoConn ~ 5050 4400
+NoConn ~ 5050 4500
+Text GLabel 4200 3300 0    50   Input ~ 0
+SPI_MISO_3V
+Wire Wire Line
+	4200 3300 4350 3300
+Wire Wire Line
+	4550 3300 4700 3300
+Wire Wire Line
+	4700 3300 4700 3400
+$Comp
+L Device:R_Small_US R2701
+U 1 1 61A47F87
+P 4450 2900
+F 0 "R2701" V 4350 2900 50  0000 C CNN
+F 1 "1k 5%" V 4550 2900 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" H 4450 2900 50  0001 C CNN
+F 3 "https://www.seielect.com/catalog/sei-rmcf_rmcp.pdf" H 4450 2900 50  0001 C CNN
+F 4 "RMCF0805JT1K00CT-ND" H 4450 2900 50  0001 C CNN "Digikey PN"
+F 5 "Stackpole Electronics Inc" H 4450 2900 50  0001 C CNN "MFG"
+F 6 "RMCF0805JT1K00" H 4450 2900 50  0001 C CNN "MFG #"
+	1    4450 2900
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4750 3200 4750 2900
+Wire Wire Line
+	4750 2900 4550 2900
+$Comp
+L power:GND #PWR0108
+U 1 1 61A495AF
+P 4350 2900
+F 0 "#PWR0108" H 4350 2650 50  0001 C CNN
+F 1 "GND" H 4355 2727 50  0000 C CNN
+F 2 "" H 4350 2900 50  0001 C CNN
+F 3 "" H 4350 2900 50  0001 C CNN
+	1    4350 2900
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR0109
+U 1 1 61A4BA00
+P 4250 4250
+F 0 "#PWR0109" H 4250 4000 50  0001 C CNN
+F 1 "GND" H 4255 4077 50  0000 C CNN
+F 2 "" H 4250 4250 50  0001 C CNN
+F 3 "" H 4250 4250 50  0001 C CNN
+	1    4250 4250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small_US R2702
+U 1 1 61A57FAE
+P 7600 3850
+F 0 "R2702" V 7500 3850 50  0000 C CNN
+F 1 "100k 5%" V 7700 3850 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" H 7600 3850 50  0001 C CNN
+F 3 "https://www.seielect.com/catalog/sei-rmcf_rmcp.pdf" H 7600 3850 50  0001 C CNN
+F 4 "RMCF0805JT1K00CT-ND" H 7600 3850 50  0001 C CNN "Digikey PN"
+F 5 "Stackpole Electronics Inc" H 7600 3850 50  0001 C CNN "MFG"
+F 6 "RMCF0805JT1K00" H 7600 3850 50  0001 C CNN "MFG #"
+	1    7600 3850
+	0    1    1    0   
+$EndComp
+$Comp
+L power:+3V3 #PWR0110
+U 1 1 61A58237
+P 7900 3800
+F 0 "#PWR0110" H 7900 3650 50  0001 C CNN
+F 1 "+3V3" H 7915 3973 50  0000 C CNN
+F 2 "" H 7900 3800 50  0001 C CNN
+F 3 "" H 7900 3800 50  0001 C CNN
+	1    7900 3800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7900 3800 7900 3850
+Wire Wire Line
+	7900 3850 7700 3850
+Wire Wire Line
+	6850 3600 7300 3600
+Wire Wire Line
+	7300 3600 7300 3850
+Wire Wire Line
+	7300 3850 7500 3850
+Wire Wire Line
+	4250 4050 4250 3600
+$Comp
+L Macro_Keyboard:PCA9745BTWJ U2701
+U 1 1 61A3EABF
+P 5050 3200
+F 0 "U2701" H 5950 3587 60  0000 C CNN
+F 1 "PCA9745BTWJ" H 5950 3481 60  0000 C CNN
+F 2 "HTSSOP28_4P5X9P8_NXP" H 5950 3440 60  0001 C CNN
+F 3 "" H 5050 3200 60  0000 C CNN
+	1    5050 3200
+	1    0    0    -1  
+$EndComp
+Connection ~ 6850 4200
+Connection ~ 6850 3700
+Connection ~ 6850 3600
+Connection ~ 6850 3500
+Connection ~ 6850 3400
+Connection ~ 6850 3300
+Connection ~ 6850 3200
+Wire Wire Line
+	4750 3200 5050 3200
+Wire Wire Line
+	4700 3400 5050 3400
+Wire Wire Line
+	4050 3500 5050 3500
+Wire Wire Line
+	4250 3600 5050 3600
 $EndSCHEMATC

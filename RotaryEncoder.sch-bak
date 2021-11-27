@@ -251,11 +251,11 @@ F 6 "RMCF0805JT68R0" H 7900 3800 50  0001 C CNN "MFG #"
 	0    1    1    0   
 $EndComp
 Text HLabel 6250 3600 2    50   Output ~ 0
-REnc_LED_R
+REnc_LED_R_5V
 Text HLabel 7100 3700 2    50   Output ~ 0
-REnc_LED_G
+REnc_LED_G_5V
 Text HLabel 8000 3800 2    50   Output ~ 0
-REnc_LED_B
+REnc_LED_B_5V
 Wire Wire Line
 	6900 3700 6050 3700
 Wire Wire Line
@@ -318,21 +318,18 @@ Wire Wire Line
 Wire Wire Line
 	5950 4800 5950 5100
 Wire Wire Line
-	5950 5100 6400 5100
-Wire Wire Line
-	6400 5100 6400 4800
+	5950 5100 6200 5100
 $Comp
 L power:GND #PWR0205
 U 1 1 61A367C9
-P 6400 5100
-F 0 "#PWR0205" H 6400 4850 50  0001 C CNN
-F 1 "GND" H 6405 4927 50  0000 C CNN
-F 2 "" H 6400 5100 50  0001 C CNN
-F 3 "" H 6400 5100 50  0001 C CNN
-	1    6400 5100
+P 6200 5200
+F 0 "#PWR0205" H 6200 4950 50  0001 C CNN
+F 1 "GND" H 6205 5027 50  0000 C CNN
+F 2 "" H 6200 5200 50  0001 C CNN
+F 3 "" H 6200 5200 50  0001 C CNN
+	1    6200 5200
 	1    0    0    -1  
 $EndComp
-Connection ~ 6400 5100
 Text HLabel 5650 4550 0    50   Output ~ 0
 REnc_SW
 Wire Wire Line
@@ -340,4 +337,11 @@ Wire Wire Line
 Connection ~ 5950 4550
 Wire Wire Line
 	5950 4550 5950 4450
+Connection ~ 6200 5100
+Wire Wire Line
+	6200 5100 6400 5100
+Wire Wire Line
+	6400 5100 6400 4800
+Wire Wire Line
+	6200 5100 6200 5200
 $EndSCHEMATC
