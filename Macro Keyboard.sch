@@ -16,7 +16,7 @@ $EndDescr
 $Sheet
 S 1250 3900 950  900 
 U 61A047C3
-F0 "Rotary Encoder" 50
+F0 "Rotary Encoder 1" 50
 F1 "RotaryEncoder.sch" 50
 F2 "REnc_A" O R 2200 3950 50 
 F3 "REnc_B" O R 2200 4050 50 
@@ -196,4 +196,16 @@ Wire Wire Line
 NoConn ~ 5350 2450
 NoConn ~ 5350 2350
 NoConn ~ 5350 2250
+$Sheet
+S 1250 5050 950  900 
+U 61A55BF3
+F0 "Rotary Encoder 2" 50
+F1 "RotaryEncoder.sch" 50
+F2 "REnc_A" O R 2200 5100 50 
+F3 "REnc_B" O R 2200 5200 50 
+F4 "REnc_LED_R_5V" O R 2200 5650 50 
+F5 "REnc_LED_G_5V" O R 2200 5750 50 
+F6 "REnc_LED_B_5V" O R 2200 5850 50 
+F7 "REnc_SW" O R 2200 5300 50 
+$EndSheet
 $EndSCHEMATC
