@@ -3,7 +3,7 @@
   (general
     (thickness 1.6)
     (drawings 0)
-    (tracks 0)
+    (tracks 9)
     (zones 0)
     (modules 113)
     (nets 77)
@@ -174,8 +174,6 @@
     (via_drill 0.4)
     (uvia_dia 0.3)
     (uvia_drill 0.1)
-    (add_net +3V3)
-    (add_net +5V)
     (add_net "/10 Group Switch/Switch 10/SW_RDIV")
     (add_net "/10 Group Switch/Switch 2/SW_RDIV")
     (add_net "/10 Group Switch/Switch 3/SW_RDIV")
@@ -250,6 +248,35 @@
     (add_net SPI_MISO_3V)
     (add_net SPI_MOSI_3V)
     (add_net SPI_SCLK_3V)
+  )
+
+  (net_class 1-wire ""
+    (clearance 0.4)
+    (trace_width 0.2)
+    (via_dia 0.8)
+    (via_drill 0.4)
+    (uvia_dia 0.3)
+    (uvia_drill 0.1)
+  )
+
+  (net_class "Diff Pair" ""
+    (clearance 0.2)
+    (trace_width 0.8125)
+    (via_dia 0.8)
+    (via_drill 0.4)
+    (uvia_dia 0.3)
+    (uvia_drill 0.1)
+  )
+
+  (net_class Power ""
+    (clearance 0.2)
+    (trace_width 0.5)
+    (via_dia 0.8)
+    (via_drill 0.4)
+    (uvia_dia 0.3)
+    (uvia_drill 0.1)
+    (add_net +3V3)
+    (add_net +5V)
   )
 
   (module TMPPCB_R2:SMD4-X07Y16P127 (layer F.Cu) (tedit 61888281) (tstamp 61A37A39)
@@ -5115,5 +5142,15 @@
       (rotate (xyz 0 0 0))
     )
   )
+
+  (via (at 24.1 65.6) (size 0.8) (drill 0.4) (layers F.Cu B.Cu) (net 1))
+  (segment (start 25.4 64.3) (end 24.1 65.6) (width 0.25) (layer B.Cu) (net 1))
+  (segment (start 26.5 64.3) (end 25.4 64.3) (width 0.25) (layer B.Cu) (net 1))
+  (segment (start 24.1 64.05) (end 23.95 63.9) (width 0.25) (layer F.Cu) (net 1))
+  (segment (start 24.1 65.6) (end 24.1 64.05) (width 0.25) (layer F.Cu) (net 1))
+  (via (at 26.5 68) (size 0.8) (drill 0.4) (layers F.Cu B.Cu) (net 6))
+  (segment (start 26.5 66.375) (end 26.5 68) (width 0.508) (layer B.Cu) (net 6))
+  (segment (start 27.95 68) (end 28.85 67.1) (width 0.508) (layer F.Cu) (net 6))
+  (segment (start 26.5 68) (end 27.95 68) (width 0.508) (layer F.Cu) (net 6))
 
 )
