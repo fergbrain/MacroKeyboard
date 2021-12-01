@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 27 30
+Sheet 26 30
 Title ""
 Date ""
 Rev ""
@@ -84,11 +84,11 @@ F 6 "CL21B105KPFNNNE" H 6800 2550 50  0001 C CNN "MFG #"
 	-1   0    0    1   
 $EndComp
 Text HLabel 5050 3700 0    50   Input ~ 0
-DRIVER_LED_R_5V
+DRIVER_LED_SW1_R_5V
 Text HLabel 5050 3800 0    50   Input ~ 0
-DRIVER_LED_G_5V
+DRIVER_LED_SW1_G_5V
 Text HLabel 5050 3900 0    50   Input ~ 0
-DRIVER_LED_B_5V
+DRIVER_LED_SW1_B_5V
 $Comp
 L Device:R_Small_US R2706
 U 1 1 61A5BA43
@@ -238,9 +238,6 @@ NoConn ~ 6850 4400
 NoConn ~ 6850 4500
 NoConn ~ 6850 4600
 NoConn ~ 5050 4000
-NoConn ~ 5050 4200
-NoConn ~ 5050 4300
-NoConn ~ 5050 4400
 NoConn ~ 5050 4500
 Text GLabel 4200 3300 0    50   Input ~ 0
 SPI_MISO_3V
@@ -346,4 +343,10 @@ Wire Wire Line
 	4050 3500 5050 3500
 Wire Wire Line
 	4250 3600 5050 3600
+Text HLabel 5050 4400 0    50   Input ~ 0
+DRIVER_LED_SW2_B_5V
+Text HLabel 5050 4300 0    50   Input ~ 0
+DRIVER_LED_SW2_G_5V
+Text HLabel 5050 4200 0    50   Input ~ 0
+DRIVER_LED_SW2_R_5V
 $EndSCHEMATC

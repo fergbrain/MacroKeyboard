@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 28 30
+Sheet 30 30
 Title ""
 Date ""
 Rev ""
@@ -341,7 +341,10 @@ Connection ~ 8200 2650
 Wire Wire Line
 	8200 2650 8200 3200
 Wire Wire Line
+	6500 2850 6650 2850
+Wire Wire Line
 	6300 2850 6500 2850
+Connection ~ 6500 2850
 $Comp
 L power:PWR_FLAG #FLG02801
 U 1 1 61A20D92
@@ -353,7 +356,4 @@ F 3 "~" H 6500 2850 50  0001 C CNN
 	1    6500 2850
 	1    0    0    -1  
 $EndComp
-Connection ~ 6500 2850
-Wire Wire Line
-	6500 2850 6650 2850
 $EndSCHEMATC
