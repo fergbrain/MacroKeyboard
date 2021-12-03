@@ -51,15 +51,15 @@ Wire Wire Line
 $Comp
 L Device:L_Small L2901
 U 1 1 61A90080
-P 4750 2550
-F 0 "L2901" V 4935 2550 50  0000 C CNN
-F 1 "10 uH 20% 0.8A" V 4844 2550 50  0000 C CNN
-F 2 "Inductor_SMD:L_Taiyo-Yuden_NR-40xx_HandSoldering" H 4750 2550 50  0001 C CNN
-F 3 "https://www.yuden.co.jp/productdata/catalog/wound04_e.pdf" H 4750 2550 50  0001 C CNN
-F 4 "587-1659-1-ND" H 4750 2550 50  0001 C CNN "Digikey PN"
-F 5 "Taiyo Yuden" H 4750 2550 50  0001 C CNN "MFG"
-F 6 "NR4012T100M" H 4750 2550 50  0001 C CNN "MFG #"
-	1    4750 2550
+P 4650 2550
+F 0 "L2901" V 4835 2550 50  0000 C CNN
+F 1 "10 uH 20% 0.8A" V 4744 2550 50  0000 C CNN
+F 2 "Inductor_SMD:L_Taiyo-Yuden_NR-40xx_HandSoldering" H 4650 2550 50  0001 C CNN
+F 3 "https://www.yuden.co.jp/productdata/catalog/wound04_e.pdf" H 4650 2550 50  0001 C CNN
+F 4 "587-1659-1-ND" H 4650 2550 50  0001 C CNN "Digikey PN"
+F 5 "Taiyo Yuden" H 4650 2550 50  0001 C CNN "MFG"
+F 6 "NR4012T100M" H 4650 2550 50  0001 C CNN "MFG #"
+	1    4650 2550
 	0    -1   -1   0   
 $EndComp
 $Comp
@@ -75,8 +75,6 @@ F 3 "" H 4400 2350 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	4400 2350 4400 2550
-Wire Wire Line
-	4400 2550 4650 2550
 Wire Wire Line
 	4850 2550 5150 2550
 $Comp
@@ -559,4 +557,8 @@ Wire Wire Line
 Connection ~ 5750 4100
 Wire Wire Line
 	5750 4100 5750 4200
+Wire Wire Line
+	4750 2550 4850 2550
+Wire Wire Line
+	4550 2550 4400 2550
 $EndSCHEMATC

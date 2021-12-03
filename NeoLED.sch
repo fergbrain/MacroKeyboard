@@ -146,6 +146,7 @@ F 3 "https://cdn-shop.adafruit.com/product-files/4960/4960_SK6812MINI-E_REV02_EN
 F 4 "1528-4960-ND" H 5200 2700 50  0001 C CNN "Digikey PN"
 F 5 "Adafruit Industries LLC" H 5200 2700 50  0001 C CNN "MFG"
 F 6 "4960" H 5200 2700 50  0001 C CNN "MFG #"
+F 7 "Comes in pack of 10" H 5200 2700 50  0001 C CNN "Notes"
 	1    5200 2700
 	1    0    0    -1  
 $EndComp
