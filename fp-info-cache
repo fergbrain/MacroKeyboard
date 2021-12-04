@@ -1,4 +1,4 @@
-19452120440966022
+19487991361613900
 Battery
 BatteryHolder_Bulgin_BX0036_1xC
 Bulgin Battery Holder, BX0036, Battery Type C (https://www.bulgin.com/products/pub/media/bulgin/data/Battery_holders.pdf)
@@ -54942,6 +54942,139 @@ L_Toroid Vertical series Radial pin pitch 31.80mm  length 67.6mm width 36.1mm Vi
 0
 2
 2
+JBTronics
+Bottle_Opener
+
+
+0
+0
+0
+JBTronics
+Degree_Scale
+
+
+0
+0
+0
+JBTronics
+Drills
+
+
+0
+0
+0
+JBTronics
+Inch_Ruler_3.5in_8
+
+
+0
+0
+0
+JBTronics
+Inch_Ruler_3.5in_10
+
+
+0
+0
+0
+JBTronics
+Logo
+
+
+0
+0
+0
+JBTronics
+Metric_Ruler_90mm
+
+
+0
+0
+0
+JBTronics
+Metric_Ruler_95mm
+
+
+0
+0
+0
+JBTronics
+Metric_Ruler_96mm
+
+
+0
+0
+0
+JBTronics
+Metric_Ruler_98mm
+
+
+0
+0
+0
+JBTronics
+Pin_Header_Straight_1x02_Pitch1.27mm
+Through hole straight pin header, 1x02, 1.27mm pitch, single row
+Through hole pin header THT 1x02 1.27mm single row
+0
+2
+2
+JBTronics
+Pitch1.27mm
+Through hole straight pin header, 1x02, 1.27mm pitch, single row
+Through hole pin header THT 1x02 1.27mm single row
+0
+2
+2
+JBTronics
+Pitch2.00mm
+Through hole straight pin header, 1x02, 2.00mm pitch, single row
+Through hole pin header THT 1x02 2.00mm single row
+0
+2
+2
+JBTronics
+Pitch2.54mm
+Through hole straight pin header, 1x02, 2.54mm pitch, single row
+Through hole pin header THT 1x02 2.54mm single row
+0
+2
+2
+JBTronics
+Resistor_Table_small
+
+
+0
+0
+0
+JBTronics
+Symbol_CC-Attribution_SilkTop_Small
+Symbol, CC-Share Alike, Copper Top, Small,
+Symbol, CC-Share Alike, Copper Top, Small,
+0
+0
+0
+JBTronics
+Symbol_CC-PublicDomain_SilkTop_Small
+Symbol, CC-Public Domain, Copper Top, Small,
+Symbol, CC-Public Domain, Copper Top, Small,
+0
+0
+0
+JBTronics
+Symbol_CreativeCommons_SilkTop_Type2_Small
+Symbol, Creative Commons, CopperTop, Type 2, Small,
+Symbol, Creative Commons, CopperTop, Type 2, Small,
+0
+0
+0
+JBTronics
+Voltage_Divider
+
+
+0
+0
+0
 Jumper
 SolderJumper-2_P1.3mm_Bridged2Bar_Pad1.0x1.5mm
 SMD Solder Jumper, 1x1.5mm Pads, 0.3mm gap, bridged with 2 copper strips
@@ -56318,6 +56451,34 @@ Macro Keyboard
 e-paper_E2154FS091
 
 
+0
+0
+0
+Macro Keyboard
+kilroy
+Converted using: svg2mod -i noun-kilroy-340500.svg -o '/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/Macro Keyboard.pretty/kilroy.kicad_mod' -x
+svg2mod
+0
+0
+0
+Macro Keyboard
+xkcd
+Converted using: svg2mod -i xkcd.svg
+svg2mod
+0
+0
+0
+Macro Keyboard
+xkcd-climb
+Converted using: svg2mod -i image2vector-1.svg
+svg2mod
+0
+0
+0
+Macro Keyboard
+xkcd-swing
+Converted using: svg2mod -i xkcd-swing.svg
+svg2mod
 0
 0
 0

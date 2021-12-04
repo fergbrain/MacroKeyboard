@@ -1,34 +1,51 @@
-  0
-SECTION
-  2
-HEADER
-  9
-$ACADVER
-  1
-AC1006
-  9
-$EXTMIN
- 10
-0.000000
- 20
-0.000000
- 30
-0.000000
-  9
-$EXTMAX
- 10
-291.000000
- 20
-296.000000
- 30
-0.000000
-  0
-ENDSEC
-  0
-SECTION
-  2
-ENTITIES
-  0
-ENDSEC
-  0
-EOF
+  (gr_poly (pts  (xy 42.65 72.29) (xy 42.65 93.29) (xy 1.36 93.29) (xy 1.36 72.29)
+    (xy 42.65 72.29) (xy 44 70.92) (xy 44 94.69) (xy 44 94.69)
+    (xy 44 70.92)) (layer Dwgs.User) (width 0.15))
+  (gr_poly (pts  (xy 9.81 78.35) (xy 5.14 78.35) (xy 5.14 75.42) (xy 17.64 75.42)
+    (xy 17.64 78.35) (xy 13 78.35) (xy 13 90.09) (xy 9.81 90.09)
+   ) (layer Dwgs.User) (width 0.15))
+  (gr_poly (pts  (xy 23.49 81.23) (xy 23.49 90.09) (xy 20.34 90.09) (xy 20.34 75.42)
+    (xy 23.5 75.42) (xy 28.55 84.81) (xy 33.69 75.42) (xy 33.69 90.09)
+    (xy 33.62 90.09) (xy 33.62 81.26) (xy 28.62 90.54)) (layer Dwgs.User) (width 0.15))
+  (gr_poly (pts  (xy 85.33 79.62) (xy 79.77 79.62) (xy 79.77 82.2)) (layer Dwgs.User) (width 0.15))
+  (gr_poly (pts  (xy 84.11 83.75) (xy 79.77 83.75) (xy 79.77 87.16)) (layer Dwgs.User) (width 0.15))
+  (gr_poly (pts  (xy 52.27 78.29) (xy 48.63 78.29) (xy 48.63 82.35)) (layer Dwgs.User) (width 0.15))
+  (gr_poly (pts  (xy 40.93 70.92) (xy 40.93 94.69) (xy 93.06 94.69) (xy 93.06 70.92)
+    (xy 52.42 85.21) (xy 48.63 85.21) (xy 48.63 90.09) (xy 45.41 90.09)
+    (xy 45.41 75.42) (xy 60.82 80.59) (xy 58.35 82.52) (xy 60.86 84.41)
+    (xy 77.25 84.12) (xy 76.66 84.12) (xy 76.66 75.42)) (layer Dwgs.User) (width 0.15))
+  (gr_poly (pts  (xy 85.33 79.62) (xy 79.77 79.62) (xy 79.77 82.2)) (layer Dwgs.User) (width 0.15))
+  (gr_poly (pts  (xy 84.11 83.75) (xy 79.77 83.75) (xy 79.77 87.16)) (layer Dwgs.User) (width 0.15))
+  (gr_poly (pts  (xy 52.27 78.29) (xy 48.63 78.29) (xy 48.63 82.35)) (layer Dwgs.User) (width 0.15))
+  (gr_poly (pts  (xy 40.93 70.92) (xy 40.93 94.69) (xy 93.06 94.69) (xy 93.06 70.92)
+    (xy 52.42 85.21) (xy 48.63 85.21) (xy 48.63 90.09) (xy 45.41 90.09)
+    (xy 45.41 75.42) (xy 60.82 80.59) (xy 58.35 82.52) (xy 60.86 84.41)
+    (xy 77.25 84.12) (xy 76.66 84.12) (xy 76.66 75.42)) (layer Dwgs.User) (width 0.15))
+  (gr_poly (pts  (xy 59.1 17.09)) (layer Dwgs.User) (width 0.15))
+  (gr_poly (pts  (xy 61 39.58)) (layer Dwgs.User) (width 0.15))
+  (gr_poly (pts  (xy 72.1 34.33)) (layer Dwgs.User) (width 0.15))
+  (gr_poly (pts  (xy 72.28 21.1)) (layer Dwgs.User) (width 0.15))
+  (gr_poly (pts  (xy 85.31 37.77) (xy 85.31 37.64) (xy 84.94 37.19) (xy 84.94 36.61)
+    (xy 84.52 36.5) (xy 84.23 36.17) (xy 84.23 36.17) (xy 83.06 36.28)
+    (xy 83.5 36.28) (xy 62.9 7) (xy 49 7.5) (xy 48.4 7.19)
+    (xy 48.03 7.53) (xy 47.39 7.53) (xy 47.33 7.3) (xy 47.27 7.3)
+    (xy 47.27 7.3) (xy 49.03 8.8) (xy 49.03 8.48) (xy 48.97 8.42)
+    (xy 48.81 8.91) (xy 48.37 9.18) (xy 49.79 9.46) (xy 52.01 9.89)
+    (xy 51.85 9.67) (xy 52.36 10.11) (xy 52.36 10.79) (xy 52.94 10.34)
+    (xy 52.94 10.34) (xy 53.3 10.81) (xy 53.44 11.3) (xy 53.6 11.07)
+    (xy 53.53 11.16) (xy 54.3 10.89) (xy 54.93 11.43) (xy 55.18 11.21)
+    (xy 52.56 8.77) (xy 52.1 7.95) (xy 52.68 7.2)) (layer Dwgs.User) (width 0.15))
+  (gr_poly (pts  (xy 53.37 44.69)) (layer Dwgs.User) (width 0.15))
+  (gr_poly (pts  (xy 57.73 51.24)) (layer Dwgs.User) (width 0.15))
+  (gr_poly (pts  (xy 72.21 45)) (layer Dwgs.User) (width 0.15))
+  (gr_poly (pts  (xy 44.92 49.8) (xy 44.73 49.8)) (layer Dwgs.User) (width 0.15))
+  (gr_poly (pts  (xy 40.3 24.39)) (layer Dwgs.User) (width 0.15))
+  (gr_poly (pts  (xy 28.35 30.76)) (layer Dwgs.User) (width 0.15))
+  (gr_poly (pts  (xy 48.28 12.79) (xy 48.04 12.79)) (layer Dwgs.User) (width 0.15))
+  (gr_poly (pts  (xy 77.38 33.76)) (layer Dwgs.User) (width 0.15))
+  (gr_poly (pts  (xy 87.63 47.73) (xy 87.63 48.03) (xy 77.44 58.88)) (layer Dwgs.User) (width 0.15))
+  (gr_poly (pts  (xy 38.82 14.07)) (layer Dwgs.User) (width 0.15))
+  (gr_poly (pts  (xy 33.18 20.72)) (layer Dwgs.User) (width 0.15))
+  (gr_poly (pts  (xy 19.16 38.82)) (layer Dwgs.User) (width 0.15))
+  (gr_poly (pts  (xy 15 31.84)) (layer Dwgs.User) (width 0.15))
+  (gr_poly (pts  (xy 23.22 24.75)) (layer Dwgs.User) (width 0.15))
