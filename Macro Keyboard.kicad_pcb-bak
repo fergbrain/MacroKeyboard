@@ -1280,7 +1280,7 @@
   )
 
   (module "Macro Keyboard:e-paper_E2154FS091" (layer F.Cu) (tedit 61AB2D7F) (tstamp 61AD59CB)
-    (at 72.05 59.73)
+    (at 71.24 59.68)
     (fp_text reference DS** (at 18.1 -17) (layer Dwgs.User)
       (effects (font (size 1 1) (thickness 0.15)))
     )
