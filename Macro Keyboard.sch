@@ -226,4 +226,56 @@ Wire Wire Line
 	1100 5750 1100 3400
 Wire Wire Line
 	1100 3400 3550 3400
+Text Label 5250 2850 0    50   ~ 0
+DS_D_C_3V3
+Text Label 5250 2950 0    50   ~ 0
+DS_BUSY_3V3
+Text Label 5250 3050 0    50   ~ 0
+SPI_MISO_3V
+Text Label 5250 3250 0    50   ~ 0
+SPI_SCLK_3V
+Text Label 5250 3350 0    50   ~ 0
+SPI_MOSI_3V
+Text Label 5250 3150 0    50   ~ 0
+DS_CS_3V3
+Text Label 5250 3750 0    50   ~ 0
+SCL
+Text Label 5250 3850 0    50   ~ 0
+SDA
+Text Label 5250 4350 0    50   ~ 0
+D_IN_3V3
+Text Label 3500 4350 3    50   ~ 0
+DRIVER_LED_CS
+Text Label 2450 3800 0    50   ~ 0
+REnc_1_A
+Text Label 2450 3900 0    50   ~ 0
+REnc_1_B
+Text Label 2450 4000 0    50   ~ 0
+REnc_1_SW
+Text Label 2450 3400 0    50   ~ 0
+REnc_2_A
+Text Label 2450 3500 0    50   ~ 0
+REnc_2_B
+Text Label 2450 3600 0    50   ~ 0
+REnc_2_SW
+Text Label 3150 2250 0    50   ~ 0
+SW1
+Text Label 3150 2350 0    50   ~ 0
+SW2
+Text Label 3150 2450 0    50   ~ 0
+SW3
+Text Label 3150 2550 0    50   ~ 0
+SW4
+Text Label 3150 2650 0    50   ~ 0
+SW5
+Text Label 3150 2750 0    50   ~ 0
+SW6
+Text Label 3150 2850 0    50   ~ 0
+SW7
+Text Label 3150 2950 0    50   ~ 0
+SW8
+Text Label 3150 3050 0    50   ~ 0
+SW9
+Text Label 3150 3150 0    50   ~ 0
+SW10
 $EndSCHEMATC
