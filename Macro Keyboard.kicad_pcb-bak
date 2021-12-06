@@ -3,7 +3,7 @@
   (general
     (thickness 1.6)
     (drawings 92)
-    (tracks 1019)
+    (tracks 1018)
     (zones 0)
     (modules 136)
     (nets 112)
@@ -63,6 +63,7 @@
     (pad_size 1.7018 1.7018)
     (pad_drill 1.7018)
     (pad_to_mask_clearance 0.0508)
+    (solder_mask_min_width 0.1016)
     (aux_axis_origin 0 0)
     (visible_elements FFFFFF7F)
     (pcbplotparams
@@ -4277,7 +4278,7 @@
     )
   )
 
-  (module TMPPCB_R2:SW_MX (layer F.Cu) (tedit 6183407B) (tstamp 61A979D8)
+  (module TMPPCB_R2:SW_MX (layer F.Cu) (tedit 61AD7575) (tstamp 61AD764C)
     (at 79 90 180)
     (descr "MX-style keyswitch")
     (tags MX,cherry,gateron,kailh)
@@ -7326,7 +7327,6 @@
   (via (at 132.575 60.025) (size 0.8) (drill 0.4) (layers F.Cu B.Cu) (net 1))
   (via (at 93.97 60.62) (size 0.8) (drill 0.4) (layers F.Cu B.Cu) (net 1))
   (via (at 98.78 44.54) (size 0.8) (drill 0.4) (layers F.Cu B.Cu) (net 1))
-  (via (at 95.55 49.02) (size 0.8) (drill 0.4) (layers F.Cu B.Cu) (net 1))
   (via (at 98.9 70.3) (size 0.8) (drill 0.4) (layers F.Cu B.Cu) (net 1))
   (via (at 96.2 70.3) (size 0.8) (drill 0.4) (layers F.Cu B.Cu) (net 1))
   (via (at 94 70.3) (size 0.8) (drill 0.4) (layers F.Cu B.Cu) (net 1))
@@ -11971,15 +11971,6 @@
         (xy 132.275 50.061928) (xy 131.625 50.061928) (xy 131.500518 50.074188) (xy 131.38082 50.110498) (xy 131.270506 50.169463)
         (xy 131.173815 50.248815) (xy 131.094463 50.345506) (xy 131.035498 50.45582) (xy 131.031197 50.47) (xy 128.059045 50.47)
         (xy 129.994046 48.534999) (xy 135.015001 48.534999)
-      )
-    )
-    (filled_polygon
-      (pts
-        (xy 95.471928 48.23) (xy 95.484188 48.354482) (xy 95.520498 48.47418) (xy 95.579463 48.584494) (xy 95.658815 48.681185)
-        (xy 95.755506 48.760537) (xy 95.86582 48.819502) (xy 95.985518 48.855812) (xy 96.11 48.868072) (xy 96.942555 48.868072)
-        (xy 96.169267 49.188378) (xy 96.058952 49.247343) (xy 95.962261 49.326695) (xy 95.882909 49.423386) (xy 95.823944 49.5337)
-        (xy 95.787634 49.653398) (xy 95.779597 49.735) (xy 95.628061 49.735) (xy 95.428102 49.774774) (xy 95.239744 49.852795)
-        (xy 95.114415 49.936537) (xy 95.114415 48.110386) (xy 95.471928 47.752873)
       )
     )
     (filled_polygon
