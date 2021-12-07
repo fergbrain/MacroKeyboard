@@ -356,4 +356,8 @@ F 3 "~" H 6500 2850 50  0001 C CNN
 	1    6500 2850
 	1    0    0    -1  
 $EndComp
+Text Label 6300 2750 0    50   ~ 0
+NC_VSYS
+Text Label 6300 2950 0    50   ~ 0
+NC_3V3_EN
 $EndSCHEMATC

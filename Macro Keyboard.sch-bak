@@ -258,4 +258,24 @@ Text Label 2450 3500 0    50   ~ 0
 REnc_2_B
 Text Label 2450 3600 0    50   ~ 0
 REnc_2_SW
+Text Label 3150 2250 0    50   ~ 0
+SW1
+Text Label 3150 2350 0    50   ~ 0
+SW2
+Text Label 3150 2450 0    50   ~ 0
+SW3
+Text Label 3150 2550 0    50   ~ 0
+SW4
+Text Label 3150 2650 0    50   ~ 0
+SW5
+Text Label 3150 2750 0    50   ~ 0
+SW6
+Text Label 3150 2850 0    50   ~ 0
+SW7
+Text Label 3150 2950 0    50   ~ 0
+SW8
+Text Label 3150 3050 0    50   ~ 0
+SW9
+Text Label 3150 3150 0    50   ~ 0
+SW10
 $EndSCHEMATC
