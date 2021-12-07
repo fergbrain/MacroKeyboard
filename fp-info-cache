@@ -1,4 +1,4 @@
-19489825661319900
+19491464520263900
 Battery
 BatteryHolder_Bulgin_BX0036_1xC
 Bulgin Battery Holder, BX0036, Battery Type C (https://www.bulgin.com/products/pub/media/bulgin/data/Battery_holders.pdf)
@@ -78030,6 +78030,13 @@ mounting hole 4.3mm m4 din965
 1
 TMPPCB_R2
 RPi_Pico_SMD_TH-JER
+Through hole straight pin header, 2x20, 2.54mm pitch, double rows
+Through hole pin header THT 2x20 2.54mm double row
+0
+47
+47
+TMPPCB_R2
+RPi_Pico_SMD_TH-JER_no_ext_usb
 Through hole straight pin header, 2x20, 2.54mm pitch, double rows
 Through hole pin header THT 2x20 2.54mm double row
 0

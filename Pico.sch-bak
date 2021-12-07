@@ -360,4 +360,6 @@ Text Label 6300 2750 0    50   ~ 0
 NC_VSYS
 Text Label 6300 2950 0    50   ~ 0
 NC_3V3_EN
+Text Label 6350 3650 0    50   ~ 0
+RUN_SW
 $EndSCHEMATC
