@@ -1,0 +1,159 @@
+12-11 11:52:45 swap_pins.action_swap_pins 87:Plugin executed on: 'darwin'
+12-11 11:52:45 swap_pins.action_swap_pins 88:Plugin executed with python version: '2.7.16 (default, Nov  8 2021, 13:37:33) \n[GCC 4.2.1 Compatible Apple LLVM 10.0.1 (clang-1001.0.46.4)]'
+12-11 11:52:45 swap_pins.action_swap_pins 89:KiCad build version: (5.1.12-1-10_14)
+12-11 11:52:45 swap_pins.action_swap_pins 90:Swap pins plugin version: 15 started
+12-11 11:52:45 swap_pins.swap_pins 58:Starting swap_pins
+12-11 11:52:45 swap_pins.swap_pins 65:main sch file is: /Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/Macro Keyboard.sch
+12-11 11:52:45 swap_pins.swap_pins 66:main pcb file is: /Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/Macro Keyboard.kicad_pcb
+12-11 11:52:45 swap_pins.swap_pins 67:sch cache file is: /Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/Macro Keyboard-cache.lib
+12-11 11:52:45 swap_pins.swap_pins 81:Swaping pins: 16, 15 on: U2801 on nets: DS_BUSY_3V3, DS_D_C_3V3
+12-11 11:52:45 swap_pins.swap_pins 474:found subsheet:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/LightSensor.sch
+ in:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/Macro Keyboard.sch, line: 19
+12-11 11:52:45 swap_pins.swap_pins 474:found subsheet:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/LevelConverter.sch
+ in:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/Macro Keyboard.sch, line: 27
+12-11 11:52:45 swap_pins.swap_pins 474:found subsheet:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/10GroupSwitch.sch
+ in:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/Macro Keyboard.sch, line: 35
+12-11 11:52:45 swap_pins.swap_pins 474:found subsheet:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/Switch.sch
+ in:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/10GroupSwitch.sch, line: 19
+12-11 11:52:45 swap_pins.swap_pins 474:found subsheet:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/Switch.sch
+ in:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/10GroupSwitch.sch, line: 19
+12-11 11:52:45 swap_pins.swap_pins 474:found subsheet:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/Switch.sch
+ in:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/10GroupSwitch.sch, line: 19
+12-11 11:52:45 swap_pins.swap_pins 474:found subsheet:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/Switch.sch
+ in:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/10GroupSwitch.sch, line: 19
+12-11 11:52:45 swap_pins.swap_pins 474:found subsheet:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/Switch.sch
+ in:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/10GroupSwitch.sch, line: 19
+12-11 11:52:45 swap_pins.swap_pins 474:found subsheet:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/Switch.sch
+ in:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/10GroupSwitch.sch, line: 19
+12-11 11:52:45 swap_pins.swap_pins 474:found subsheet:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/Switch.sch
+ in:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/10GroupSwitch.sch, line: 19
+12-11 11:52:45 swap_pins.swap_pins 474:found subsheet:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/Switch.sch
+ in:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/10GroupSwitch.sch, line: 19
+12-11 11:52:45 swap_pins.swap_pins 474:found subsheet:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/Switch.sch
+ in:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/10GroupSwitch.sch, line: 19
+12-11 11:52:45 swap_pins.swap_pins 474:found subsheet:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/Switch.sch
+ in:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/10GroupSwitch.sch, line: 19
+12-11 11:52:45 swap_pins.swap_pins 474:found subsheet:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/LED10.sch
+ in:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/Macro Keyboard.sch, line: 51
+12-11 11:52:45 swap_pins.swap_pins 474:found subsheet:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/NeoLED.sch
+ in:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/LED10.sch, line: 19
+12-11 11:52:45 swap_pins.swap_pins 474:found subsheet:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/NeoLED.sch
+ in:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/LED10.sch, line: 19
+12-11 11:52:45 swap_pins.swap_pins 474:found subsheet:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/NeoLED.sch
+ in:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/LED10.sch, line: 19
+12-11 11:52:45 swap_pins.swap_pins 474:found subsheet:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/NeoLED.sch
+ in:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/LED10.sch, line: 19
+12-11 11:52:45 swap_pins.swap_pins 474:found subsheet:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/NeoLED.sch
+ in:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/LED10.sch, line: 19
+12-11 11:52:45 swap_pins.swap_pins 474:found subsheet:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/NeoLED.sch
+ in:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/LED10.sch, line: 19
+12-11 11:52:45 swap_pins.swap_pins 474:found subsheet:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/NeoLED.sch
+ in:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/LED10.sch, line: 19
+12-11 11:52:45 swap_pins.swap_pins 474:found subsheet:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/NeoLED.sch
+ in:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/LED10.sch, line: 19
+12-11 11:52:45 swap_pins.swap_pins 474:found subsheet:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/NeoLED.sch
+ in:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/LED10.sch, line: 19
+12-11 11:52:45 swap_pins.swap_pins 474:found subsheet:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/NeoLED.sch
+ in:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/LED10.sch, line: 19
+12-11 11:52:45 swap_pins.swap_pins 474:found subsheet:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/RGBDrvier.sch
+ in:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/Macro Keyboard.sch, line: 58
+12-11 11:52:45 swap_pins.swap_pins 474:found subsheet:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/eInkDisplay.sch
+ in:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/Macro Keyboard.sch, line: 89
+12-11 11:52:45 swap_pins.swap_pins 474:found subsheet:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/RotaryEncoder.sch
+ in:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/Macro Keyboard.sch, line: 144
+12-11 11:52:45 swap_pins.swap_pins 474:found subsheet:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/RotaryEncoder.sch
+ in:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/Macro Keyboard.sch, line: 144
+12-11 11:52:45 swap_pins.swap_pins 474:found subsheet:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/Pico.sch
+ in:
+	/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/Macro Keyboard.sch, line: 252
+12-11 11:52:45 swap_pins.swap_pins 88:All schematics files are:
+/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/Switch.sch
+/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/Macro Keyboard.sch
+/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/RotaryEncoder.sch
+/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/NeoLED.sch
+/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/eInkDisplay.sch
+/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/LightSensor.sch
+/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/Pico.sch
+/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/LED10.sch
+/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/LevelConverter.sch
+/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/10GroupSwitch.sch
+/Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/RGBDrvier.sch
+12-11 11:52:45 swap_pins.swap_pins 128:TMPCB_R2:Pico-JER unit: 1 present on page: /Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/Pico.sch
+12-11 11:52:45 swap_pins.swap_pins 137:Looking for: TMPCB_R2:Pico-JER in cache.lib
+12-11 11:52:45 swap_pins.swap_pins 160:Found symbol in cache library
+12-11 11:52:45 swap_pins.swap_pins 176:Symbol has 1 units
+12-11 11:52:45 swap_pins.swap_pins 194:Relevant pins are: name: GPIO12, number: 16; name: GPIO11, number: 15
+12-11 11:52:45 swap_pins.swap_pins 206:Relevant pins are on units: 1, 1
+12-11 11:52:45 swap_pins.swap_pins 215:Unit 1 on page: /Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/Pico.sch at: 5600, 3600
+12-11 11:52:45 swap_pins.swap_pins 217:Unit 2 on page: /Users/andrewferguson/Documents/10-19 Projects/11 Design/11.03 TeachMePCB/Macro Keyboard/Pico.sch at: 5600, 3600
+12-11 11:52:45 swap_pins.swap_pins 223:Pin 1 at: 4900, 4150
+12-11 11:52:45 swap_pins.swap_pins 224:Pin 2 at: 4900, 4050
+12-11 11:52:45 swap_pins.swap_pins 246:Pin 1 rotation: 0
+12-11 11:52:45 swap_pins.swap_pins 247:Pin 2 rotation: 0
+12-11 11:52:45 swap_pins.swap_pins 264:Found label at pin 1
+12-11 11:52:45 swap_pins.swap_pins 275:list_line_1=[(u'Text HLabel 4900 4150 0    50   BiDi ~ 0', u'GPIO_12', 127, 0.0)]
+12-11 11:52:45 swap_pins.swap_pins 298:Found label at pin 2
+12-11 11:52:45 swap_pins.swap_pins 308:list_line_2=[(u'Text HLabel 4900 4050 0    50   BiDi ~ 0', u'GPIO_11', 125, 0.0)]
+12-11 11:52:45 swap_pins.swap_pins 324:Swapping on the same page
+12-11 11:52:45 swap_pins.swap_pins 326:Both pins are connected
+12-11 11:52:45 swap_pins.swap_pins 348:Labels swapped
+12-11 11:52:45 swap_pins.swap_pins 358:Saved the schematics in same file.
+12-11 11:52:45 swap_pins.swap_pins 413:Pad nets swapped
+12-11 11:52:45 swap_pins.swap_pins 419:Saved the layout.

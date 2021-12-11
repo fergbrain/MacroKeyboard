@@ -124,9 +124,9 @@ GPIO_09
 Text HLabel 4900 3950 0    50   BiDi ~ 0
 GPIO_10
 Text HLabel 4900 4050 0    50   BiDi ~ 0
-GPIO_11
-Text HLabel 4900 4150 0    50   BiDi ~ 0
 GPIO_12
+Text HLabel 4900 4150 0    50   BiDi ~ 0
+GPIO_11
 Text HLabel 4900 4250 0    50   BiDi ~ 0
 GPIO_13
 Text HLabel 4900 4450 0    50   BiDi ~ 0

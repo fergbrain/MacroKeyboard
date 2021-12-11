@@ -1,0 +1,5 @@
+12-11 12:17:44 swap_units.action_swap_units 87:Plugin executed on: 'darwin'
+12-11 12:17:44 swap_units.action_swap_units 88:Plugin executed with python version: '2.7.16 (default, Nov  8 2021, 13:37:33) \n[GCC 4.2.1 Compatible Apple LLVM 10.0.1 (clang-1001.0.46.4)]'
+12-11 12:17:44 swap_units.action_swap_units 89:KiCad build version: (5.1.12-1-10_14)
+12-11 12:17:44 swap_units.action_swap_units 90:Swap units plugin version: 37 started
+12-11 12:17:45 swap_units.action_swap_units 121:Action plugin canceled. More or less than 2 pads selected.
