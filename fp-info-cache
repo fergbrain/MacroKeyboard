@@ -1,4 +1,4 @@
-19491466452091900
+19493106138131900
 Battery
 BatteryHolder_Bulgin_BX0036_1xC
 Bulgin Battery Holder, BX0036, Battery Type C (https://www.bulgin.com/products/pub/media/bulgin/data/Battery_holders.pdf)
@@ -56342,6 +56342,13 @@ Yellow 5381 Series LED
 0
 2
 2
+Macro Keyboard
+Amphenol_F31L-1A7H1-11024
+
+
+0
+26
+25
 Macro Keyboard
 ENCODER_LED_3
 ILLUMINATED ROTARY ENCODER W/ RGB LED AND SELECT SWITCH
