@@ -51,7 +51,7 @@ U 1 1 61A24F25
 P 3800 3000
 AR Path="/61A047C3/61A24F25" Ref="R202"  Part="1" 
 AR Path="/61A55BF3/61A24F25" Ref="R3002"  Part="1" 
-F 0 "R3002" H 4000 2950 50  0000 R CNN
+F 0 "R202" H 4000 2950 50  0000 R CNN
 F 1 "47k 5%" H 4150 3050 50  0000 R CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" H 3800 3000 50  0001 C CNN
 F 3 "https://www.seielect.com/catalog/sei-rmcf_rmcp.pdf" H 3800 3000 50  0001 C CNN
@@ -67,7 +67,7 @@ U 1 1 61A25788
 P 4100 3000
 AR Path="/61A047C3/61A25788" Ref="R204"  Part="1" 
 AR Path="/61A55BF3/61A25788" Ref="R3004"  Part="1" 
-F 0 "R3004" H 4032 2954 50  0000 R CNN
+F 0 "R204" H 4032 2954 50  0000 R CNN
 F 1 "47k 5%" H 4032 3045 50  0000 R CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" H 4100 3000 50  0001 C CNN
 F 3 "https://www.seielect.com/catalog/sei-rmcf_rmcp.pdf" H 4100 3000 50  0001 C CNN
@@ -92,7 +92,7 @@ U 1 1 61A260B2
 P 3600 3400
 AR Path="/61A047C3/61A260B2" Ref="R201"  Part="1" 
 AR Path="/61A55BF3/61A260B2" Ref="R3001"  Part="1" 
-F 0 "R3001" V 3700 3450 50  0000 R CNN
+F 0 "R201" V 3700 3450 50  0000 R CNN
 F 1 "4.7k 5%" V 3500 3550 50  0000 R CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" H 3600 3400 50  0001 C CNN
 F 3 "https://www.seielect.com/catalog/sei-rmcf_rmcp.pdf" H 3600 3400 50  0001 C CNN
@@ -117,7 +117,7 @@ U 1 1 61A2753E
 P 3800 3800
 AR Path="/61A047C3/61A2753E" Ref="R203"  Part="1" 
 AR Path="/61A55BF3/61A2753E" Ref="R3003"  Part="1" 
-F 0 "R3003" V 3900 3850 50  0000 R CNN
+F 0 "R203" V 3900 3850 50  0000 R CNN
 F 1 "4.7k 5%" V 3700 3950 50  0000 R CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" H 3800 3800 50  0001 C CNN
 F 3 "https://www.seielect.com/catalog/sei-rmcf_rmcp.pdf" H 3800 3800 50  0001 C CNN
@@ -140,7 +140,7 @@ U 1 1 61A2842D
 P 3300 4100
 AR Path="/61A047C3/61A2842D" Ref="C201"  Part="1" 
 AR Path="/61A55BF3/61A2842D" Ref="C3001"  Part="1" 
-F 0 "C3001" V 3050 4050 50  0000 L CNN
+F 0 "C201" V 3050 4050 50  0000 L CNN
 F 1 "1 uF 10% 10V" V 3200 3950 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 3300 4100 50  0001 C CNN
 F 3 "http://www.samsungsem.com/kr/support/product-search/mlcc/CL21B105KPFNNNE.jsp" H 3300 4100 50  0001 C CNN
@@ -156,7 +156,7 @@ U 1 1 61A29140
 P 3500 4100
 AR Path="/61A047C3/61A29140" Ref="C202"  Part="1" 
 AR Path="/61A55BF3/61A29140" Ref="C3002"  Part="1" 
-F 0 "C3002" V 3250 4050 50  0000 L CNN
+F 0 "C202" V 3250 4050 50  0000 L CNN
 F 1 "1 uF 10% 10V" V 3400 3950 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 3500 4100 50  0001 C CNN
 F 3 "http://www.samsungsem.com/kr/support/product-search/mlcc/CL21B105KPFNNNE.jsp" H 3500 4100 50  0001 C CNN
@@ -221,7 +221,7 @@ U 1 1 61A0A08E
 P 5450 3600
 AR Path="/61A047C3/61A0A08E" Ref="S201"  Part="1" 
 AR Path="/61A55BF3/61A0A08E" Ref="S3001"  Part="1" 
-F 0 "S3001" H 5450 4260 45  0000 C CNN
+F 0 "S201" H 5450 4260 45  0000 C CNN
 F 1 "ENCODER-RGB-SWITCH" H 5450 4176 45  0000 C CNN
 F 2 "ENCODER_LED_3" H 5450 4150 20  0001 C CNN
 F 3 "https://cdn.sparkfun.com/assets/b/8/0/9/9/Part_10997_EC12PLRGBSDVBF-D-25.3K-24-24C-6108-6H__H_.pdf" H 5450 3600 50  0001 C CNN
@@ -239,7 +239,7 @@ U 1 1 61A33A90
 P 6400 4250
 AR Path="/61A047C3/61A33A90" Ref="R206"  Part="1" 
 AR Path="/61A55BF3/61A33A90" Ref="R3006"  Part="1" 
-F 0 "R3006" H 6332 4204 50  0000 R CNN
+F 0 "R206" H 6332 4204 50  0000 R CNN
 F 1 "2.7k 5%" H 6332 4295 50  0000 R CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" H 6400 4250 50  0001 C CNN
 F 3 "https://www.seielect.com/catalog/sei-rmcf_rmcp.pdf" H 6400 4250 50  0001 C CNN
@@ -255,7 +255,7 @@ U 1 1 61A34096
 P 6400 4700
 AR Path="/61A047C3/61A34096" Ref="R207"  Part="1" 
 AR Path="/61A55BF3/61A34096" Ref="R3007"  Part="1" 
-F 0 "R3007" H 6332 4654 50  0000 R CNN
+F 0 "R207" H 6332 4654 50  0000 R CNN
 F 1 "4.7k 5%" H 6332 4745 50  0000 R CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" H 6400 4700 50  0001 C CNN
 F 3 "https://www.seielect.com/catalog/sei-rmcf_rmcp.pdf" H 6400 4700 50  0001 C CNN
@@ -271,7 +271,7 @@ U 1 1 61A34367
 P 5950 4700
 AR Path="/61A047C3/61A34367" Ref="C203"  Part="1" 
 AR Path="/61A55BF3/61A34367" Ref="C3003"  Part="1" 
-F 0 "C3003" V 5700 4650 50  0000 L CNN
+F 0 "C203" V 5700 4650 50  0000 L CNN
 F 1 "1 uF 10% 10V" V 5850 4550 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 5950 4700 50  0001 C CNN
 F 3 "http://www.samsungsem.com/kr/support/product-search/mlcc/CL21B105KPFNNNE.jsp" H 5950 4700 50  0001 C CNN
@@ -345,7 +345,7 @@ U 1 1 61A2DABE
 P 8250 3800
 AR Path="/61A047C3/61A2DABE" Ref="R209"  Part="1" 
 AR Path="/61A55BF3/61A2DABE" Ref="R3009"  Part="1" 
-F 0 "R3009" V 8045 3800 50  0000 C CNN
+F 0 "R209" V 8045 3800 50  0000 C CNN
 F 1 "68 5%" V 8136 3800 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" H 8250 3800 50  0001 C CNN
 F 3 "https://www.seielect.com/catalog/sei-rmcf_rmcp.pdf" H 8250 3800 50  0001 C CNN
@@ -361,7 +361,7 @@ U 1 1 61A2D457
 P 7350 3700
 AR Path="/61A047C3/61A2D457" Ref="R208"  Part="1" 
 AR Path="/61A55BF3/61A2D457" Ref="R3008"  Part="1" 
-F 0 "R3008" V 7145 3700 50  0000 C CNN
+F 0 "R208" V 7145 3700 50  0000 C CNN
 F 1 "68 5%" V 7236 3700 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" H 7350 3700 50  0001 C CNN
 F 3 "https://www.seielect.com/catalog/sei-rmcf_rmcp.pdf" H 7350 3700 50  0001 C CNN
@@ -377,7 +377,7 @@ U 1 1 61A2CA50
 P 6500 3600
 AR Path="/61A047C3/61A2CA50" Ref="R205"  Part="1" 
 AR Path="/61A55BF3/61A2CA50" Ref="R3005"  Part="1" 
-F 0 "R3005" V 6295 3600 50  0000 C CNN
+F 0 "R205" V 6295 3600 50  0000 C CNN
 F 1 "150 5%" V 6386 3600 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" H 6500 3600 50  0001 C CNN
 F 3 "https://www.seielect.com/catalog/sei-rmcf_rmcp.pdf" H 6500 3600 50  0001 C CNN
