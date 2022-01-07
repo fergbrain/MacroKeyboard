@@ -14,20 +14,6 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L Device:R_Small_US R2604
-U 1 1 61A3FADF
-P 4450 3300
-F 0 "R2604" V 4550 3300 50  0000 C CNN
-F 1 "1k 5%" V 4350 3300 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" H 4450 3300 50  0001 C CNN
-F 3 "https://www.seielect.com/catalog/sei-rmcf_rmcp.pdf" H 4450 3300 50  0001 C CNN
-F 4 "RMCF0805JT1K00CT-ND" H 4450 3300 50  0001 C CNN "Digikey PN"
-F 5 "Stackpole Electronics Inc" H 4450 3300 50  0001 C CNN "MFG"
-F 6 "RMCF0805JT1K00" H 4450 3300 50  0001 C CNN "MFG #"
-	1    4450 3300
-	0    1    1    0   
-$EndComp
-$Comp
 L Device:R_Small_US R2602
 U 1 1 61A41C08
 P 4250 4150
@@ -40,20 +26,6 @@ F 5 "Stackpole Electronics Inc" H 4250 4150 50  0001 C CNN "MFG"
 F 6 "RMCF0805JT1K00" H 4250 4150 50  0001 C CNN "MFG #"
 	1    4250 4150
 	-1   0    0    1   
-$EndComp
-$Comp
-L Device:R_Small_US R2607
-U 1 1 61A429FE
-P 7650 3350
-F 0 "R2607" V 7550 3350 50  0000 C CNN
-F 1 "1k 5%" V 7750 3350 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" H 7650 3350 50  0001 C CNN
-F 3 "https://www.seielect.com/catalog/sei-rmcf_rmcp.pdf" H 7650 3350 50  0001 C CNN
-F 4 "RMCF0805JT1K00CT-ND" H 7650 3350 50  0001 C CNN "Digikey PN"
-F 5 "Stackpole Electronics Inc" H 7650 3350 50  0001 C CNN "MFG"
-F 6 "RMCF0805JT1K00" H 7650 3350 50  0001 C CNN "MFG #"
-	1    7650 3350
-	0    1    1    0   
 $EndComp
 $Comp
 L Device:R_Small_US R2601
@@ -89,20 +61,6 @@ Text HLabel 5050 3800 0    50   Input ~ 0
 DRIVER_LED_SW1_G_5V
 Text HLabel 5050 3900 0    50   Input ~ 0
 DRIVER_LED_SW1_B_5V
-$Comp
-L Device:R_Small_US R2606
-U 1 1 61A5BA43
-P 7650 2950
-F 0 "R2606" V 7550 2950 50  0000 C CNN
-F 1 "1k 5%" V 7750 2950 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" H 7650 2950 50  0001 C CNN
-F 3 "https://www.seielect.com/catalog/sei-rmcf_rmcp.pdf" H 7650 2950 50  0001 C CNN
-F 4 "RMCF0805JT1K00CT-ND" H 7650 2950 50  0001 C CNN "Digikey PN"
-F 5 "Stackpole Electronics Inc" H 7650 2950 50  0001 C CNN "MFG"
-F 6 "RMCF0805JT1K00" H 7650 2950 50  0001 C CNN "MFG #"
-	1    7650 2950
-	0    1    1    0   
-$EndComp
 Text GLabel 7900 3350 2    50   Input ~ 0
 SPI_SCLK_3V
 Text GLabel 7900 2950 2    50   Input ~ 0
@@ -220,15 +178,7 @@ Wire Wire Line
 Wire Wire Line
 	7450 3500 7450 3350
 Wire Wire Line
-	7450 3350 7550 3350
-Wire Wire Line
 	6850 3500 7450 3500
-Wire Wire Line
-	7300 2950 7550 2950
-Wire Wire Line
-	7900 2950 7750 2950
-Wire Wire Line
-	7750 3350 7900 3350
 NoConn ~ 6850 3800
 NoConn ~ 6850 3900
 NoConn ~ 6850 4000
@@ -241,10 +191,6 @@ NoConn ~ 5050 4000
 NoConn ~ 5050 4500
 Text GLabel 4200 3300 0    50   Input ~ 0
 SPI_MISO_3V
-Wire Wire Line
-	4200 3300 4350 3300
-Wire Wire Line
-	4550 3300 4700 3300
 Wire Wire Line
 	4700 3300 4700 3400
 $Comp
@@ -331,7 +277,7 @@ P 5050 3200
 F 0 "U2601" H 5950 3587 60  0000 C CNN
 F 1 "PCA9745BTWJ" H 5950 3481 60  0000 C CNN
 F 2 "Macro Keyboard:PCA9745BTWJ" H 5950 3440 60  0001 C CNN
-F 3 "https://www.nxp.com/docs/en/data-sheet/PCA9745B.pdf" H 5050 3200 60  0000 C CNN
+F 3 "https://www.nxp.com/docs/en/data-sheet/PCA9745B.pdf" H 4850 4050 60  0000 C CNN
 F 4 "568-14156-1-ND" H 5050 3200 50  0001 C CNN "Digikey PN"
 F 5 "NXP USA Inc." H 5050 3200 50  0001 C CNN "MFG"
 F 6 "PCA9745BTWJ" H 5050 3200 50  0001 C CNN "MFG #"
@@ -352,4 +298,10 @@ Text HLabel 5050 4300 0    50   Input ~ 0
 DRIVER_LED_SW2_G_5V
 Text HLabel 5050 4200 0    50   Input ~ 0
 DRIVER_LED_SW2_R_5V
+Wire Wire Line
+	4700 3300 4200 3300
+Wire Wire Line
+	7300 2950 7900 2950
+Wire Wire Line
+	7450 3350 7900 3350
 $EndSCHEMATC
