@@ -387,33 +387,6 @@ Text HLabel 7300 3650 0    50   Input ~ 0
 DS_D_C_3V3
 Text HLabel 7300 3250 0    50   Input ~ 0
 DS_BUSY_3V3
-$Comp
-L Device:R_Small_US R2702
-U 1 1 61AC5FE7
-P 6600 3450
-F 0 "R2702" H 6668 3496 50  0000 L CNN
-F 1 "100k 5%" H 6668 3405 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" H 6600 3450 50  0001 C CNN
-F 3 "https://www.seielect.com/catalog/sei-rmcf_rmcp.pdf" H 6600 3450 50  0001 C CNN
-F 4 "RMCF0805JT100KCT-ND" H 6600 3450 50  0001 C CNN "Digikey PN"
-F 5 "Stackpole Electronics Inc" H 6600 3450 50  0001 C CNN "MFG"
-F 6 "RMCF0805JT100K" H 6600 3450 50  0001 C CNN "MFG #"
-	1    6600 3450
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+3V3 #PWR02705
-U 1 1 61AC62EF
-P 6600 3350
-F 0 "#PWR02705" H 6600 3200 50  0001 C CNN
-F 1 "+3V3" H 6615 3523 50  0000 C CNN
-F 2 "" H 6600 3350 50  0001 C CNN
-F 3 "" H 6600 3350 50  0001 C CNN
-	1    6600 3350
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	7800 3550 6600 3550
 Wire Wire Line
 	5550 3050 5550 4650
 Wire Wire Line
@@ -561,4 +534,8 @@ Wire Wire Line
 	4750 2550 4850 2550
 Wire Wire Line
 	4550 2550 4400 2550
+Text HLabel 7300 3550 0    50   Input ~ 0
+DS_RESET#_3V3
+Wire Wire Line
+	7800 3550 7300 3550
 $EndSCHEMATC
