@@ -1,6 +1,8 @@
 # Based on https://github.com/TeachMePCB/MacroKeypad/blob/main/Source/code.py
 
 import time
+
+import adafruit_led_animation.animation.blink
 import busio
 import board
 import displayio
@@ -13,285 +15,486 @@ from adafruit_hid.keyboard import Keyboard
 from adafruit_hid.keycode import Keycode
 from adafruit_hid.consumer_control import ConsumerControl
 from adafruit_hid.consumer_control_code import ConsumerControlCode
+from adafruit_led_animation.animation.chase import Chase
+from adafruit_led_animation import color
 from adafruit_debouncer import Debouncer
 from adafruit_bus_device.spi_device import SPIDevice
 from lib.fergcorp_pca9745b import PCA9745B
 import adafruit_veml7700
 from lib.fergcorp_pdispectra import PDISpectra
-
-displayio.release_displays()
-
-kbd = Keyboard(usb_hid.devices)
-cc = ConsumerControl(usb_hid.devices)
-
-#Colors
-RED = (255, 0, 0)
-RED_YELLOW = (255, 128, 0)  # Orange
-YELLOW = (255, 255, 0)
-YELLOW_GREEN = (128, 255, 0)  # Chartreuse
-
-GREEN = (0, 255, 0)
-GREEN_CYAN = (0, 255, 128)  # Spring Green
-CYAN = (0, 255, 255)
-CYAN_BLUE = (0, 128, 255)  # Azure
-
-BLUE = (0, 0, 255)
-BLUE_MAGENTA = (128, 0, 255)  # Violet
-MAGENTA = (255, 0, 255)
-MAGENTA_RED = (255, 0, 128)  # Rose
-
-WHITE = (255, 255, 255)
-OFF = (0, 0, 0)
-
-
-# Key type (determine what type of command is used)
-MEDIA = 1
-KEY = 2
-
-# key type, keycode, normal color, color when pushed
-KEYMAP = {
-    (1): (KEY, [Keycode.OPTION, Keycode.SHIFT, Keycode.MINUS], CYAN, RED), # EM Dash
-    (2): (KEY, [Keycode.OPTION, Keycode.MINUS], CYAN_BLUE, RED_YELLOW),  # EN Dash
-    (3): (KEY, [Keycode.OPTION, Keycode.TWO], BLUE, YELLOW),  # ™
-    (4): (KEY, [Keycode.COMMAND, Keycode.SHIFT, Keycode.THREE], BLUE_MAGENTA, YELLOW_GREEN),  # Screenshot entire screen
-    (5): (KEY, [Keycode.COMMAND, Keycode.SHIFT, Keycode.FOUR], MAGENTA, GREEN),  # Screenshot selection
-    (6): (KEY, [Keycode.F11], MAGENTA_RED, GREEN_CYAN),  # Show Desktop
-    (7): (KEY, [Keycode.COMMAND, Keycode.X], RED, CYAN),  # CUT
-    (8): (KEY, [Keycode.COMMAND, Keycode.C], RED_YELLOW, CYAN_BLUE),  # COPY
-    (9): (KEY, [Keycode.COMMAND, Keycode.V], YELLOW, BLUE),  # PASTE
-    (0): (KEY, [Keycode.LEFT_CONTROL, Keycode.COMMAND, Keycode.Q], WHITE, RED),  # Lock screen
-    (10): (MEDIA, [Keycode.CAPS_LOCK]),  # Mute
-    (11): (MEDIA, [ConsumerControlCode.MUTE]),  # Mute
-}
-
-BUTTON_TO_NEOPIXEL = {
-    0: 0,
-    1: 1,
-    2: 2,
-    3: 3,
-    4: 6,
-    5: 5,
-    6: 4,
-    7: 7,
-    8: 8,
-    9: 9,
-}
-
-# list of pins to use (skipping GP15 on Pico because it's funky)
-PINS = [
-    board.GP1,  # E-Button
-    board.GP2,  # Button 1
-    board.GP7,  # Button 2
-    board.GP10,  # Button 3
-    board.GP3,  # Button 4
-    board.GP6,  # Button 5
-    board.GP9,  # Button 6
-    board.GP4,  # Button 7
-    board.GP5,  # Button 8
-    board.GP8,  # Button 9
-    board.GP22,  # Top Rotary
-    board.GP26,  # Bottom Rotary
-]
+import random
 
 SWITCHES = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 PIN_SETUP = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 
-PIN_SETUP[10] = digitalio.DigitalInOut(board.GP22)
-PIN_SETUP[10].direction = Direction.INPUT
-PIN_SETUP[10].pull = Pull.DOWN
-SWITCHES[10] = Debouncer(PIN_SETUP[10])
+class Macrokeypad():
 
-PIN_SETUP[11] = digitalio.DigitalInOut(board.GP26)
-PIN_SETUP[11].direction = Direction.INPUT
-PIN_SETUP[11].pull = Pull.DOWN
-SWITCHES[11] = Debouncer(PIN_SETUP[11])
+    # State list
+    INIT = 0
+    KEYPAD = 1
+    ADMIN = 2
 
-switch_state = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    NEOPIXEL = 1
+    ROTARY_RGB = 2
 
-# Update this to match the number of NeoPixel LEDs connected to your board.
-NUM_NEOPIXELS = 10
+    # Key type (determine what type of command is used)
+    MEDIA = 1
+    KEY = 2
 
-NEOPIXEL_BRIGHTNESS_STEPS = 50
-pixelBrightness = NEOPIXEL_BRIGHTNESS_STEPS / 2
+    # list of pins to use (skipping GP15 on Pico because it's funky)
+    PINS = [
+        board.GP1,  # E-Button
+        board.GP2,  # Button 1
+        board.GP7,  # Button 2
+        board.GP10,  # Button 3
+        board.GP3,  # Button 4
+        board.GP6,  # Button 5
+        board.GP9,  # Button 6
+        board.GP4,  # Button 7
+        board.GP5,  # Button 8
+        board.GP8,  # Button 9
+        board.GP22,  # Top Rotary
+        board.GP26,  # Bottom Rotary
+    ]
 
-NEO_PIXELS = neopixel.NeoPixel(board.GP0, NUM_NEOPIXELS)
-NEO_PIXELS.brightness = float(pixelBrightness) / NEOPIXEL_BRIGHTNESS_STEPS
+    BUTTON_TO_LIGHT_ID = {
+        0: 0,
+        1: 1,
+        2: 2,
+        3: 3,
+        4: 6,
+        5: 5,
+        6: 4,
+        7: 7,
+        8: 8,
+        9: 9,
+        10: 0,  # LED Group 0 of PCA9745B
+        11: 1   # LED Group 1 of PCA9745B
+    }
 
-topEncoder = rotaryio.IncrementalEncoder(board.GP14, board.GP15, divisor=4)
-topEncoder_last_position = topEncoder.position
+    def __init__(self):
+        self.state = self.INIT
+        self.keymap = None
+        self.kbd = Keyboard(usb_hid.devices)
+        self.cc = ConsumerControl(usb_hid.devices)
+        self.switches = {}
 
-bottomEncoder = rotaryio.IncrementalEncoder(board.GP28, board.GP27)
-bottomEncoder_last_position = bottomEncoder.position
-
-displayio.release_displays()
-spi_bus = busio.SPI(clock=board.GP18, MOSI=board.GP19, MISO=board.GP16)
-
-eink_driver_cs = board.GP17
-eink_driver_d_c = board.GP12
-eink_driver_busy = board.GP11
-eink_driver_res = board.GP2
-
-display_bus = displayio.FourWire(
-    spi_bus,
-    command=eink_driver_d_c,
-    chip_select=eink_driver_cs,
-    reset=eink_driver_res,
-#    baudrate=100000,
-)
-
-display = PDISpectra(
-    display_bus,
-    height=152,
-    width=152,
-    rotation=90,
-    busy_pin=eink_driver_busy,
-    swap_rams=False,
-)
-
-g = displayio.Group()
-
-'''
-with open("/macrokeyboard.bmp", "rb") as f:
-    pic = displayio.OnDiskBitmap(f)
-    # CircuitPython 6 & 7 compatible
-    t = displayio.TileGrid(
-        pic, pixel_shader=getattr(pic, "pixel_shader", displayio.ColorConverter())
-    )
-    # CircuitPython 7 compatible only
-    #t = displayio.TileGrid(pic, pixel_shader=pic.pixel_shader)
-    g.append(t)
-
-    display.show(g)
-
-    display.refresh()
-'''
-
-displayio.release_displays()
-
-eink_driver_cs = digitalio.DigitalInOut(board.GP17)
-eink_driver_cs.direction = Direction.OUTPUT
-eink_driver_cs.value = True
-
-for i in range(10):
-    PIN_SETUP[i] = DigitalInOut(PINS[i])
-    PIN_SETUP[i].direction = Direction.INPUT
-    PIN_SETUP[i].pull = Pull.UP
-    SWITCHES[i] = Debouncer(PIN_SETUP[i])
-
-# PCA9745B RGB LED Driver Setup
-led_driver_cs = digitalio.DigitalInOut(board.GP13)
-led_driver_cs.direction = Direction.OUTPUT
-led_driver = SPIDevice(spi_bus, led_driver_cs, baudrate=500000, phase=0, polarity=0)
-
-led = PCA9745B(spi_bus, led_driver_cs, debug=True)
-
-print("Error status: %s" % led.error_flag_exist())
-led.reset()
-led.clear()
+        self.encoder_top = self.encoder_top_position_last = None
+        self.encoder_bottom = self.encoder_bottom_position_last = None
 
 
-led.set_gain_all(0x58)
-led.set_led_mode_by_group(0, 0x00)
-led.set_led_mode_by_group(1, 0x00)
+        # Prevents the epaper from thinking it's receiving commands when it's not under SPI control
+        eink_driver_cs = digitalio.DigitalInOut(board.GP17)
+        eink_driver_cs.direction = Direction.OUTPUT
+        eink_driver_cs.value = True
 
-led.set_led_by_group(0, *RED)
-led.set_led_by_group(1, RED[2], RED[1], RED[0])
+        displayio.release_displays()
 
-# Initialized colors of buttons
-for button in range(10):
-    NEO_PIXELS[BUTTON_TO_NEOPIXEL[button]] = (KEYMAP[button][3][0], KEYMAP[button][3][1], KEYMAP[button][3][2])
+        # led.set_led_by_group(0, *RED)
+        # led.set_led_by_group(1, RED[2], RED[1], RED[0])
 
+        self.neopixels = self.init_neopixels(num_neopixels=10, brightness_step=50)
 
-led_status = {
-    "Num Lock": Keyboard.LED_NUM_LOCK,
-    "Caps Lock": Keyboard.LED_CAPS_LOCK,
-    "Scroll Lock": Keyboard.LED_SCROLL_LOCK,
-    "Compose": Keyboard.LED_COMPOSE,
-    "Power": 0x06,
-    "Shift": 0x07,
-    "Do Not Disturb": 0x08,
-    "Mute": 0x09,
-    "Camera On": 0x28,
-    "Camera Off": 0x29,
-}
-
-led_status_prior = {}
+        self.load_keymap()
+        self.init_tenkey()
+        self.init_rotary_encoders()
+        self.spi_bus = self.init_spi()
+        self.led = self.init_rotary_encoder_lights(self.spi_bus)
+        # Initialized colors of buttons
+        for button in range(12):
+            self.update_light_button(button)
 
 
+    def init_spi(self):
+        return busio.SPI(clock=board.GP18, MOSI=board.GP19, MISO=board.GP16)
 
 
-while True:
-    for button in range(10):
-        SWITCHES[button].update()
-        if SWITCHES[button].fell:
-            NEO_PIXELS[BUTTON_TO_NEOPIXEL[button]] = (KEYMAP[button][2][0], KEYMAP[button][2][1], KEYMAP[button][2][2])
-            kbd.send(*KEYMAP[button][1])
-            #kbd.press(*keymap[button][1])
+    def init_epaper(self, spi_bus):
+        eink_driver_cs = board.GP17
+        eink_driver_d_c = board.GP12
+        eink_driver_busy = board.GP11
+        eink_driver_res = board.GP2
 
-            print("Key: %s" % button)
-        elif SWITCHES[button].rose:
-            NEO_PIXELS[BUTTON_TO_NEOPIXEL[button]] = (KEYMAP[button][3][0], KEYMAP[button][3][1], KEYMAP[button][3][2])
-            #kbd.release(*keymap[button][1])
+        display_bus = displayio.FourWire(
+            spi_bus,
+            command=eink_driver_d_c,
+            chip_select=eink_driver_cs,
+            reset=eink_driver_res,
+            #    baudrate=100000,
+        )
 
-    for button in range(10, 12):
-        SWITCHES[button].update()
-        if SWITCHES[button].fell:
-            #NEO_PIXELS[BUTTON_TO_NEOPIXEL[button]] = (KEYMAP[button][2][0], KEYMAP[button][2][1], KEYMAP[button][2][2])
-            print("Key: %s" % button)
-            if KEYMAP[button][0] == KEY:
-                kbd.press(*KEYMAP[button][1])
-            elif KEYMAP[button][0] == MEDIA:
-                cc.send(*KEYMAP[button][1])
-        elif SWITCHES[button].rose:
-            pass
-            #NEO_PIXELS[BUTTON_TO_NEOPIXEL[button]] = (KEYMAP[button][3][0], KEYMAP[button][3][1], KEYMAP[button][3][2])
+        display = PDISpectra(
+            display_bus,
+            height=152,
+            width=152,
+            rotation=90,
+            busy_pin=eink_driver_busy,
+            swap_rams=False,
+        )
 
-    current_position = topEncoder.position
-    position_change = current_position - topEncoder_last_position
-    if position_change > 0:
-        print(current_position)
-        for _ in range(position_change):
-            if (pixelBrightness < NEOPIXEL_BRIGHTNESS_STEPS):
-                pixelBrightness = pixelBrightness + 1
-        print(pixelBrightness)
-        NEO_PIXELS.brightness = float(pixelBrightness) / NEOPIXEL_BRIGHTNESS_STEPS
-    elif position_change < 0:
-        print(current_position)
-        for _ in range(-position_change):
-            if (pixelBrightness > 0):
-                pixelBrightness = pixelBrightness - 1
-        print(pixelBrightness)
-        NEO_PIXELS.brightness = float(pixelBrightness) / NEOPIXEL_BRIGHTNESS_STEPS
-    topEncoder_last_position = current_position
-
-    current_position = bottomEncoder.position
-    position_change = current_position - bottomEncoder_last_position
-
-    if position_change > 0:
-        print(current_position)
-        for _ in range(position_change):
-            if (pixelBrightness < NEOPIXEL_BRIGHTNESS_STEPS):
-                pixelBrightness = pixelBrightness + 1
-                cc.send(ConsumerControlCode.VOLUME_INCREMENT)
-        print(pixelBrightness)
-        NEO_PIXELS.brightness = float(pixelBrightness) / NEOPIXEL_BRIGHTNESS_STEPS
-
-    elif position_change < 0:
-        print(current_position)
-        for _ in range(-position_change):
-            if (pixelBrightness > 0):
-                pixelBrightness = pixelBrightness - 1
-                cc.send(ConsumerControlCode.VOLUME_DECREMENT)
-        print(pixelBrightness)
-        NEO_PIXELS.brightness = float(pixelBrightness) / NEOPIXEL_BRIGHTNESS_STEPS
-    bottomEncoder_last_position = current_position
-
-    for key, value in led_status.items():
-        current_status = kbd.led_on(value)
-        if key in led_status_prior:
-            if current_status != led_status_prior[key]:
-                led_status_prior[key] = current_status
-                print("%s: %s" % (key, current_status))
+    def setup_button(self, pin: board, pull_up: bool = True):
+        this_pin = DigitalInOut(pin)
+        this_pin.direction = Direction.INPUT
+        if pull_up:
+            this_pin.pull = Pull.UP
         else:
-            led_status_prior[key] = current_status
-            print("%s: %s" % (key, current_status))
+            this_pin.pull = Pull.DOWN
+        return Debouncer(this_pin)
+
+    def setup_encoder(self, pin_a: board, pin_b: board) -> (rotaryio.IncrementalEncoder, rotaryio.IncrementalEncoder.position):
+        encoder = rotaryio.IncrementalEncoder(pin_a, pin_b, divisor=4)
+        position_last = encoder.position
+        return encoder, position_last
+
+    def init_tenkey(self):
+        for i in range(10):
+            self.switches[i] = self.setup_button(self.PINS[i])
+
+    def init_rotary_encoders(self):
+
+        self.switches[10] = self.setup_button(board.GP22, pull_up=False)
+        self.switches[11] = self.setup_button(board.GP26, pull_up=False)
+
+        self.encoder_top, self.encoder_top_position_last = self.setup_encoder(board.GP14, board.GP15)
+        self.encoder_bottom, self.encoder_bottom_position_last = self.setup_encoder(board.GP28, board.GP27)
+
+    def init_neopixels(self, num_neopixels, brightness_step):
+
+        neopixels = neopixel.NeoPixel(board.GP0, num_neopixels, auto_write=True)
+        pixel_brightness = brightness_step / 2
+        neopixels.brightness = float(pixel_brightness) / brightness_step
+
+        return neopixels
+
+    def init_rotary_encoder_lights(self, spi_bus: busio.SPI) -> PCA9745B:
+        # PCA9745B RGB LED Driver Setup
+        led_driver_cs = digitalio.DigitalInOut(board.GP13)
+        led_driver_cs.direction = Direction.OUTPUT
+        # led_driver = SPIDevice(spi_bus, led_driver_cs, baudrate=500000, phase=0, polarity=0)
+
+        led = PCA9745B(spi_bus, led_driver_cs, debug=True)
+
+        led.reset()
+        led.clear()
+
+        led.set_gain_all(0x8)
+        led.set_led_mode_by_group(0, 0x00)
+        led.set_led_mode_by_group(1, 0x00)
+
+        return led
+
+    def load_keymap(self):
+        # key type, keycode, normal color, color when pushed
+        self.keymap = {
+            (1): (self.KEY, [Keycode.OPTION, Keycode.SHIFT, Keycode.MINUS], self.NEOPIXEL, color.CYAN, color.RED),  # EM Dash
+            (2): (self.KEY, [Keycode.OPTION, Keycode.MINUS], self.NEOPIXEL, color.AQUA, color.JADE),  # EN Dash
+            (3): (self.KEY, [Keycode.OPTION, Keycode.TWO], self.NEOPIXEL, color.BLUE, color.YELLOW),  # ™
+            (4): (self.KEY, [Keycode.COMMAND, Keycode.SHIFT, Keycode.THREE], self.NEOPIXEL, color.PINK, color.GOLD),  # Screenshot entire screen
+            (5): (self.KEY, [Keycode.COMMAND, Keycode.SHIFT, Keycode.FOUR], self.NEOPIXEL, color.MAGENTA, color.GREEN),  # Screenshot selection
+            (6): (self.KEY, [Keycode.F11], self.NEOPIXEL, color.OLD_LACE, color.PURPLE),  # Show Desktop
+            (7): (self.KEY, [Keycode.COMMAND, Keycode.X], self.NEOPIXEL, color.RED, color.CYAN),  # CUT
+            (8): (self.KEY, [Keycode.COMMAND, Keycode.C], self.NEOPIXEL, color.AMBER, color.AQUA),  # COPY
+            (9): (self.KEY, [Keycode.COMMAND, Keycode.V], self.NEOPIXEL, color.YELLOW, color.BLUE),  # PASTE
+            (0): (self.KEY, [Keycode.LEFT_CONTROL, Keycode.COMMAND, Keycode.Q], self.NEOPIXEL, color.WHITE, color.RED),  # Lock screen
+            (10): (self.MEDIA, [Keycode.CAPS_LOCK], self.ROTARY_RGB, color.RED, color.GREEN),  # Mute
+            (11): (self.MEDIA, [ConsumerControlCode.MUTE], self.ROTARY_RGB, color.GREEN, color.RED),  # Mute
+        }
+
+    def update_display(self, display):
+        g = displayio.Group()
+
+        with open("/macrokeyboard.bmp", "rb") as f:
+            pic = displayio.OnDiskBitmap(f)
+            # CircuitPython 6 & 7 compatible
+            t = displayio.TileGrid(
+                pic, pixel_shader=getattr(pic, "pixel_shader", displayio.ColorConverter())
+            )
+            # CircuitPython 7 compatible only
+            # t = displayio.TileGrid(pic, pixel_shader=pic.pixel_shader)
+            g.append(t)
+
+            display.show(g)
+
+            display.refresh()
+
+        displayio.release_displays()
+
+    def update_light_button(self, button, state=None, is_neopixel=True):
+        btn = self.keymap[button]
+        if btn[2] is self.NEOPIXEL:
+            if state == 0:
+                self.neopixels[self.BUTTON_TO_LIGHT_ID[button]] = (
+                    btn[3][0],  # Red
+                    btn[3][1],  # Green
+                    btn[3][2])  # Blue
+            elif state == 1:
+                self.neopixels[self.BUTTON_TO_LIGHT_ID[button]] = (
+                    btn[4][0],  # Red
+                    btn[4][1],  # Green
+                    btn[4][2])  # Blue
+            else:
+                rnd_color = random.choice(color.RAINBOW)
+                self.neopixels[self.BUTTON_TO_LIGHT_ID[button]] = (rnd_color[0],
+                                                                   rnd_color[1],
+                                                                   rnd_color[2])
+        elif btn[2] is self.ROTARY_RGB:
+            # Because I routed the PCB wrong...BGR instead of RGB
+            if self.BUTTON_TO_LIGHT_ID[button] == 0:
+                if state == 0:
+                    self.led.set_led_by_group(0, *btn[3])
+                elif state == 1:
+                    self.led.set_led_by_group(0, *btn[4])
+                else:
+                    self.led.set_led_by_group(0, *random.choice(color.RAINBOW))
+            elif self.BUTTON_TO_LIGHT_ID[button] == 1:  # Because I routed the PCB wrong...BGR instead of RGB
+                if state == 0:
+                    self.led.set_led_by_group(1, btn[3][2], btn[3][1], btn[3][0])
+                elif state == 1:
+                    self.led.set_led_by_group(1, btn[4][2], btn[4][1], btn[4][0])
+                else:
+                    self.led.set_led_by_group(1, *random.choice(color.RAINBOW))
+
+    def update_encoder(self, encoder: rotaryio.IncrementalEncoder, last_position: rotaryio.IncrementalEncoder.position,
+                       positive_action=None,
+                       negative_action=None
+    ):
+        current_position = encoder.position
+        position_change = current_position - last_position
+        if position_change > 0:
+            for _ in range(position_change):
+                if self.neopixels.brightness < 1.0:
+                    self.neopixels.brightness = self.neopixels.brightness + 0.1  # (1 / 255)
+                    if positive_action is not None:
+                        self.cc.send(positive_action)
+        elif position_change < 0:
+            for _ in range(-position_change):
+                if self.neopixels.brightness > 0.0:
+                    self.neopixels.brightness = self.neopixels.brightness - 0.1  # (1 / 255)
+                    if negative_action is not None:
+                        self.cc.send(negative_action)
+        return current_position
+
+    def run(self):
+        if self.state is self.INIT:
+            self.run_init()
+        elif self.state is self.KEYPAD:
+            self.run_keypad()
+        elif self.state is self.ADMIN:
+            self.run_admin()
+        else:
+            raise ValueError("Valid state not set.")
+
+    def run_init(self):
+        pass
+
+    def run_keypad(self):
+        while True:
+            for button in range(12):
+                self.switches[button].update()
+                if self.switches[button].fell:
+                    self.update_light_button(button)
+                    if self.keymap[button][0] == self.KEY:
+                        self.kbd.send(*self.keymap[button][1])
+                    elif self.keymap[button][0] == self.MEDIA:
+                        self.cc.send(*self.keymap[button][1])
+                    else:
+                        raise ValueError("Unexpected button type")
+                elif self.switches[button].rose:
+                    self.update_light_button(button)
+
+            self.encoder_top_position_last = self.update_encoder(
+                encoder=self.encoder_top,
+                last_position=self.encoder_top_position_last)
+            self.encoder_bottom_position_last = self.update_encoder(
+                encoder=self.encoder_bottom,
+                last_position=self.encoder_bottom_position_last,
+                positive_action=ConsumerControlCode.VOLUME_INCREMENT,
+                negative_action=ConsumerControlCode.VOLUME_DECREMENT
+            )
+
+    def run_game_tictactoe(self):
+        # Based on https://www.askpython.com/python/examples/tic-tac-toe-using-python
+
+
+        def check_win(player_pos, cur_player):
+
+            # All possible winning combinations
+            soln = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]]
+
+            # Loop to check if any winning combination is satisfied
+            for x in soln:
+                if all(y in player_pos[cur_player] for y in x):
+                    # Return True if any winning combination satisfies
+                    return True, x
+            # Return False if no combination is satisfied
+            return False
+
+        def check_draw(player_pos):
+            if len(player_pos['1']) + len(player_pos['2']) == 9:
+                return True
+            return False
+
+
+        # Function for a single game of Tic Tac Toe
+        def single_game(cur_player):
+
+            # Represents the Tic Tac Toe
+            values = [' ' for x in range(10)]
+
+            # Stores the positions occupied by X and O
+            player_pos = {'1': [], '2': []}
+
+
+            for button in range(10):
+                self.neopixels[button] = color.BLACK
+
+            self.neopixels.brightness = 0.5
+
+            self.led.reset()
+            self.led.set_gain_all(0x58)
+            self.led.set_led_mode_by_group(0, 0x00)
+            self.led.set_led_mode_by_group(1, 0x00)
+
+            if random.choice([True, False, False]):  # computer will go first 1/3 of the time
+                # Computer move
+                self.led.set_led_by_group(0, color.BLUE[0], color.BLUE[1], color.BLUE[2])
+                self.led.set_led_by_group(1, color.GREEN[2], color.GREEN[1], color.GREEN[0])
+                open_places = []
+                for i in range(1, 10):
+                    if values[i] == ' ':
+                        open_places.append(i)
+                computer_pick = random.choice(open_places)
+                self.neopixels[self.BUTTON_TO_LIGHT_ID[computer_pick]] = color.BLUE
+                values[computer_pick] = '2'
+                player_pos['2'].append(computer_pick)
+
+            else:
+                #self.led.set_led_by_group(0, *color.GREEN)
+                self.led.set_led_by_group(0, color.GREEN[0], color.GREEN[1], color.GREEN[2])
+                self.led.set_led_by_group(1, color.BLUE[2], color.BLUE[1], color.BLUE[0])
+
+            while True:
+                self.switches[0].update()
+                if self.switches[0].fell:
+                    break
+                for button in range(1, 10):
+                    self.switches[button].update()
+                    if self.switches[button].fell:
+                        if values[button] != ' ':
+                            self.neopixels[self.BUTTON_TO_LIGHT_ID[button]] = color.RED
+                            time.sleep(0.1)
+                            self.neopixels[self.BUTTON_TO_LIGHT_ID[button]] = color.BLACK
+                            time.sleep(0.1)
+                            self.neopixels[self.BUTTON_TO_LIGHT_ID[button]] = color.RED
+                            time.sleep(0.1)
+                            self.neopixels[self.BUTTON_TO_LIGHT_ID[button]] = color.BLACK
+                            time.sleep(0.1)
+                            if values[button] == '1':
+                                self.neopixels[self.BUTTON_TO_LIGHT_ID[button]] = color.GREEN
+                            else:
+                                self.neopixels[self.BUTTON_TO_LIGHT_ID[button]] = color.BLUE
+                        else:
+                            self.neopixels[self.BUTTON_TO_LIGHT_ID[button]] = color.GREEN
+                            values[button] = cur_player
+                            player_pos[cur_player].append(button)
+
+                            print(values)
+
+                            if check_win(player_pos, cur_player):
+                                status, ans = check_win(player_pos, cur_player)
+                                time.sleep(0.25)
+                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[0]]] = color.BLACK
+                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[1]]] = color.BLACK
+                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[2]]] = color.BLACK
+                                time.sleep(0.5)
+                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[0]]] = color.GREEN
+                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[1]]] = color.GREEN
+                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[2]]] = color.GREEN
+                                time.sleep(0.5)
+                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[0]]] = color.BLACK
+                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[1]]] = color.BLACK
+                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[2]]] = color.BLACK
+                                time.sleep(0.5)
+                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[0]]] = color.GREEN
+                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[1]]] = color.GREEN
+                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[2]]] = color.GREEN
+                                time.sleep(0.5)
+                                print(int(self.neopixels.brightness*100))
+                                for x in range(int(self.neopixels.brightness*100), 0, -1):
+                                    self.neopixels.brightness = self.neopixels.brightness - 0.01
+                                    time.sleep(0.01)
+                                print("User wins")
+                                return True
+
+                            if check_draw(player_pos):
+                                # animate
+                                time.sleep(0.25)
+                                for x in range(int(self.neopixels.brightness*100), 0, -1):
+                                    self.neopixels.brightness = self.neopixels.brightness - 0.01
+                                    time.sleep(0.01)
+                                print("Draw Game")
+                                return True
+
+                            # Computer move
+                            open_places = []
+                            for i in range(1, 10):
+                                if values[i] == ' ':
+                                    open_places.append(i)
+
+                            computer_pick = random.choice(open_places)
+                            self.neopixels[self.BUTTON_TO_LIGHT_ID[computer_pick]] = color.BLUE
+                            values[computer_pick] = '2'
+                            player_pos['2'].append(computer_pick)
+
+                            if check_win(player_pos, '2'):
+                                status, ans = check_win(player_pos, '2')
+                                time.sleep(0.25)
+                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[0]]] = color.BLACK
+                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[1]]] = color.BLACK
+                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[2]]] = color.BLACK
+                                time.sleep(0.5)
+                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[0]]] = color.BLUE
+                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[1]]] = color.BLUE
+                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[2]]] = color.BLUE
+                                time.sleep(0.5)
+                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[0]]] = color.BLACK
+                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[1]]] = color.BLACK
+                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[2]]] = color.BLACK
+                                time.sleep(0.5)
+                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[0]]] = color.BLUE
+                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[1]]] = color.BLUE
+                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[2]]] = color.BLUE
+                                time.sleep(0.5)
+                                for x in range(int(self.neopixels.brightness*100), 0, -1):
+                                    self.neopixels.brightness = self.neopixels.brightness - 0.01
+                                    time.sleep(0.01)
+                                print("Computer wins")
+                                return True
+
+                            if check_draw(player_pos):
+                                # animate
+                                time.sleep(0.25)
+                                for x in range(int(self.neopixels.brightness*100), 0, -1):
+                                    self.neopixels.brightness = self.neopixels.brightness - 0.01
+                                    time.sleep(0.01)
+
+                                print("Draw Game")
+                                return True
+
+
+
+
+        single_game('1')
+
+
+    def run_admin(self):
+        for button in range(12):
+            self.update_light_button(button)
+
+
+if __name__ == "__main__":
+    macro = Macrokeypad()
+    #macro.run_keypad()
+    while True:
+        macro.run_game_tictactoe()
+
