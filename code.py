@@ -23,9 +23,21 @@ from lib.fergcorp_pca9745b import PCA9745B
 import adafruit_veml7700
 from lib.fergcorp_pdispectra import PDISpectra
 import random
+import terminalio
+from adafruit_display_text import label
+from adafruit_button import Button
 
 SWITCHES = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 PIN_SETUP = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+
+BLACK = 0x000000
+WHITE = 0xFFFFFF
+RED = 0xFF0000
+
+# Change text colors, choose from the following values:
+# BLACK, RED, WHITE
+
+ENABLE_EPAPER = True
 
 class Macrokeypad():
 
@@ -82,12 +94,6 @@ class Macrokeypad():
         self.encoder_top = self.encoder_top_position_last = None
         self.encoder_bottom = self.encoder_bottom_position_last = None
 
-
-        # Prevents the epaper from thinking it's receiving commands when it's not under SPI control
-        eink_driver_cs = digitalio.DigitalInOut(board.GP17)
-        eink_driver_cs.direction = Direction.OUTPUT
-        eink_driver_cs.value = True
-
         displayio.release_displays()
 
         # led.set_led_by_group(0, *RED)
@@ -96,20 +102,27 @@ class Macrokeypad():
         self.neopixels = self.init_neopixels(num_neopixels=10, brightness_step=50)
 
         self.load_keymap()
-        self.init_tenkey()
+
         self.init_rotary_encoders()
         self.spi_bus = self.init_spi()
+        if ENABLE_EPAPER:
+            self.display = self.init_epaper(self.spi_bus)
+        else:
+            # Prevents the epaper from thinking it's receiving commands when it's not under SPI control
+            eink_driver_cs = digitalio.DigitalInOut(board.GP17)
+            eink_driver_cs.direction = Direction.OUTPUT
+            eink_driver_cs.value = True
         self.led = self.init_rotary_encoder_lights(self.spi_bus)
-        # Initialized colors of buttons
-        for button in range(12):
-            self.update_light_button(button)
+
+
+
 
 
     def init_spi(self):
         return busio.SPI(clock=board.GP18, MOSI=board.GP19, MISO=board.GP16)
 
+    def init_epaper(self, spi_bus) -> PDISpectra:
 
-    def init_epaper(self, spi_bus):
         eink_driver_cs = board.GP17
         eink_driver_d_c = board.GP12
         eink_driver_busy = board.GP11
@@ -131,6 +144,8 @@ class Macrokeypad():
             busy_pin=eink_driver_busy,
             swap_rams=False,
         )
+
+        return display
 
     def setup_button(self, pin: board, pull_up: bool = True):
         this_pin = DigitalInOut(pin)
@@ -288,6 +303,11 @@ class Macrokeypad():
         pass
 
     def run_keypad(self):
+        self.init_tenkey()
+        # Initialized colors of buttons
+        for button in range(12):
+            self.update_light_button(button)
+
         while True:
             for button in range(12):
                 self.switches[button].update()
@@ -488,13 +508,151 @@ class Macrokeypad():
 
 
     def run_admin(self):
-        for button in range(12):
-            self.update_light_button(button)
+
+        self.admin_set_display()
+        displayio.release_displays()
+        self.init_tenkey()
+        self.spi_bus.deinit()
+
+        while True:
+            for button in range(12):
+                self.switches[button].update()
+                if self.switches[button].fell:
+                    self.update_light_button(button)
+
+    def admin_set_display(self):
+
+        # Create a display group for our screen objects
+        g = displayio.Group()
+
+        # Set a background
+        background_bitmap = displayio.Bitmap(152, 152, 1)
+        # Map colors in a palette
+        palette = displayio.Palette(1)
+        palette[0] = WHITE
+
+        # Create a Tilegrid with the background and put in the displayio group
+        t = displayio.TileGrid(background_bitmap, pixel_shader=palette)
+        g.append(t)
+        g.append(self.display_create_title("Admin Menu"))
+        button = Button(x=0,
+                        y=30,
+                        width=45,
+                        height=45,
+                        style=Button.ROUNDRECT,
+                        fill_color=WHITE,
+                        outline_color=RED,
+                        label="General\nKeymap",
+                        label_font=terminalio.FONT,
+                        label_color=BLACK)
+        g.append(button)
+        '''
+        g.append(self.display_create_9x9_text_tile("General", 0, 0))
+        g.append(self.display_create_9x9_text_tile("PyCharm", 1, 0))
+        g.append(self.display_create_9x9_text_tile("Photoshop\nKeymap", 2, 0))
+        g.append(self.display_create_9x9_text_tile("Show\nTMPCB\nlogo", 0, 1))
+        g.append(self.display_create_9x9_text_tile("No\n Keymap", 1, 1))
+        g.append(self.display_create_9x9_text_tile("No\n Keymap", 2, 1))
+        g.append(self.display_create_9x9_text_tile("Cancel", 0, 2))
+        g.append(self.display_create_9x9_text_tile("Tic\nTac\nToe", 1, 2))
+        g.append(self.display_create_9x9_text_tile("Accept", 2, 2))
+        '''
+        # Place the display group on the screen
+        self.display.show(g)
+
+        # Refresh the display to have everything show on the display
+        # NOTE: Do not refresh eInk displays more often than 180 seconds!
+        self.display.refresh()
+
+    def display_create_title(self, text) -> displayio.Group:
+
+        if len(text) > 12:
+            raise ValueError("Title text too long.")
+
+        # Draw simple text using the built-in font into a displayio group
+        text_group = displayio.Group(scale=2, x=0, y=0)
+        text_area = label.Label(terminalio.FONT, text=text, color=RED)
+        text_area.anchor_point = (0, 0)
+        text_area.anchored_position = (0, 0)
+        text_group.append(text_area)  # Add this text to the text group
+
+        return text_group
+
+    def display_create_9x9_text_tile(self, text, x, y) -> displayio.Group:
+        text_split = text.splitlines(text)
+        if len(text_split) > 3:
+            raise ValueError("Too many lines")
+        elif len(text_split) > 1:
+            for line in text_split:
+                if len(line) > 7:
+                    raise ValueError("Title text too long.")
+        else:
+            if len(text) > 7:
+                raise ValueError("Title text too long.")
+
+        if x < 0 or x > 2:
+            raise ValueError("X position out of range.")
+
+        if y < 0 or y > 2:
+            raise ValueError("Y position out of range.")
+
+        # Draw simple text using the built-in font into a displayio group
+        text_group = displayio.Group(scale=1, x=(45*x), y=112-(40*(2-y)))
+        text_area = label.Label(terminalio.FONT, text=text, color=BLACK)
+        text_area.anchor_point = (0, 0)
+        text_group.append(text_area)  # Add this text to the text group
+
+        return text_group
+
+
+    def generate_qr(self, input):
+        import adafruit_miniqr
+        qr = adafruit_miniqr.QRCode()
+        qr.add_data(input)
+        qr.make()
+
+        bitmap = displayio.Bitmap(152, 152, 2)
+
+        # Create a two color palette
+        palette = displayio.Palette(2)
+        palette[0] = 0x000000
+        palette[1] = 0xffffff
+
+        # Create a TileGrid using the Bitmap and Palette
+        tile_grid = displayio.TileGrid(bitmap, pixel_shader=palette)
+
+        # Create a Group
+        group = displayio.Group()
+
+        # Add the TileGrid to the Group
+        group.append(tile_grid)
+
+        # Add the Group to the Display
+        self.display.show(group)
+
+        lines = str(qr.matrix).splitlines()
+
+        for y in range(len(lines)):
+            for x in range(len(lines[y])):
+                if lines[y][x] == "X":
+                    for xx in range(x*5,(x+1)*5):
+                        for yy in range(y*5, (y+1)*5):
+                            bitmap[xx, yy] = 1
+
+        self.display.refresh()
+
+        displayio.release_displays()
+        self.spi_bus.deinit()
+
+        while True:
+            time.sleep(1.0)
+
 
 
 if __name__ == "__main__":
     macro = Macrokeypad()
     #macro.run_keypad()
     while True:
-        macro.run_game_tictactoe()
+        macro.run_admin()
+        #macro.generate_qr(b'https://www.youtube.com/watch?v=dQw4w9WgXcQ')
 
