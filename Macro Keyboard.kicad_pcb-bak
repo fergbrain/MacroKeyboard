@@ -7143,7 +7143,7 @@
   (gr_poly (pts (xy 106.8 19.7) (xy 108.2 19.3) (xy 88.2 39.3) (xy 87.5 40.2) (xy 89.5 33.6) (xy 94.5 27.6) (xy 98.7 23.9) (xy 103.3 21.2)) (layer F.Mask) (width 0.1) (tstamp 61AE67EC))
   (gr_arc (start 117 49.2) (end 90.57 32.66) (angle -150) (layer F.Mask) (width 0.5))
   (gr_circle (center 116.8 49) (end 129.3 49) (layer F.SilkS) (width 1))
-  (gr_text "P/N: 21-11.03-3\nREV: A.R4\nS/N: " (at 126.8 25.8) (layer B.SilkS) (tstamp 61D6F51C)
+  (gr_text "P/N: 21-11.03-3\nREV: A.R5\nS/N: " (at 126.8 25.8) (layer B.SilkS) (tstamp 61D6F51C)
     (effects (font (size 1.5 1.5) (thickness 0.3)) (justify left mirror))
   )
   (gr_poly (pts (xy 105.9 29.5) (xy 105.9 27.3) (xy 120.4 27.3) (xy 120.4 29.5)) (layer B.SilkS) (width 0.1) (tstamp 61A97AAF))
