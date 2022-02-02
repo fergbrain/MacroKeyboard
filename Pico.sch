@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 30 30
+Sheet 19 30
 Title ""
 Date ""
 Rev ""
@@ -208,22 +208,6 @@ Wire Wire Line
 Wire Wire Line
 	7500 3050 7500 2450
 Connection ~ 7500 3050
-$Comp
-L TMPCB_R2:Pico-JER U?
-U 1 1 61A62316
-P 5600 3600
-AR Path="/61A62316" Ref="U?"  Part="1" 
-AR Path="/61A0B536/61A62316" Ref="U3001"  Part="1" 
-F 0 "U3001" H 6100 4750 50  0000 C CNN
-F 1 "Pico-JER" H 5050 4750 50  0000 C CNN
-F 2 "TMPPCB_R2:RPi_Pico_SMD_TH-JER" V 5600 3600 50  0001 C CNN
-F 3 "https://datasheets.raspberrypi.com/pico/pico-datasheet.pdf" H 5600 3600 50  0001 C CNN
-F 4 "2648-SC0915CT-ND" H 5600 3600 50  0001 C CNN "Digikey PN"
-F 5 "Raspberry Pi" H 5600 3600 50  0001 C CNN "MFG"
-F 6 "SC0915" H 5600 3600 50  0001 C CNN "MFG #"
-	1    5600 3600
-	1    0    0    -1  
-$EndComp
 NoConn ~ 6300 2750
 $Comp
 L Device:C_Small C3001
@@ -314,10 +298,6 @@ F 3 "" H 8950 4250 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	8950 4250 8950 4100
-NoConn ~ 5400 2450
-NoConn ~ 5500 2450
-NoConn ~ 5600 2450
-NoConn ~ 5750 2450
 NoConn ~ 5500 4750
 NoConn ~ 5700 4750
 $Comp
@@ -362,4 +342,22 @@ Text Label 6350 3650 0    50   ~ 0
 RUN_SW
 Text HLabel 4900 4150 0    50   BiDi ~ 0
 GPIO_12
+Text HLabel 5900 2450 1    50   Input ~ 0
+GPIO25_LED
+$Comp
+L TMPCB_R2:Pico-JER_no_usb_w_GP25 U?
+U 1 1 61A62316
+P 5600 3600
+AR Path="/61A62316" Ref="U?"  Part="1" 
+AR Path="/61A0B536/61A62316" Ref="U3001"  Part="1" 
+F 0 "U3001" H 6100 4750 50  0000 C CNN
+F 1 "Pico-JER" H 5050 4750 50  0000 C CNN
+F 2 "TMPPCB_R2:RPi_Pico_SMD_TH-JER" V 5600 3600 50  0001 C CNN
+F 3 "https://datasheets.raspberrypi.com/pico/pico-datasheet.pdf" H 5600 3600 50  0001 C CNN
+F 4 "2648-SC0915CT-ND" H 5600 3600 50  0001 C CNN "Digikey PN"
+F 5 "Raspberry Pi" H 5600 3600 50  0001 C CNN "MFG"
+F 6 "SC0915" H 5600 3600 50  0001 C CNN "MFG #"
+	1    5600 3600
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
