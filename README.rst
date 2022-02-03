@@ -1,0 +1,104 @@
+.. |ss| raw:: html
+
+    <strike>
+
+.. |se| raw:: html
+
+    </strike>
+******
+README
+******
+
+
+Build Notes and Errata:
+=======================
+For P/N 21-11.03-3, Rev NEW
+---------------------------
+**Last updated: 2 Feb 2022**
+
+R1 (c5022a6)
+^^^^^^^^^^^^
+
+U401 (PI4ULS5V201TAEX), Pin 6:
+* IS: Connected to ground.
+* SHOULD BE: Connected to 5V+ via a 4.7K ohm resistor
+
+_Note: All annotations on the PCB were also reset and reassigned. However, the original annotation designations are used in this document._
+
+R2 (fcf9d7e)
+^^^^^^^^^^^^
+R2404, Pin 03 (SPI_MISO) of U2701 (PCA9745BTWJ)
+* IS: Connected to SPI_MISO via R2704 (1k ohm)
+* SHOULD BE: No resistor
+
+Pin 27 (SPI_MOSI) of U2701 (PCA9745BTWJ)
+* IS: Connected to SPI_MOSI via R2706 (1k ohm)
+* SHOULD BE: No resistor
+
+R2707, Pin 26 (SPI_SCLK) of U2701 (PCA9745BTWJ)
+* IS: Connected to SPI_SCLK via R2707 (1k ohm)
+* SHOULD BE: No resistor
+
+R3 (bb8617a)
+^^^^^^^^^^^^
+S3001 (Rotary Encoder)
+* IS: Pin 01 (red LED) and Pin 04 (blue LED) are swapped
+    * S3001 Pin 01 (red LED) goes to U2701 Pin 13 (blue LED)
+    * S3001 Pin 04 (blue LED) goes to U2701 Pin 11 (red LED)
+
+* SHOULD BE:
+    * S3001 Pin 01 (red LED) connects to 2701 Pin 11 (red LED)
+    * S3001 Pin 04 (blue LED) to U2701 Pin 13 (blue LED)
+
+_Note: This has been fixed in software for this version of the PCB_
+
+R4 (3040ea1)
+^^^^^^^^^^^^
+J2901 (Connector for epaper) Pin 11 (Data/Command) and Pin 09 (Busy)
+* IS:
+    * U2801 Pin 15 labeled as GPIO12 and connects to J2901 Pin 11
+    * U2801 Pin 16 is labeled as GPIO11 and connects to J2901 Pin 09
+* SHOULD BE:
+    * U2801 Pin 15 labeled as GPIO11 and connects to Pin 09
+    * U2801 Pin 16 labeled as GPIO12 and connects to Pin 11
+
+_Note: This has been fixed in software for this version of the PCB_
+
+R5 (51e2212 / 8b634cf)
+^^^^^^^^^^^^
+* IS: R2901 is 470 ohms
+* SHOULD BE: R2901 is 0.47 ohms
+
+|ss| R6 (196a722) |ss|
+^^^^^^^^^^^^
+
+* IS: J2901 (Connector for epaper) Pin 10 (Reset) connected to +3.3V via R2902 (100k ohm)
+* SHOULD BE: J2901 Pin 10 connected to U2801 Pin 14 (GPIO10)
+
+_Note: This results in SWITCH 4 and ePaper Reset sharing a pin because there are no other pins available. The primary result is that careful context switching needs to managed in software to:_
+1.	Deinitialize GPIO10 as an input for SWITCH 4
+2.	Setup the ePaper display interface (which uses GPIO10 as an output)
+3.	Perform whatever ePaper update is needed
+4.	Deinitialze the ePaper interface (which deinitializes GPIO10 as an output)
+5.	Re-initialize GPIO10 as an input for SWITCH 4
+
+_Also, while the ePaper is not enabled (i.e. not initialized/reinitialized), GPIO17 (ePaper CS) needs to be set HIGH to prevent the ePaper controller from thinking that data on the SPI line is intended for it._
+|se|
+
+R7 (80c609b)
+^^^^^^^^^^^^
+* IS: J2901 is Molex P/N 5052782433
+* SHOULD BE: J2901 is Amphenol P/N F31L-1A7H1-11024
+
+* IS: Component S201 and S3001 is SparkFun P/N COM-15141
+* SHOULD BE: Bournes P/N PEL12T-4225S-S1024
+
+_Note: COM-15141 was originally sourced as an alternate since the Bournes parts weren’t avaible. However, COM-15141 has quality control issues, including the Red LED not working well and the rotary action not registering correctly. SparkFun is aware of these issues._
+
+R8 (2cafc4d)
+^^^^^^^^^^^^
+* IS: J2901 (Connector for epaper) Pin 10 (Reset) connected to +3.3V via R2902 (100k ohm)
+* SHOULD BE: J2901 Pin 10 connected to U2801 Pin 48 (GPIO25_LED aka TP5)
+
+_Note: This replaces R6 in its entirety._
+
