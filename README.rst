@@ -9,6 +9,21 @@
 README
 ******
 
+This is the first successful PCB I've designed. I made it as part of `TeachMePCB's <https://www.teachmepcb.com>`_ PCB Layout 101 class.
+
+Everyone in the course made a macrokeypad of some sort. The core "requirements" were:
+* 10 MX-style key switches
+* 2 Rotary Encoders with RGB leds
+* VEML7700 Ambient Light Sensor (I2C)
+* NLSF595 LED Driver (SPI)
+* 10 NeoPixel lights (1-wire)
+* Don't make a rectangular PCB
+* Raspberry Pi Pico microcontroller
+
+I made a couple of changes:
+* Swapped PCA9745B for NLSF595
+* Added ePaper display (because why not make my first project harder)
+
 
 Build Notes and Errata:
 =======================
