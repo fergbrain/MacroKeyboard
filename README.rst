@@ -12,6 +12,7 @@ README
 This is the first successful PCB I've designed. I made it as part of `TeachMePCB's <https://www.teachmepcb.com>`_ PCB Layout 101 class.
 
 Everyone in the course made a macrokeypad of some sort. The core "requirements" were:
+
 * 10 MX-style key switches
 * 2 Rotary Encoders with RGB leds
 * VEML7700 Ambient Light Sensor (I2C)
@@ -21,6 +22,7 @@ Everyone in the course made a macrokeypad of some sort. The core "requirements" 
 * Raspberry Pi Pico microcontroller
 
 I made a couple of changes:
+
 * Swapped PCA9745B for NLSF595
 * Added ePaper display (because why not make my first project harder)
 
@@ -47,6 +49,7 @@ R1 (c5022a6)
 ^^^^^^^^^^^^
 
 U401 (PI4ULS5V201TAEX), Pin 6:
+
 * IS: Connected to ground.
 * SHOULD BE: Connected to 5V+ via a 4.7K ohm resistor
 
@@ -55,25 +58,30 @@ _Note: All annotations on the PCB were also reset and reassigned. However, the o
 R2 (fcf9d7e)
 ^^^^^^^^^^^^
 R2404, Pin 03 (SPI_MISO) of U2701 (PCA9745BTWJ)
+
 * IS: Connected to SPI_MISO via R2704 (1k ohm)
 * SHOULD BE: No resistor
 
 Pin 27 (SPI_MOSI) of U2701 (PCA9745BTWJ)
+
 * IS: Connected to SPI_MOSI via R2706 (1k ohm)
 * SHOULD BE: No resistor
 
 R2707, Pin 26 (SPI_SCLK) of U2701 (PCA9745BTWJ)
+
 * IS: Connected to SPI_SCLK via R2707 (1k ohm)
 * SHOULD BE: No resistor
 
 R3 (bb8617a)
 ^^^^^^^^^^^^
 S3001 (Rotary Encoder)
+
 * IS: Pin 01 (red LED) and Pin 04 (blue LED) are swapped
     * S3001 Pin 01 (red LED) goes to U2701 Pin 13 (blue LED)
     * S3001 Pin 04 (blue LED) goes to U2701 Pin 11 (red LED)
 
 * SHOULD BE:
+
     * S3001 Pin 01 (red LED) connects to 2701 Pin 11 (red LED)
     * S3001 Pin 04 (blue LED) to U2701 Pin 13 (blue LED)
 
@@ -82,10 +90,14 @@ _Note: This has been fixed in software for this version of the PCB_
 R4 (3040ea1)
 ^^^^^^^^^^^^
 J2901 (Connector for epaper) Pin 11 (Data/Command) and Pin 09 (Busy)
+
 * IS:
+
     * U2801 Pin 15 labeled as GPIO12 and connects to J2901 Pin 11
     * U2801 Pin 16 is labeled as GPIO11 and connects to J2901 Pin 09
+
 * SHOULD BE:
+
     * U2801 Pin 15 labeled as GPIO11 and connects to Pin 09
     * U2801 Pin 16 labeled as GPIO12 and connects to Pin 11
 
@@ -103,6 +115,7 @@ R5 (51e2212 / 8b634cf)
 * SHOULD BE: J2901 Pin 10 connected to U2801 Pin 14 (GPIO10)
 
 _Note: This results in SWITCH 4 and ePaper Reset sharing a pin because there are no other pins available. The primary result is that careful context switching needs to managed in software to:_
+
 1.	Deinitialize GPIO10 as an input for SWITCH 4
 2.	Setup the ePaper display interface (which uses GPIO10 as an output)
 3.	Perform whatever ePaper update is needed
