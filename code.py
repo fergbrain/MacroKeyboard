@@ -16,6 +16,15 @@ from adafruit_hid.keycode import Keycode
 from adafruit_hid.consumer_control import ConsumerControl
 from adafruit_hid.consumer_control_code import ConsumerControlCode
 from adafruit_led_animation.animation.chase import Chase
+from adafruit_led_animation.animation.blink import Blink
+from adafruit_led_animation.animation.comet import Comet
+from adafruit_led_animation.animation.pulse import Pulse
+from adafruit_led_animation.animation.rainbow import Rainbow
+from adafruit_led_animation.animation.rainbowchase import RainbowChase
+from adafruit_led_animation.animation.rainbowcomet import RainbowComet
+from adafruit_led_animation.animation.rainbowsparkle import RainbowSparkle
+from adafruit_led_animation.animation.sparklepulse import SparklePulse
+from adafruit_led_animation.sequence import AnimationSequence
 from adafruit_led_animation import color
 from adafruit_debouncer import Debouncer
 from adafruit_bus_device.spi_device import SPIDevice
@@ -42,9 +51,12 @@ ENABLE_EPAPER = True
 class Macrokeypad():
 
     # State list
-    INIT = 0
-    KEYPAD = 1
-    ADMIN = 2
+    STATE_INIT = 0
+    STATE_KEYPAD = 1
+    STATE_ADMIN = 2
+    STATE_TEACHMEPCB = 4
+    STATE_QR = 6
+    STATE_GAME = 8
 
     NEOPIXEL = 1
     ROTARY_RGB = 2
@@ -85,7 +97,7 @@ class Macrokeypad():
     }
 
     def __init__(self):
-        self.state = self.INIT
+        self.state = self.STATE_INIT
         self.keymap = None
         self.kbd = Keyboard(usb_hid.devices)
         self.cc = ConsumerControl(usb_hid.devices)
@@ -113,20 +125,27 @@ class Macrokeypad():
             eink_driver_cs.direction = Direction.OUTPUT
             eink_driver_cs.value = True
         self.led = self.init_rotary_encoder_lights(self.spi_bus)
-
-
-
-
+        self.init_tenkey()
+        self.veml = self.init_veml()
+        self.veml.light_gain = self.veml.ALS_GAIN_2
 
     def init_spi(self):
         return busio.SPI(clock=board.GP18, MOSI=board.GP19, MISO=board.GP16)
 
+    def init_veml(self):
+        i2c = busio.I2C(scl=board.GP21,
+                        sda=board.GP20)
+
+        return adafruit_veml7700.VEML7700(i2c)
+
     def init_epaper(self, spi_bus) -> PDISpectra:
+
+        displayio.release_displays()
 
         eink_driver_cs = board.GP17
         eink_driver_d_c = board.GP12
         eink_driver_busy = board.GP11
-        eink_driver_res = board.GP2
+        eink_driver_res = board.LED
 
         display_bus = displayio.FourWire(
             spi_bus,
@@ -143,6 +162,7 @@ class Macrokeypad():
             rotation=90,
             busy_pin=eink_driver_busy,
             swap_rams=False,
+            seconds_per_frame=30.0,
         )
 
         return display
@@ -187,7 +207,7 @@ class Macrokeypad():
         led_driver_cs.direction = Direction.OUTPUT
         # led_driver = SPIDevice(spi_bus, led_driver_cs, baudrate=500000, phase=0, polarity=0)
 
-        led = PCA9745B(spi_bus, led_driver_cs, debug=True)
+        led = PCA9745B(spi_bus, led_driver_cs, debug=False)
 
         led.reset()
         led.clear()
@@ -198,41 +218,38 @@ class Macrokeypad():
 
         return led
 
-    def load_keymap(self):
+    def load_keymap(self, map=1):
         # key type, keycode, normal color, color when pushed
-        self.keymap = {
-            (1): (self.KEY, [Keycode.OPTION, Keycode.SHIFT, Keycode.MINUS], self.NEOPIXEL, color.CYAN, color.RED),  # EM Dash
-            (2): (self.KEY, [Keycode.OPTION, Keycode.MINUS], self.NEOPIXEL, color.AQUA, color.JADE),  # EN Dash
-            (3): (self.KEY, [Keycode.OPTION, Keycode.TWO], self.NEOPIXEL, color.BLUE, color.YELLOW),  # ™
-            (4): (self.KEY, [Keycode.COMMAND, Keycode.SHIFT, Keycode.THREE], self.NEOPIXEL, color.PINK, color.GOLD),  # Screenshot entire screen
-            (5): (self.KEY, [Keycode.COMMAND, Keycode.SHIFT, Keycode.FOUR], self.NEOPIXEL, color.MAGENTA, color.GREEN),  # Screenshot selection
-            (6): (self.KEY, [Keycode.F11], self.NEOPIXEL, color.OLD_LACE, color.PURPLE),  # Show Desktop
-            (7): (self.KEY, [Keycode.COMMAND, Keycode.X], self.NEOPIXEL, color.RED, color.CYAN),  # CUT
-            (8): (self.KEY, [Keycode.COMMAND, Keycode.C], self.NEOPIXEL, color.AMBER, color.AQUA),  # COPY
-            (9): (self.KEY, [Keycode.COMMAND, Keycode.V], self.NEOPIXEL, color.YELLOW, color.BLUE),  # PASTE
-            (0): (self.KEY, [Keycode.LEFT_CONTROL, Keycode.COMMAND, Keycode.Q], self.NEOPIXEL, color.WHITE, color.RED),  # Lock screen
-            (10): (self.MEDIA, [Keycode.CAPS_LOCK], self.ROTARY_RGB, color.RED, color.GREEN),  # Mute
-            (11): (self.MEDIA, [ConsumerControlCode.MUTE], self.ROTARY_RGB, color.GREEN, color.RED),  # Mute
-        }
-
-    def update_display(self, display):
-        g = displayio.Group()
-
-        with open("/macrokeyboard.bmp", "rb") as f:
-            pic = displayio.OnDiskBitmap(f)
-            # CircuitPython 6 & 7 compatible
-            t = displayio.TileGrid(
-                pic, pixel_shader=getattr(pic, "pixel_shader", displayio.ColorConverter())
-            )
-            # CircuitPython 7 compatible only
-            # t = displayio.TileGrid(pic, pixel_shader=pic.pixel_shader)
-            g.append(t)
-
-            display.show(g)
-
-            display.refresh()
-
-        displayio.release_displays()
+        if map == 1:
+            self.keymap = {
+                (1): (self.KEY, [Keycode.OPTION, Keycode.SHIFT, Keycode.MINUS], self.NEOPIXEL, color.CYAN, color.RED),  # EM Dash
+                (2): (self.KEY, [Keycode.OPTION, Keycode.MINUS], self.NEOPIXEL, color.AQUA, color.JADE),  # EN Dash
+                (3): (self.KEY, [Keycode.OPTION, Keycode.TWO], self.NEOPIXEL, color.BLUE, color.YELLOW),  # ™
+                (4): (self.KEY, [Keycode.COMMAND, Keycode.SHIFT, Keycode.THREE], self.NEOPIXEL, color.PINK, color.GOLD),  # Screenshot entire screen
+                (5): (self.KEY, [Keycode.COMMAND, Keycode.SHIFT, Keycode.FOUR], self.NEOPIXEL, color.MAGENTA, color.GREEN),  # Screenshot selection
+                (6): (self.KEY, [Keycode.F11], self.NEOPIXEL, color.OLD_LACE, color.PURPLE),  # Show Desktop
+                (7): (self.KEY, [Keycode.COMMAND, Keycode.X], self.NEOPIXEL, color.RED, color.CYAN),  # CUT
+                (8): (self.KEY, [Keycode.COMMAND, Keycode.C], self.NEOPIXEL, color.AMBER, color.AQUA),  # COPY
+                (9): (self.KEY, [Keycode.COMMAND, Keycode.V], self.NEOPIXEL, color.YELLOW, color.BLUE),  # PASTE
+                (0): (self.KEY, [Keycode.LEFT_CONTROL, Keycode.COMMAND, Keycode.Q], self.NEOPIXEL, color.WHITE, color.RED),  # Lock screen
+                (10): (self.MEDIA, [Keycode.CAPS_LOCK], self.ROTARY_RGB, color.RED, color.GREEN),  # Mute
+                (11): (self.MEDIA, [ConsumerControlCode.MUTE], self.ROTARY_RGB, color.GREEN, color.RED),  # Mute
+            }
+        elif map == 2:
+            self.keymap = {
+                (1): (self.KEY, [Keycode.OPTION, Keycode.SHIFT, Keycode.MINUS], self.NEOPIXEL, color.CYAN, color.RED),  # EM Dash
+                (2): (self.KEY, [Keycode.OPTION, Keycode.MINUS], self.NEOPIXEL, color.AQUA, color.JADE),  # EN Dash
+                (3): (self.KEY, [Keycode.OPTION, Keycode.TWO], self.NEOPIXEL, color.BLUE, color.YELLOW),  # ™
+                (4): (self.KEY, [Keycode.COMMAND, Keycode.SHIFT, Keycode.THREE], self.NEOPIXEL, color.PINK, color.GOLD),  # Screenshot entire screen
+                (5): (self.KEY, [Keycode.COMMAND, Keycode.SHIFT, Keycode.FOUR], self.NEOPIXEL, color.MAGENTA, color.GREEN),  # Screenshot selection
+                (6): (self.KEY, [Keycode.F11], self.NEOPIXEL, color.OLD_LACE, color.PURPLE),  # Show Desktop
+                (7): (self.KEY, [Keycode.COMMAND, Keycode.X], self.NEOPIXEL, color.RED, color.CYAN),  # CUT
+                (8): (self.KEY, [Keycode.COMMAND, Keycode.C], self.NEOPIXEL, color.AMBER, color.AQUA),  # COPY
+                (9): (self.KEY, [Keycode.COMMAND, Keycode.V], self.NEOPIXEL, color.YELLOW, color.BLUE),  # PASTE
+                (0): (self.KEY, [Keycode.LEFT_CONTROL, Keycode.COMMAND, Keycode.Q], self.NEOPIXEL, color.WHITE, color.RED),  # Lock screen
+                (10): (self.MEDIA, [Keycode.CAPS_LOCK], self.ROTARY_RGB, color.RED, color.GREEN),  # Mute
+                (11): (self.MEDIA, [ConsumerControlCode.MUTE], self.ROTARY_RGB, color.GREEN, color.RED),  # Mute
+            }
 
     def update_light_button(self, button, state=None, is_neopixel=True):
         btn = self.keymap[button]
@@ -249,16 +266,14 @@ class Macrokeypad():
                     btn[4][2])  # Blue
             else:
                 rnd_color = random.choice(color.RAINBOW)
-                self.neopixels[self.BUTTON_TO_LIGHT_ID[button]] = (rnd_color[0],
-                                                                   rnd_color[1],
-                                                                   rnd_color[2])
+                self.neopixels[self.BUTTON_TO_LIGHT_ID[button]] = rnd_color
         elif btn[2] is self.ROTARY_RGB:
             # Because I routed the PCB wrong...BGR instead of RGB
             if self.BUTTON_TO_LIGHT_ID[button] == 0:
                 if state == 0:
-                    self.led.set_led_by_group(0, *btn[3])
+                    self.led.set_led_by_group(0, btn[3][0], btn[3][1], btn[3][2])
                 elif state == 1:
-                    self.led.set_led_by_group(0, *btn[4])
+                    self.led.set_led_by_group(0, btn[4][0], btn[4][1], btn[4][2])
                 else:
                     self.led.set_led_by_group(0, *random.choice(color.RAINBOW))
             elif self.BUTTON_TO_LIGHT_ID[button] == 1:  # Because I routed the PCB wrong...BGR instead of RGB
@@ -290,11 +305,11 @@ class Macrokeypad():
         return current_position
 
     def run(self):
-        if self.state is self.INIT:
+        if self.state is self.STATE_INIT:
             self.run_init()
-        elif self.state is self.KEYPAD:
+        elif self.state is self.STATE_KEYPAD:
             self.run_keypad()
-        elif self.state is self.ADMIN:
+        elif self.state is self.STATE_ADMIN:
             self.run_admin()
         else:
             raise ValueError("Valid state not set.")
@@ -303,16 +318,40 @@ class Macrokeypad():
         pass
 
     def run_keypad(self):
-        self.init_tenkey()
+        if ENABLE_EPAPER:
+            g = displayio.Group()
+            with open("/macrokeyboard.bmp", "rb") as f:
+                pic = displayio.OnDiskBitmap(f)
+                # CircuitPython 6 & 7 compatible
+                t = displayio.TileGrid(
+                    pic, pixel_shader=getattr(pic, "pixel_shader", displayio.ColorConverter())
+                )
+                # CircuitPython 7 compatible only
+                # t = displayio.TileGrid(pic, pixel_shader=pic.pixel_shader)
+                g.append(t)
+
+                self.display.show(g)
+
+                self.display_refresh()
+
+        self.led.reset()
+        self.led.set_gain_all(0x58)
+        self.led.set_led_mode_by_group(0, 0x00)
+        self.led.set_led_mode_by_group(1, 0x00)
+
         # Initialized colors of buttons
         for button in range(12):
-            self.update_light_button(button)
+            self.update_light_button(button, state=0)
 
-        while True:
+
+
+        while self.state == self.STATE_KEYPAD:
+            self.neopixels.brightness = float(min(self.veml.light * 10, 65535) >> 8) / 255
+            self.led.set_global_dim(min(self.veml.light * 10, 65535) >> 8)
             for button in range(12):
                 self.switches[button].update()
                 if self.switches[button].fell:
-                    self.update_light_button(button)
+                    self.update_light_button(button, state=1)
                     if self.keymap[button][0] == self.KEY:
                         self.kbd.send(*self.keymap[button][1])
                     elif self.keymap[button][0] == self.MEDIA:
@@ -320,7 +359,11 @@ class Macrokeypad():
                     else:
                         raise ValueError("Unexpected button type")
                 elif self.switches[button].rose:
-                    self.update_light_button(button)
+                    self.update_light_button(button, state=0)
+            if self.switches[10].fell:
+                print("Button 10")
+                self.state = self.STATE_ADMIN
+                break
 
             self.encoder_top_position_last = self.update_encoder(
                 encoder=self.encoder_top,
@@ -333,9 +376,8 @@ class Macrokeypad():
             )
 
     def run_game_tictactoe(self):
+
         # Based on https://www.askpython.com/python/examples/tic-tac-toe-using-python
-
-
         def check_win(player_pos, cur_player):
 
             # All possible winning combinations
@@ -353,7 +395,6 @@ class Macrokeypad():
             if len(player_pos['1']) + len(player_pos['2']) == 9:
                 return True
             return False
-
 
         # Function for a single game of Tic Tac Toe
         def single_game(cur_player):
@@ -393,9 +434,13 @@ class Macrokeypad():
                 self.led.set_led_by_group(0, color.GREEN[0], color.GREEN[1], color.GREEN[2])
                 self.led.set_led_by_group(1, color.BLUE[2], color.BLUE[1], color.BLUE[0])
 
-            while True:
+            while self.state == self.STATE_GAME:
                 self.switches[0].update()
                 if self.switches[0].fell:
+                    break
+                self.switches[10].update()
+                if self.switches[10].fell:
+                    self.state = self.STATE_ADMIN
                     break
                 for button in range(1, 10):
                     self.switches[button].update()
@@ -501,68 +546,194 @@ class Macrokeypad():
                                 print("Draw Game")
                                 return True
 
-
-
-
-        single_game('1')
+        if self.state == self.STATE_GAME:
+            single_game('1')
 
 
     def run_admin(self):
 
         self.admin_set_display()
-        displayio.release_displays()
-        self.init_tenkey()
-        self.spi_bus.deinit()
+        self.led.reset()
 
-        while True:
-            for button in range(12):
+        self.neopixels.auto_write = True
+        self.neopixels.brightness = 0.5
+        for button in range(10):
+            self.neopixels[button] = color.BLACK
+
+        self.neopixels[self.BUTTON_TO_LIGHT_ID[7]] = color.ORANGE
+        self.neopixels[self.BUTTON_TO_LIGHT_ID[9]] = color.GREEN
+        selection = None
+
+        while self.state == self.STATE_ADMIN:
+            for button in range(10):  # [1,2,3,4,5,6,8]
                 self.switches[button].update()
                 if self.switches[button].fell:
-                    self.update_light_button(button)
+                    if button == 7:  # Cancel
+                        pass
+                    if button == 9:  # Accept
+                        if selection == 1:
+                            self.state = self.STATE_KEYPAD
+                        elif selection == 2:
+                            pass
+                        elif selection == 3:
+                            pass
+                        elif selection == 4:
+                            self.state = self.STATE_TEACHMEPCB
+                        elif selection == 5:
+                            pass
+                        elif selection == 6:
+                            self.state = self.STATE_QR
+                        elif selection == 8:
+                            self.state = self.STATE_GAME
+                            break
+                    elif selection is None:
+                        #self.update_light_button(button)
+                        self.neopixels[self.BUTTON_TO_LIGHT_ID[button]] = random.choice(color.RAINBOW)
+                        selection = button
+                    elif selection == button:
+                        self.neopixels[self.BUTTON_TO_LIGHT_ID[button]] = color.BLACK
+                        selection = None
+                    else:
+                        self.button_blink(button)
+
+    def run_teachmepcb(self):
+
+        self.led.reset()
+        self.led.set_gain_all(0x58)
+        self.led.set_led_mode_by_group(0, 0x00)
+        self.led.set_led_mode_by_group(1, 0x00)
+
+        blink = Blink(self.neopixels, speed=0.5, color=random.choice(color.RAINBOW))
+        comet = RainbowComet(self.neopixels, speed=0.01, tail_length=3, bounce=True)
+        chase = RainbowChase(self.neopixels, speed=0.1, size=3, spacing=6, )
+        rainbow = Rainbow(self.neopixels, speed=0.1)
+        sparkle = RainbowSparkle(self.neopixels, speed=0.1)
+
+        animations = [blink, comet, chase, rainbow, sparkle]
+
+        self.led.set_led_by_group(0, *random.choice(color.RAINBOW))
+        self.led.set_led_by_group(1, *random.choice(color.RAINBOW))
+
+        self.led.set_gradation_by_group(group=0, ramp_rate_step_value=1, final_iref_gain=0x0F,
+                                        cycle_time_base=True, cycle_multiplier=4,
+                                        hold_off=True, hold_off_time=2)
+        self.led.set_gradation_by_group(group=1, ramp_rate_step_value=1, final_iref_gain=0x0F,
+                                        cycle_time_base=True, cycle_multiplier=4,
+                                        hold_off=False, hold_off_time=2)
+
+        self.led.set_gradation_control_by_group(0, start=True)
+        self.led.set_gradation_control_by_group(1, start=True)
+
+
+        g = displayio.Group()
+        with open("/tmpcb.bmp", "rb") as f:
+            pic = displayio.OnDiskBitmap(f)
+            # CircuitPython 6 & 7 compatible
+            t = displayio.TileGrid(
+                pic, pixel_shader=getattr(pic, "pixel_shader", displayio.ColorConverter())
+            )
+            # CircuitPython 7 compatible only
+            # t = displayio.TileGrid(pic, pixel_shader=pic.pixel_shader)
+            g.append(t)
+
+            if ENABLE_EPAPER:
+                self.display.show(g)
+                self.display_refresh()
+
+        this_animation = random.choice(animations)
+
+        while self.state == self.STATE_TEACHMEPCB:
+            this_animation.animate()
+            self.neopixels.brightness = float(min(self.veml.light * 10, 65535) >> 8) / 255
+            self.led.set_global_dim(min(self.veml.light * 10, 65535) >> 8)
+
+            self.switches[10].update()
+            if self.switches[10].fell:
+                self.state = self.STATE_ADMIN
+                break
+
+            self.switches[0].update()
+            if self.switches[0].fell:
+                this_animation = random.choice(animations)
+                self.led.set_led_by_group(0, *random.choice(color.RAINBOW))
+                self.led.set_led_by_group(1, *random.choice(color.RAINBOW))
+
+    def run_qr(self):
+
+        for button in range(10):
+            self.neopixels[button] = color.BLACK
+        self.led.set_led_by_group(0, *color.AMBER)
+        self.led.set_led_by_group(1, red=color.RED[2], green=color.RED[1], blue=color.RED[0])
+
+        self.led.set_gradation_by_group(group=0, ramp_rate_step_value=1, final_iref_gain=0x0F,
+                                   cycle_time_base=True, cycle_multiplier=4,
+                                   hold_off=True, hold_off_time=2)
+        self.led.set_gradation_by_group(group=1, ramp_rate_step_value=10, final_iref_gain=0x0F,
+                                   cycle_time_base=False, cycle_multiplier=32,
+                                   hold_off=True, hold_off_time=2)
+
+        self.led.set_gradation_control_by_group(0, start=True)
+        self.led.set_gradation_control_by_group(1, start=True)
+
+        self.generate_qr(b'https://www.youtube.com/watch?v=dQw4w9WgXcQ')
+        while self.state == self.STATE_QR:
+            self.switches[10].update()
+            if self.switches[10].fell:
+                self.state = self.STATE_ADMIN
+                break
+
+        self.led.set_gradation_control_by_group(0, start=False)
+        self.led.set_gradation_control_by_group(1, start=False)
 
     def admin_set_display(self):
+        if ENABLE_EPAPER:
+            # Create a display group for our screen objects
+            g = displayio.Group()
 
-        # Create a display group for our screen objects
-        g = displayio.Group()
+            # Set a background
+            background_bitmap = displayio.Bitmap(152, 152, 1)
+            # Map colors in a palette
+            palette = displayio.Palette(1)
+            palette[0] = WHITE
 
-        # Set a background
-        background_bitmap = displayio.Bitmap(152, 152, 1)
-        # Map colors in a palette
-        palette = displayio.Palette(1)
-        palette[0] = WHITE
+            # Create a Tilegrid with the background and put in the displayio group
+            t = displayio.TileGrid(background_bitmap, pixel_shader=palette)
+            g.append(t)
+            g.append(self.display_create_title("Admin Menu"))
 
-        # Create a Tilegrid with the background and put in the displayio group
-        t = displayio.TileGrid(background_bitmap, pixel_shader=palette)
-        g.append(t)
-        g.append(self.display_create_title("Admin Menu"))
-        button = Button(x=0,
-                        y=30,
-                        width=45,
-                        height=45,
-                        style=Button.ROUNDRECT,
-                        fill_color=WHITE,
-                        outline_color=RED,
-                        label="General\nKeymap",
-                        label_font=terminalio.FONT,
-                        label_color=BLACK)
-        g.append(button)
-        '''
-        g.append(self.display_create_9x9_text_tile("General", 0, 0))
-        g.append(self.display_create_9x9_text_tile("PyCharm", 1, 0))
-        g.append(self.display_create_9x9_text_tile("Photoshop\nKeymap", 2, 0))
-        g.append(self.display_create_9x9_text_tile("Show\nTMPCB\nlogo", 0, 1))
-        g.append(self.display_create_9x9_text_tile("No\n Keymap", 1, 1))
-        g.append(self.display_create_9x9_text_tile("No\n Keymap", 2, 1))
-        g.append(self.display_create_9x9_text_tile("Cancel", 0, 2))
-        g.append(self.display_create_9x9_text_tile("Tic\nTac\nToe", 1, 2))
-        g.append(self.display_create_9x9_text_tile("Accept", 2, 2))
-        '''
-        # Place the display group on the screen
-        self.display.show(g)
+            g.append(self.display_create_9x9_text_tile("General", 0, 0))
+            g.append(self.display_create_9x9_text_tile("PyCharm", 1, 0))
+            g.append(self.display_create_9x9_text_tile("Fotoshp", 2, 0))
+            g.append(self.display_create_9x9_text_tile("TMPCB", 0, 1))
+            g.append(self.display_create_9x9_text_tile("Empty", 1, 1))
+            g.append(self.display_create_9x9_text_tile("QR RR", 2, 1))
+            g.append(self.display_create_9x9_text_tile("Cancel", 0, 2))
+            g.append(self.display_create_9x9_text_tile("Game", 1, 2))
+            g.append(self.display_create_9x9_text_tile("Accept", 2, 2))
 
-        # Refresh the display to have everything show on the display
-        # NOTE: Do not refresh eInk displays more often than 180 seconds!
-        self.display.refresh()
+            # Place the display group on the screen
+            self.display.show(g)
+
+            # Refresh the display to have everything show on the display
+            # NOTE: Do not refresh eInk displays more often than 180 seconds!
+
+            self.display_refresh()
+
+    def display_refresh(self):
+        print("Display_Refresh")
+        if ENABLE_EPAPER:
+            if self.display.time_to_refresh > 0.0:
+                pulse = Pulse(self.neopixels, speed=self.display.time_to_refresh / 50, period=5, color=color.OLD_LACE)
+                while self.display.time_to_refresh > 0.0:
+                    pulse.speed = self.display.time_to_refresh / 50
+                    pulse.animate()
+                pulse.animate(show=False)
+                self.neopixels.auto_write = True
+
+                #self.neopixels.deinit()
+                #self.neopixels = self.init_neopixels(num_neopixels=10, brightness_step=50)
+
+            self.display.refresh()
 
     def display_create_title(self, text) -> displayio.Group:
 
@@ -579,16 +750,8 @@ class Macrokeypad():
         return text_group
 
     def display_create_9x9_text_tile(self, text, x, y) -> displayio.Group:
-        text_split = text.splitlines(text)
-        if len(text_split) > 3:
-            raise ValueError("Too many lines")
-        elif len(text_split) > 1:
-            for line in text_split:
-                if len(line) > 7:
-                    raise ValueError("Title text too long.")
-        else:
-            if len(text) > 7:
-                raise ValueError("Title text too long.")
+        if len(text) > 7:
+            raise ValueError("Title text too long.")
 
         if x < 0 or x > 2:
             raise ValueError("X position out of range.")
@@ -596,39 +759,37 @@ class Macrokeypad():
         if y < 0 or y > 2:
             raise ValueError("Y position out of range.")
 
-        # Draw simple text using the built-in font into a displayio group
-        text_group = displayio.Group(scale=1, x=(45*x), y=112-(40*(2-y)))
-        text_area = label.Label(terminalio.FONT, text=text, color=BLACK)
-        text_area.anchor_point = (0, 0)
-        text_group.append(text_area)  # Add this text to the text group
+        button = Button(x=50*x,
+                        y=110-(40*(2-y)),
+                        width=50,
+                        height=40,
+                        style=Button.ROUNDRECT,
+                        fill_color=WHITE,
+                        outline_color=RED,
+                        label=text,
+                        label_font=terminalio.FONT,
+                        label_color=BLACK)
 
-        return text_group
+        return button
 
+    def button_blink(self, button):
+        self.neopixels[self.BUTTON_TO_LIGHT_ID[button]] = color.RED
+        time.sleep(0.1)
+        self.neopixels[self.BUTTON_TO_LIGHT_ID[button]] = color.BLACK
+        time.sleep(0.1)
+        self.neopixels[self.BUTTON_TO_LIGHT_ID[button]] = color.RED
+        time.sleep(0.1)
+        self.neopixels[self.BUTTON_TO_LIGHT_ID[button]] = color.BLACK
+        time.sleep(0.1)
 
     def generate_qr(self, input):
         import adafruit_miniqr
+
         qr = adafruit_miniqr.QRCode()
         qr.add_data(input)
         qr.make()
 
         bitmap = displayio.Bitmap(152, 152, 2)
-
-        # Create a two color palette
-        palette = displayio.Palette(2)
-        palette[0] = 0x000000
-        palette[1] = 0xffffff
-
-        # Create a TileGrid using the Bitmap and Palette
-        tile_grid = displayio.TileGrid(bitmap, pixel_shader=palette)
-
-        # Create a Group
-        group = displayio.Group()
-
-        # Add the TileGrid to the Group
-        group.append(tile_grid)
-
-        # Add the Group to the Display
-        self.display.show(group)
 
         lines = str(qr.matrix).splitlines()
 
@@ -639,20 +800,45 @@ class Macrokeypad():
                         for yy in range(y*5, (y+1)*5):
                             bitmap[xx, yy] = 1
 
-        self.display.refresh()
+        # Create a two color palette
+        palette = displayio.Palette(2)
+        palette[0] = 0xffffff
+        palette[1] = 0x000000
 
-        displayio.release_displays()
-        self.spi_bus.deinit()
+        # Create a TileGrid using the Bitmap and Palette
+        tile_grid = displayio.TileGrid(bitmap, pixel_shader=palette)
 
-        while True:
-            time.sleep(1.0)
+        # Create a Group
+        group = displayio.Group()
 
+        # Add the TileGrid to the Group
+        group.append(tile_grid)
 
+        if ENABLE_EPAPER:
+            # Add the Group to the Display
+            self.display.show(group)
+            self.display_refresh()
+
+    def switch_state(self):
+        if self.state == self.STATE_INIT:
+            self.run_init()
+        elif self.state == self.STATE_KEYPAD:
+            self.run_keypad()
+        elif self.state == self.STATE_ADMIN:
+            self.run_admin()
+        elif self.state == self.STATE_GAME:
+            self.run_game_tictactoe()
+        elif self.state == self.STATE_QR:
+            self.run_qr()
+        elif self.state == self.STATE_TEACHMEPCB:
+            self.run_teachmepcb()
+        else:
+            for button in range(10):
+                self.neopixels[button] = color.RED
 
 if __name__ == "__main__":
     macro = Macrokeypad()
     #macro.run_keypad()
+    macro.state = macro.STATE_ADMIN
     while True:
-        macro.run_admin()
-        #macro.generate_qr(b'https://www.youtube.com/watch?v=dQw4w9WgXcQ')
-
+        macro.switch_state()
