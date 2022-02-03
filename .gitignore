@@ -1,2 +1,5 @@
 _autosave-*.kicad_pcb
 /gerber_export
+/lib/
+/icons/
+/pico/
