@@ -24,6 +24,18 @@ I made a couple of changes:
 * Swapped PCA9745B for NLSF595
 * Added ePaper display (because why not make my first project harder)
 
+Required Libraries
+==================
+* Standard CircuitPython
+* Adafruit CircuitPython Library
+    * adafruit_hid
+    * adafruit_led_animation
+    * adafruit_debouncer
+    * adafruit_veml7700
+    * adafruit_display_text
+    * adafruit_button
+* `fergcorp_pca9745b <https://github.com/fergbrain/Fergcorp_CircuitPython_PCA9745B>`_
+* `fergcorp_pdispectra <https://github.com/fergbrain/Fergcorp_CircuitPython_PDISpectra>`_
 
 Build Notes and Errata:
 =======================
