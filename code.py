@@ -1,3 +1,9 @@
+# SPDX-FileCopyrightText: 2022 Andrew Ferguson
+#
+# SPDX-License-Identifier: MIT
+# pylint:disable=line-too-long
+
+
 # Based on https://github.com/TeachMePCB/MacroKeypad/blob/main/Source/code.py
 
 import time
@@ -35,9 +41,6 @@ PIN_SETUP = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 BLACK = 0x000000
 WHITE = 0xFFFFFF
 RED = 0xFF0000
-
-# Change text colors, choose from the following values:
-# BLACK, RED, WHITE
 
 ENABLE_EPAPER = False
 
@@ -101,9 +104,6 @@ class Macrokeypad:
 
         displayio.release_displays()
 
-        # led.set_led_by_group(0, *RED)
-        # led.set_led_by_group(1, RED[2], RED[1], RED[0])
-
         self.neopixels = self.init_neopixels(num_neopixels=10, brightness_step=50)
 
         self.load_keymap()
@@ -144,7 +144,6 @@ class Macrokeypad:
             command=eink_driver_d_c,
             chip_select=eink_driver_cs,
             reset=eink_driver_res,
-            #    baudrate=100000,
         )
 
         display = PDISpectra(
@@ -203,8 +202,6 @@ class Macrokeypad:
         # PCA9745B RGB LED Driver Setup
         led_driver_cs = digitalio.DigitalInOut(board.GP13)
         led_driver_cs.direction = Direction.OUTPUT
-        # led_driver = SPIDevice(spi_bus, led_driver_cs, baudrate=500000, phase=0, polarity=0)
-
         led = PCA9745B(spi_bus, led_driver_cs, debug=False)
 
         led.reset()
@@ -666,13 +663,7 @@ class Macrokeypad:
         def single_game(cur_player):
 
             # Represents the Tic Tac Toe
-            # values = [" ", " ", " ", 2, 2, " ", 2, " ", 1, 1]  #[' ' for x in range(10)]
-            board = [0, 1, 2, 3, 4, 5, 6, 7, 8]  # [x for x in range(10)]
-
-            print(board)
-
-            # Stores the positions occupied by X and O
-            player_pos = {"1": [], "2": []}
+            board = [x for x in range(9)]
 
             for button in range(10):
                 self.neopixels[button] = color.BLACK
@@ -1162,9 +1153,6 @@ class Macrokeypad:
                     pulse.animate()
                 pulse.animate(show=False)
                 self.neopixels.auto_write = True
-
-                # self.neopixels.deinit()
-                # self.neopixels = self.init_neopixels(num_neopixels=10, brightness_step=50)
 
             self.display.refresh()
 
