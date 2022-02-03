@@ -1,8 +1,6 @@
 # Based on https://github.com/TeachMePCB/MacroKeypad/blob/main/Source/code.py
 
 import time
-
-import adafruit_led_animation.animation.blink
 import busio
 import board
 import displayio
@@ -15,19 +13,14 @@ from adafruit_hid.keyboard import Keyboard
 from adafruit_hid.keycode import Keycode
 from adafruit_hid.consumer_control import ConsumerControl
 from adafruit_hid.consumer_control_code import ConsumerControlCode
-from adafruit_led_animation.animation.chase import Chase
 from adafruit_led_animation.animation.blink import Blink
-from adafruit_led_animation.animation.comet import Comet
 from adafruit_led_animation.animation.pulse import Pulse
 from adafruit_led_animation.animation.rainbow import Rainbow
 from adafruit_led_animation.animation.rainbowchase import RainbowChase
 from adafruit_led_animation.animation.rainbowcomet import RainbowComet
 from adafruit_led_animation.animation.rainbowsparkle import RainbowSparkle
-from adafruit_led_animation.animation.sparklepulse import SparklePulse
-from adafruit_led_animation.sequence import AnimationSequence
 from adafruit_led_animation import color
 from adafruit_debouncer import Debouncer
-from adafruit_bus_device.spi_device import SPIDevice
 from lib.fergcorp_pca9745b import PCA9745B
 import adafruit_veml7700
 from lib.fergcorp_pdispectra import PDISpectra
@@ -49,7 +42,7 @@ RED = 0xFF0000
 ENABLE_EPAPER = False
 
 
-class Macrokeypad():
+class Macrokeypad:
     # State list
     STATE_INIT = 0
     STATE_KEYPAD = 1
@@ -93,7 +86,7 @@ class Macrokeypad():
         8: 8,
         9: 9,
         10: 0,  # LED Group 0 of PCA9745B
-        11: 1  # LED Group 1 of PCA9745B
+        11: 1,  # LED Group 1 of PCA9745B
     }
 
     def __init__(self):
@@ -133,8 +126,7 @@ class Macrokeypad():
         return busio.SPI(clock=board.GP18, MOSI=board.GP19, MISO=board.GP16)
 
     def init_veml(self):
-        i2c = busio.I2C(scl=board.GP21,
-                        sda=board.GP20)
+        i2c = busio.I2C(scl=board.GP21, sda=board.GP20)
 
         return adafruit_veml7700.VEML7700(i2c)
 
@@ -176,8 +168,9 @@ class Macrokeypad():
             this_pin.pull = Pull.DOWN
         return Debouncer(this_pin)
 
-    def setup_encoder(self, pin_a: board, pin_b: board) -> (
-    rotaryio.IncrementalEncoder, rotaryio.IncrementalEncoder.position):
+    def setup_encoder(
+        self, pin_a: board, pin_b: board
+    ) -> (rotaryio.IncrementalEncoder, rotaryio.IncrementalEncoder.position):
         encoder = rotaryio.IncrementalEncoder(pin_a, pin_b, divisor=4)
         position_last = encoder.position
         return encoder, position_last
@@ -191,8 +184,12 @@ class Macrokeypad():
         self.switches[10] = self.setup_button(board.GP22, pull_up=False)
         self.switches[11] = self.setup_button(board.GP26, pull_up=False)
 
-        self.encoder_top, self.encoder_top_position_last = self.setup_encoder(board.GP14, board.GP15)
-        self.encoder_bottom, self.encoder_bottom_position_last = self.setup_encoder(board.GP28, board.GP27)
+        self.encoder_top, self.encoder_top_position_last = self.setup_encoder(
+            board.GP14, board.GP15
+        )
+        self.encoder_bottom, self.encoder_bottom_position_last = self.setup_encoder(
+            board.GP28, board.GP27
+        )
 
     def init_neopixels(self, num_neopixels, brightness_step):
 
@@ -223,45 +220,185 @@ class Macrokeypad():
         # key type, keycode, normal color, color when pushed
         if map == 1:
             self.keymap = {
-                (1): (self.KEY, [Keycode.OPTION, Keycode.SHIFT, Keycode.MINUS], self.NEOPIXEL, color.CYAN, color.RED),
+                (1): (
+                    self.KEY,
+                    [Keycode.OPTION, Keycode.SHIFT, Keycode.MINUS],
+                    self.NEOPIXEL,
+                    color.CYAN,
+                    color.RED,
+                ),
                 # EM Dash
-                (2): (self.KEY, [Keycode.OPTION, Keycode.MINUS], self.NEOPIXEL, color.AQUA, color.JADE),  # EN Dash
-                (3): (self.KEY, [Keycode.OPTION, Keycode.TWO], self.NEOPIXEL, color.BLUE, color.YELLOW),  # ™
-                (4): (self.KEY, [Keycode.COMMAND, Keycode.SHIFT, Keycode.THREE], self.NEOPIXEL, color.PINK, color.GOLD),
+                (2): (
+                    self.KEY,
+                    [Keycode.OPTION, Keycode.MINUS],
+                    self.NEOPIXEL,
+                    color.AQUA,
+                    color.JADE,
+                ),  # EN Dash
+                (3): (
+                    self.KEY,
+                    [Keycode.OPTION, Keycode.TWO],
+                    self.NEOPIXEL,
+                    color.BLUE,
+                    color.YELLOW,
+                ),  # ™
+                (4): (
+                    self.KEY,
+                    [Keycode.COMMAND, Keycode.SHIFT, Keycode.THREE],
+                    self.NEOPIXEL,
+                    color.PINK,
+                    color.GOLD,
+                ),
                 # Screenshot entire screen
                 (5): (
-                self.KEY, [Keycode.COMMAND, Keycode.SHIFT, Keycode.FOUR], self.NEOPIXEL, color.MAGENTA, color.GREEN),
+                    self.KEY,
+                    [Keycode.COMMAND, Keycode.SHIFT, Keycode.FOUR],
+                    self.NEOPIXEL,
+                    color.MAGENTA,
+                    color.GREEN,
+                ),
                 # Screenshot selection
-                (6): (self.KEY, [Keycode.F11], self.NEOPIXEL, color.OLD_LACE, color.PURPLE),  # Show Desktop
-                (7): (self.KEY, [Keycode.COMMAND, Keycode.X], self.NEOPIXEL, color.RED, color.CYAN),  # CUT
-                (8): (self.KEY, [Keycode.COMMAND, Keycode.C], self.NEOPIXEL, color.AMBER, color.AQUA),  # COPY
-                (9): (self.KEY, [Keycode.COMMAND, Keycode.V], self.NEOPIXEL, color.YELLOW, color.BLUE),  # PASTE
+                (6): (
+                    self.KEY,
+                    [Keycode.F11],
+                    self.NEOPIXEL,
+                    color.OLD_LACE,
+                    color.PURPLE,
+                ),  # Show Desktop
+                (7): (
+                    self.KEY,
+                    [Keycode.COMMAND, Keycode.X],
+                    self.NEOPIXEL,
+                    color.RED,
+                    color.CYAN,
+                ),  # CUT
+                (8): (
+                    self.KEY,
+                    [Keycode.COMMAND, Keycode.C],
+                    self.NEOPIXEL,
+                    color.AMBER,
+                    color.AQUA,
+                ),  # COPY
+                (9): (
+                    self.KEY,
+                    [Keycode.COMMAND, Keycode.V],
+                    self.NEOPIXEL,
+                    color.YELLOW,
+                    color.BLUE,
+                ),  # PASTE
                 (0): (
-                self.KEY, [Keycode.LEFT_CONTROL, Keycode.COMMAND, Keycode.Q], self.NEOPIXEL, color.WHITE, color.RED),
+                    self.KEY,
+                    [Keycode.LEFT_CONTROL, Keycode.COMMAND, Keycode.Q],
+                    self.NEOPIXEL,
+                    color.WHITE,
+                    color.RED,
+                ),
                 # Lock screen
-                (10): (self.MEDIA, [Keycode.CAPS_LOCK], self.ROTARY_RGB, color.RED, color.GREEN),  # Mute
-                (11): (self.MEDIA, [ConsumerControlCode.MUTE], self.ROTARY_RGB, color.GREEN, color.RED),  # Mute
+                (10): (
+                    self.MEDIA,
+                    [Keycode.CAPS_LOCK],
+                    self.ROTARY_RGB,
+                    color.RED,
+                    color.GREEN,
+                ),  # Mute
+                (11): (
+                    self.MEDIA,
+                    [ConsumerControlCode.MUTE],
+                    self.ROTARY_RGB,
+                    color.GREEN,
+                    color.RED,
+                ),  # Mute
             }
         elif map == 2:
             self.keymap = {
-                (1): (self.KEY, [Keycode.OPTION, Keycode.SHIFT, Keycode.MINUS], self.NEOPIXEL, color.CYAN, color.RED),
+                (1): (
+                    self.KEY,
+                    [Keycode.OPTION, Keycode.SHIFT, Keycode.MINUS],
+                    self.NEOPIXEL,
+                    color.CYAN,
+                    color.RED,
+                ),
                 # EM Dash
-                (2): (self.KEY, [Keycode.OPTION, Keycode.MINUS], self.NEOPIXEL, color.AQUA, color.JADE),  # EN Dash
-                (3): (self.KEY, [Keycode.OPTION, Keycode.TWO], self.NEOPIXEL, color.BLUE, color.YELLOW),  # ™
-                (4): (self.KEY, [Keycode.COMMAND, Keycode.SHIFT, Keycode.THREE], self.NEOPIXEL, color.PINK, color.GOLD),
+                (2): (
+                    self.KEY,
+                    [Keycode.OPTION, Keycode.MINUS],
+                    self.NEOPIXEL,
+                    color.AQUA,
+                    color.JADE,
+                ),  # EN Dash
+                (3): (
+                    self.KEY,
+                    [Keycode.OPTION, Keycode.TWO],
+                    self.NEOPIXEL,
+                    color.BLUE,
+                    color.YELLOW,
+                ),  # ™
+                (4): (
+                    self.KEY,
+                    [Keycode.COMMAND, Keycode.SHIFT, Keycode.THREE],
+                    self.NEOPIXEL,
+                    color.PINK,
+                    color.GOLD,
+                ),
                 # Screenshot entire screen
                 (5): (
-                self.KEY, [Keycode.COMMAND, Keycode.SHIFT, Keycode.FOUR], self.NEOPIXEL, color.MAGENTA, color.GREEN),
+                    self.KEY,
+                    [Keycode.COMMAND, Keycode.SHIFT, Keycode.FOUR],
+                    self.NEOPIXEL,
+                    color.MAGENTA,
+                    color.GREEN,
+                ),
                 # Screenshot selection
-                (6): (self.KEY, [Keycode.F11], self.NEOPIXEL, color.OLD_LACE, color.PURPLE),  # Show Desktop
-                (7): (self.KEY, [Keycode.COMMAND, Keycode.X], self.NEOPIXEL, color.RED, color.CYAN),  # CUT
-                (8): (self.KEY, [Keycode.COMMAND, Keycode.C], self.NEOPIXEL, color.AMBER, color.AQUA),  # COPY
-                (9): (self.KEY, [Keycode.COMMAND, Keycode.V], self.NEOPIXEL, color.YELLOW, color.BLUE),  # PASTE
+                (6): (
+                    self.KEY,
+                    [Keycode.F11],
+                    self.NEOPIXEL,
+                    color.OLD_LACE,
+                    color.PURPLE,
+                ),  # Show Desktop
+                (7): (
+                    self.KEY,
+                    [Keycode.COMMAND, Keycode.X],
+                    self.NEOPIXEL,
+                    color.RED,
+                    color.CYAN,
+                ),  # CUT
+                (8): (
+                    self.KEY,
+                    [Keycode.COMMAND, Keycode.C],
+                    self.NEOPIXEL,
+                    color.AMBER,
+                    color.AQUA,
+                ),  # COPY
+                (9): (
+                    self.KEY,
+                    [Keycode.COMMAND, Keycode.V],
+                    self.NEOPIXEL,
+                    color.YELLOW,
+                    color.BLUE,
+                ),  # PASTE
                 (0): (
-                self.KEY, [Keycode.LEFT_CONTROL, Keycode.COMMAND, Keycode.Q], self.NEOPIXEL, color.WHITE, color.RED),
+                    self.KEY,
+                    [Keycode.LEFT_CONTROL, Keycode.COMMAND, Keycode.Q],
+                    self.NEOPIXEL,
+                    color.WHITE,
+                    color.RED,
+                ),
                 # Lock screen
-                (10): (self.MEDIA, [Keycode.CAPS_LOCK], self.ROTARY_RGB, color.RED, color.GREEN),  # Mute
-                (11): (self.MEDIA, [ConsumerControlCode.MUTE], self.ROTARY_RGB, color.GREEN, color.RED),  # Mute
+                (10): (
+                    self.MEDIA,
+                    [Keycode.CAPS_LOCK],
+                    self.ROTARY_RGB,
+                    color.RED,
+                    color.GREEN,
+                ),  # Mute
+                (11): (
+                    self.MEDIA,
+                    [ConsumerControlCode.MUTE],
+                    self.ROTARY_RGB,
+                    color.GREEN,
+                    color.RED,
+                ),  # Mute
             }
 
     def update_light_button(self, button, state=None, is_neopixel=True):
@@ -271,12 +408,14 @@ class Macrokeypad():
                 self.neopixels[self.BUTTON_TO_LIGHT_ID[button]] = (
                     btn[3][0],  # Red
                     btn[3][1],  # Green
-                    btn[3][2])  # Blue
+                    btn[3][2],  # Blue
+                )
             elif state == 1:
                 self.neopixels[self.BUTTON_TO_LIGHT_ID[button]] = (
                     btn[4][0],  # Red
                     btn[4][1],  # Green
-                    btn[4][2])  # Blue
+                    btn[4][2],  # Blue
+                )
             else:
                 rnd_color = random.choice(color.RAINBOW)
                 self.neopixels[self.BUTTON_TO_LIGHT_ID[button]] = rnd_color
@@ -289,7 +428,9 @@ class Macrokeypad():
                     self.led.set_led_by_group(0, btn[4][0], btn[4][1], btn[4][2])
                 else:
                     self.led.set_led_by_group(0, *random.choice(color.RAINBOW))
-            elif self.BUTTON_TO_LIGHT_ID[button] == 1:  # Because I routed the PCB wrong...BGR instead of RGB
+            elif (
+                self.BUTTON_TO_LIGHT_ID[button] == 1
+            ):  # Because I routed the PCB wrong...BGR instead of RGB
                 if state == 0:
                     self.led.set_led_by_group(1, btn[3][2], btn[3][1], btn[3][0])
                 elif state == 1:
@@ -297,22 +438,29 @@ class Macrokeypad():
                 else:
                     self.led.set_led_by_group(1, *random.choice(color.RAINBOW))
 
-    def update_encoder(self, encoder: rotaryio.IncrementalEncoder, last_position: rotaryio.IncrementalEncoder.position,
-                       positive_action=None,
-                       negative_action=None
-                       ):
+    def update_encoder(
+        self,
+        encoder: rotaryio.IncrementalEncoder,
+        last_position: rotaryio.IncrementalEncoder.position,
+        positive_action=None,
+        negative_action=None,
+    ):
         current_position = encoder.position
         position_change = current_position - last_position
         if position_change > 0:
             for _ in range(position_change):
                 if self.neopixels.brightness < 1.0:
-                    self.neopixels.brightness = self.neopixels.brightness + 0.1  # (1 / 255)
+                    self.neopixels.brightness = (
+                        self.neopixels.brightness + 0.1
+                    )  # (1 / 255)
                     if positive_action is not None:
                         self.cc.send(positive_action)
         elif position_change < 0:
             for _ in range(-position_change):
                 if self.neopixels.brightness > 0.0:
-                    self.neopixels.brightness = self.neopixels.brightness - 0.1  # (1 / 255)
+                    self.neopixels.brightness = (
+                        self.neopixels.brightness - 0.1
+                    )  # (1 / 255)
                     if negative_action is not None:
                         self.cc.send(negative_action)
         return current_position
@@ -337,7 +485,10 @@ class Macrokeypad():
                 pic = displayio.OnDiskBitmap(f)
                 # CircuitPython 6 & 7 compatible
                 t = displayio.TileGrid(
-                    pic, pixel_shader=getattr(pic, "pixel_shader", displayio.ColorConverter())
+                    pic,
+                    pixel_shader=getattr(
+                        pic, "pixel_shader", displayio.ColorConverter()
+                    ),
                 )
                 # CircuitPython 7 compatible only
                 # t = displayio.TileGrid(pic, pixel_shader=pic.pixel_shader)
@@ -357,7 +508,9 @@ class Macrokeypad():
             self.update_light_button(button, state=0)
 
         while self.state == self.STATE_KEYPAD:
-            self.neopixels.brightness = float(min(self.veml.light * 10, 65535) >> 8) / 255
+            self.neopixels.brightness = (
+                float(min(self.veml.light * 10, 65535) >> 8) / 255
+            )
             self.led.set_global_dim(min(self.veml.light * 10, 65535) >> 8)
             for button in range(12):
                 self.switches[button].update()
@@ -377,13 +530,13 @@ class Macrokeypad():
                 break
 
             self.encoder_top_position_last = self.update_encoder(
-                encoder=self.encoder_top,
-                last_position=self.encoder_top_position_last)
+                encoder=self.encoder_top, last_position=self.encoder_top_position_last
+            )
             self.encoder_bottom_position_last = self.update_encoder(
                 encoder=self.encoder_bottom,
                 last_position=self.encoder_bottom_position_last,
                 positive_action=ConsumerControlCode.VOLUME_INCREMENT,
-                negative_action=ConsumerControlCode.VOLUME_DECREMENT
+                negative_action=ConsumerControlCode.VOLUME_DECREMENT,
             )
 
     def run_game_tictactoe(self):
@@ -393,7 +546,8 @@ class Macrokeypad():
             pic = displayio.OnDiskBitmap(f)
             # CircuitPython 6 & 7 compatible
             t = displayio.TileGrid(
-                pic, pixel_shader=getattr(pic, "pixel_shader", displayio.ColorConverter())
+                pic,
+                pixel_shader=getattr(pic, "pixel_shader", displayio.ColorConverter()),
             )
             # CircuitPython 7 compatible only
             # t = displayio.TileGrid(pic, pixel_shader=pic.pixel_shader)
@@ -406,15 +560,15 @@ class Macrokeypad():
         # Based on https://www.freecodecamp.org/news/how-to-make-your-tic-tac-toe-game-unbeatable-by-using-the-minimax-algorithm-9d690bad4b37/
         def minimax(newBoard, player):
 
-            huPlayer = 'O'
-            aiPlayer = 'X'
+            huPlayer = "O"
+            aiPlayer = "X"
 
             availSpots = []
             for i in range(len(newBoard)):
-                if newBoard[i] != 'X' and newBoard[i] != "O":
+                if newBoard[i] != "X" and newBoard[i] != "O":
                     availSpots.append(i)
 
-            #print("Availible spots: %s" % availSpots)
+            # print("Availible spots: %s" % availSpots)
             if winning(newBoard, huPlayer):
                 return {"score": -10}
             elif winning(newBoard, aiPlayer):
@@ -466,14 +620,15 @@ class Macrokeypad():
             return moves[bestMove]
 
         def winning(board, player):
-            if ((board[0] == player and board[1] == player and board[2] == player) or
-                    (board[3] == player and board[4] == player and board[5] == player) or
-                    (board[6] == player and board[7] == player and board[8] == player) or
-                    (board[0] == player and board[3] == player and board[6] == player) or
-                    (board[1] == player and board[4] == player and board[7] == player) or
-                    (board[2] == player and board[5] == player and board[8] == player) or
-                    (board[0] == player and board[4] == player and board[8] == player) or
-                    (board[2] == player and board[4] == player and board[6] == player)
+            if (
+                (board[0] == player and board[1] == player and board[2] == player)
+                or (board[3] == player and board[4] == player and board[5] == player)
+                or (board[6] == player and board[7] == player and board[8] == player)
+                or (board[0] == player and board[3] == player and board[6] == player)
+                or (board[1] == player and board[4] == player and board[7] == player)
+                or (board[2] == player and board[5] == player and board[8] == player)
+                or (board[0] == player and board[4] == player and board[8] == player)
+                or (board[2] == player and board[4] == player and board[6] == player)
             ):
                 return True
             else:
@@ -483,7 +638,16 @@ class Macrokeypad():
         def win_combo(board, player):
 
             # All possible winning combinations
-            soln = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
+            soln = [
+                [0, 1, 2],
+                [3, 4, 5],
+                [6, 7, 8],
+                [0, 3, 6],
+                [1, 4, 7],
+                [2, 5, 8],
+                [0, 4, 8],
+                [2, 4, 6],
+            ]
 
             # Loop to check if any winning combination is satisfied
             for combo in soln:
@@ -494,7 +658,7 @@ class Macrokeypad():
             return False
 
         def check_draw(player_pos):
-            if len(player_pos['1']) + len(player_pos['2']) == 9:
+            if len(player_pos["1"]) + len(player_pos["2"]) == 9:
                 return True
             return False
 
@@ -508,7 +672,7 @@ class Macrokeypad():
             print(board)
 
             # Stores the positions occupied by X and O
-            player_pos = {'1': [], '2': []}
+            player_pos = {"1": [], "2": []}
 
             for button in range(10):
                 self.neopixels[button] = color.BLACK
@@ -521,20 +685,30 @@ class Macrokeypad():
             self.led.set_led_mode_by_group(1, 0x00)
             self.led.set_global_dim(50)
 
-            if random.choice([True, False, False]):  # computer will go first 1/3 of the time
+            if random.choice(
+                [True, False, False]
+            ):  # computer will go first 1/3 of the time
                 # Computer move
-                self.led.set_led_by_group(0, color.BLUE[0], color.BLUE[1], color.BLUE[2])
-                self.led.set_led_by_group(1, color.GREEN[2], color.GREEN[1], color.GREEN[0])
+                self.led.set_led_by_group(
+                    0, color.BLUE[0], color.BLUE[1], color.BLUE[2]
+                )
+                self.led.set_led_by_group(
+                    1, color.GREEN[2], color.GREEN[1], color.GREEN[0]
+                )
 
                 computer_pick = random.randint(0, 8)
-                self.neopixels[self.BUTTON_TO_LIGHT_ID[computer_pick+1]] = color.BLUE
-                board[computer_pick] = 'X'
+                self.neopixels[self.BUTTON_TO_LIGHT_ID[computer_pick + 1]] = color.BLUE
+                board[computer_pick] = "X"
                 print(board)
 
             else:
                 # self.led.set_led_by_group(0, *color.GREEN)
-                self.led.set_led_by_group(0, color.GREEN[0], color.GREEN[1], color.GREEN[2])
-                self.led.set_led_by_group(1, color.BLUE[2], color.BLUE[1], color.BLUE[0])
+                self.led.set_led_by_group(
+                    0, color.GREEN[0], color.GREEN[1], color.GREEN[2]
+                )
+                self.led.set_led_by_group(
+                    1, color.BLUE[2], color.BLUE[1], color.BLUE[0]
+                )
 
             while self.state == self.STATE_GAME:
                 for i in range(len(board)):
@@ -555,57 +729,99 @@ class Macrokeypad():
                 for button in range(1, 10):
                     self.switches[button].update()
                     if self.switches[button].fell:
-                        if board[button-1] == "X" or board[button-1] == "O":
+                        if board[button - 1] == "X" or board[button - 1] == "O":
                             self.neopixels[self.BUTTON_TO_LIGHT_ID[button]] = color.RED
                             time.sleep(0.1)
-                            self.neopixels[self.BUTTON_TO_LIGHT_ID[button]] = color.BLACK
+                            self.neopixels[
+                                self.BUTTON_TO_LIGHT_ID[button]
+                            ] = color.BLACK
                             time.sleep(0.1)
                             self.neopixels[self.BUTTON_TO_LIGHT_ID[button]] = color.RED
                             time.sleep(0.1)
-                            self.neopixels[self.BUTTON_TO_LIGHT_ID[button]] = color.BLACK
+                            self.neopixels[
+                                self.BUTTON_TO_LIGHT_ID[button]
+                            ] = color.BLACK
                             time.sleep(0.1)
-                            if board[button-1] == 'O':
-                                self.neopixels[self.BUTTON_TO_LIGHT_ID[button]] = color.GREEN
+                            if board[button - 1] == "O":
+                                self.neopixels[
+                                    self.BUTTON_TO_LIGHT_ID[button]
+                                ] = color.GREEN
                             else:
-                                self.neopixels[self.BUTTON_TO_LIGHT_ID[button]] = color.BLUE
+                                self.neopixels[
+                                    self.BUTTON_TO_LIGHT_ID[button]
+                                ] = color.BLUE
                         else:
-                            board[button-1] = "O"
-                            self.neopixels[self.BUTTON_TO_LIGHT_ID[button]] = color.GREEN
+                            board[button - 1] = "O"
+                            self.neopixels[
+                                self.BUTTON_TO_LIGHT_ID[button]
+                            ] = color.GREEN
                             if winning(board, "O"):
                                 status, ans = win_combo(board, "O")
                                 time.sleep(0.25)
-                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[0]+1]] = color.BLACK
-                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[1]+1]] = color.BLACK
-                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[2]+1]] = color.BLACK
+                                self.neopixels[
+                                    self.BUTTON_TO_LIGHT_ID[ans[0] + 1]
+                                ] = color.BLACK
+                                self.neopixels[
+                                    self.BUTTON_TO_LIGHT_ID[ans[1] + 1]
+                                ] = color.BLACK
+                                self.neopixels[
+                                    self.BUTTON_TO_LIGHT_ID[ans[2] + 1]
+                                ] = color.BLACK
                                 time.sleep(0.5)
-                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[0]+1]] = color.GREEN
-                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[1]+1]] = color.GREEN
-                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[2]+1]] = color.GREEN
+                                self.neopixels[
+                                    self.BUTTON_TO_LIGHT_ID[ans[0] + 1]
+                                ] = color.GREEN
+                                self.neopixels[
+                                    self.BUTTON_TO_LIGHT_ID[ans[1] + 1]
+                                ] = color.GREEN
+                                self.neopixels[
+                                    self.BUTTON_TO_LIGHT_ID[ans[2] + 1]
+                                ] = color.GREEN
                                 time.sleep(0.5)
-                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[0]+1]] = color.BLACK
-                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[1]+1]] = color.BLACK
-                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[2]+1]] = color.BLACK
+                                self.neopixels[
+                                    self.BUTTON_TO_LIGHT_ID[ans[0] + 1]
+                                ] = color.BLACK
+                                self.neopixels[
+                                    self.BUTTON_TO_LIGHT_ID[ans[1] + 1]
+                                ] = color.BLACK
+                                self.neopixels[
+                                    self.BUTTON_TO_LIGHT_ID[ans[2] + 1]
+                                ] = color.BLACK
                                 time.sleep(0.5)
-                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[0]+1]] = color.GREEN
-                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[1]+1]] = color.GREEN
-                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[2]+1]] = color.GREEN
+                                self.neopixels[
+                                    self.BUTTON_TO_LIGHT_ID[ans[0] + 1]
+                                ] = color.GREEN
+                                self.neopixels[
+                                    self.BUTTON_TO_LIGHT_ID[ans[1] + 1]
+                                ] = color.GREEN
+                                self.neopixels[
+                                    self.BUTTON_TO_LIGHT_ID[ans[2] + 1]
+                                ] = color.GREEN
                                 time.sleep(0.5)
-                                for x in range(int(self.neopixels.brightness * 100), 0, -1):
-                                    self.neopixels.brightness = self.neopixels.brightness - 0.01
+                                for x in range(
+                                    int(self.neopixels.brightness * 100), 0, -1
+                                ):
+                                    self.neopixels.brightness = (
+                                        self.neopixels.brightness - 0.01
+                                    )
                                     time.sleep(0.01)
                                 print("User wins")
                                 return True
 
                             availSpots = []
                             for i in range(len(board)):
-                                if board[i] != 'X' and board[i] != "O":
+                                if board[i] != "X" and board[i] != "O":
                                     availSpots.append(i)
 
                             if len(availSpots) == 0:
                                 # animate
                                 time.sleep(0.25)
-                                for x in range(int(self.neopixels.brightness * 100), 0, -1):
-                                    self.neopixels.brightness = self.neopixels.brightness - 0.01
+                                for x in range(
+                                    int(self.neopixels.brightness * 100), 0, -1
+                                ):
+                                    self.neopixels.brightness = (
+                                        self.neopixels.brightness - 0.01
+                                    )
                                     time.sleep(0.01)
                                 print("Draw Game")
                                 return True
@@ -640,54 +856,92 @@ class Macrokeypad():
 
                             for i in range(len(board)):
                                 if board[i] == "X":
-                                    self.neopixels[self.BUTTON_TO_LIGHT_ID[i + 1]] = color.BLUE
+                                    self.neopixels[
+                                        self.BUTTON_TO_LIGHT_ID[i + 1]
+                                    ] = color.BLUE
                                 elif board[i] == "O":
-                                    self.neopixels[self.BUTTON_TO_LIGHT_ID[i + 1]] = color.GREEN
+                                    self.neopixels[
+                                        self.BUTTON_TO_LIGHT_ID[i + 1]
+                                    ] = color.GREEN
                                 else:
-                                    self.neopixels[self.BUTTON_TO_LIGHT_ID[i + 1]] = color.BLACK
+                                    self.neopixels[
+                                        self.BUTTON_TO_LIGHT_ID[i + 1]
+                                    ] = color.BLACK
 
                             if winning(board, "X"):
-                                status, ans = win_combo(board, 'X')
+                                status, ans = win_combo(board, "X")
                                 time.sleep(0.25)
-                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[0]+1]] = color.BLACK
-                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[1]+1]] = color.BLACK
-                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[2]+1]] = color.BLACK
+                                self.neopixels[
+                                    self.BUTTON_TO_LIGHT_ID[ans[0] + 1]
+                                ] = color.BLACK
+                                self.neopixels[
+                                    self.BUTTON_TO_LIGHT_ID[ans[1] + 1]
+                                ] = color.BLACK
+                                self.neopixels[
+                                    self.BUTTON_TO_LIGHT_ID[ans[2] + 1]
+                                ] = color.BLACK
                                 time.sleep(0.5)
-                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[0]+1]] = color.BLUE
-                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[1]+1]] = color.BLUE
-                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[2]+1]] = color.BLUE
+                                self.neopixels[
+                                    self.BUTTON_TO_LIGHT_ID[ans[0] + 1]
+                                ] = color.BLUE
+                                self.neopixels[
+                                    self.BUTTON_TO_LIGHT_ID[ans[1] + 1]
+                                ] = color.BLUE
+                                self.neopixels[
+                                    self.BUTTON_TO_LIGHT_ID[ans[2] + 1]
+                                ] = color.BLUE
                                 time.sleep(0.5)
-                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[0]+1]] = color.BLACK
-                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[1]+1]] = color.BLACK
-                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[2]+1]] = color.BLACK
+                                self.neopixels[
+                                    self.BUTTON_TO_LIGHT_ID[ans[0] + 1]
+                                ] = color.BLACK
+                                self.neopixels[
+                                    self.BUTTON_TO_LIGHT_ID[ans[1] + 1]
+                                ] = color.BLACK
+                                self.neopixels[
+                                    self.BUTTON_TO_LIGHT_ID[ans[2] + 1]
+                                ] = color.BLACK
                                 time.sleep(0.5)
-                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[0]+1]] = color.BLUE
-                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[1]+1]] = color.BLUE
-                                self.neopixels[self.BUTTON_TO_LIGHT_ID[ans[2]+1]] = color.BLUE
+                                self.neopixels[
+                                    self.BUTTON_TO_LIGHT_ID[ans[0] + 1]
+                                ] = color.BLUE
+                                self.neopixels[
+                                    self.BUTTON_TO_LIGHT_ID[ans[1] + 1]
+                                ] = color.BLUE
+                                self.neopixels[
+                                    self.BUTTON_TO_LIGHT_ID[ans[2] + 1]
+                                ] = color.BLUE
                                 time.sleep(0.5)
 
-                                for x in range(int(self.neopixels.brightness * 100), 0, -1):
-                                    self.neopixels.brightness = self.neopixels.brightness - 0.01
+                                for x in range(
+                                    int(self.neopixels.brightness * 100), 0, -1
+                                ):
+                                    self.neopixels.brightness = (
+                                        self.neopixels.brightness - 0.01
+                                    )
                                     time.sleep(0.01)
                                 print("Computer wins")
                                 return True
 
                             availSpots = []
                             for i in range(len(board)):
-                                if board[i] != 'X' and board[i] != "O":
+                                if board[i] != "X" and board[i] != "O":
                                     availSpots.append(i)
 
                             if len(availSpots) == 0:
                                 # animate
                                 time.sleep(0.25)
-                                for x in range(int(self.neopixels.brightness * 100), 0, -1):
-                                    self.neopixels.brightness = self.neopixels.brightness - 0.01
+                                for x in range(
+                                    int(self.neopixels.brightness * 100), 0, -1
+                                ):
+                                    self.neopixels.brightness = (
+                                        self.neopixels.brightness - 0.01
+                                    )
                                     time.sleep(0.01)
                                 print("Draw Game")
                                 return True
 
         if self.state == self.STATE_GAME:
-            single_game('1')
+            single_game("1")
 
     def run_admin(self):
 
@@ -727,7 +981,9 @@ class Macrokeypad():
                             break
                     elif selection is None:
                         # self.update_light_button(button)
-                        self.neopixels[self.BUTTON_TO_LIGHT_ID[button]] = random.choice(color.RAINBOW)
+                        self.neopixels[self.BUTTON_TO_LIGHT_ID[button]] = random.choice(
+                            color.RAINBOW
+                        )
                         selection = button
                     elif selection == button:
                         self.neopixels[self.BUTTON_TO_LIGHT_ID[button]] = color.BLACK
@@ -744,7 +1000,12 @@ class Macrokeypad():
 
         blink = Blink(self.neopixels, speed=0.5, color=random.choice(color.RAINBOW))
         comet = RainbowComet(self.neopixels, speed=0.01, tail_length=3, bounce=True)
-        chase = RainbowChase(self.neopixels, speed=0.1, size=3, spacing=6, )
+        chase = RainbowChase(
+            self.neopixels,
+            speed=0.1,
+            size=3,
+            spacing=6,
+        )
         rainbow = Rainbow(self.neopixels, speed=0.1)
         sparkle = RainbowSparkle(self.neopixels, speed=0.1)
 
@@ -753,12 +1014,24 @@ class Macrokeypad():
         self.led.set_led_by_group(0, *random.choice(color.RAINBOW))
         self.led.set_led_by_group(1, *random.choice(color.RAINBOW))
 
-        self.led.set_gradation_by_group(group=0, ramp_rate_step_value=1, final_iref_gain=0x0F,
-                                        cycle_time_base=True, cycle_multiplier=4,
-                                        hold_off=True, hold_off_time=2)
-        self.led.set_gradation_by_group(group=1, ramp_rate_step_value=1, final_iref_gain=0x0F,
-                                        cycle_time_base=True, cycle_multiplier=4,
-                                        hold_off=False, hold_off_time=2)
+        self.led.set_gradation_by_group(
+            group=0,
+            ramp_rate_step_value=1,
+            final_iref_gain=0x0F,
+            cycle_time_base=True,
+            cycle_multiplier=4,
+            hold_off=True,
+            hold_off_time=2,
+        )
+        self.led.set_gradation_by_group(
+            group=1,
+            ramp_rate_step_value=1,
+            final_iref_gain=0x0F,
+            cycle_time_base=True,
+            cycle_multiplier=4,
+            hold_off=False,
+            hold_off_time=2,
+        )
 
         self.led.set_gradation_control_by_group(0, start=True)
         self.led.set_gradation_control_by_group(1, start=True)
@@ -768,7 +1041,8 @@ class Macrokeypad():
             pic = displayio.OnDiskBitmap(f)
             # CircuitPython 6 & 7 compatible
             t = displayio.TileGrid(
-                pic, pixel_shader=getattr(pic, "pixel_shader", displayio.ColorConverter())
+                pic,
+                pixel_shader=getattr(pic, "pixel_shader", displayio.ColorConverter()),
             )
             # CircuitPython 7 compatible only
             # t = displayio.TileGrid(pic, pixel_shader=pic.pixel_shader)
@@ -782,7 +1056,9 @@ class Macrokeypad():
 
         while self.state == self.STATE_TEACHMEPCB:
             this_animation.animate()
-            self.neopixels.brightness = float(min(self.veml.light * 10, 65535) >> 8) / 255
+            self.neopixels.brightness = (
+                float(min(self.veml.light * 10, 65535) >> 8) / 255
+            )
             self.led.set_global_dim(min(self.veml.light * 10, 65535) >> 8)
 
             self.switches[10].update()
@@ -801,19 +1077,33 @@ class Macrokeypad():
         for button in range(10):
             self.neopixels[button] = color.BLACK
         self.led.set_led_by_group(0, *color.AMBER)
-        self.led.set_led_by_group(1, red=color.RED[2], green=color.RED[1], blue=color.RED[0])
+        self.led.set_led_by_group(
+            1, red=color.RED[2], green=color.RED[1], blue=color.RED[0]
+        )
 
-        self.led.set_gradation_by_group(group=0, ramp_rate_step_value=1, final_iref_gain=0x0F,
-                                        cycle_time_base=True, cycle_multiplier=4,
-                                        hold_off=True, hold_off_time=2)
-        self.led.set_gradation_by_group(group=1, ramp_rate_step_value=10, final_iref_gain=0x0F,
-                                        cycle_time_base=False, cycle_multiplier=32,
-                                        hold_off=True, hold_off_time=2)
+        self.led.set_gradation_by_group(
+            group=0,
+            ramp_rate_step_value=1,
+            final_iref_gain=0x0F,
+            cycle_time_base=True,
+            cycle_multiplier=4,
+            hold_off=True,
+            hold_off_time=2,
+        )
+        self.led.set_gradation_by_group(
+            group=1,
+            ramp_rate_step_value=10,
+            final_iref_gain=0x0F,
+            cycle_time_base=False,
+            cycle_multiplier=32,
+            hold_off=True,
+            hold_off_time=2,
+        )
 
         self.led.set_gradation_control_by_group(0, start=True)
         self.led.set_gradation_control_by_group(1, start=True)
 
-        self.generate_qr(b'https://www.youtube.com/watch?v=dQw4w9WgXcQ')
+        self.generate_qr(b"https://www.youtube.com/watch?v=dQw4w9WgXcQ")
         while self.state == self.STATE_QR:
             self.switches[10].update()
             if self.switches[10].fell:
@@ -861,7 +1151,12 @@ class Macrokeypad():
         print("Display_Refresh")
         if ENABLE_EPAPER:
             if self.display.time_to_refresh > 0.0:
-                pulse = Pulse(self.neopixels, speed=self.display.time_to_refresh / 50, period=5, color=color.OLD_LACE)
+                pulse = Pulse(
+                    self.neopixels,
+                    speed=self.display.time_to_refresh / 50,
+                    period=5,
+                    color=color.OLD_LACE,
+                )
                 while self.display.time_to_refresh > 0.0:
                     pulse.speed = self.display.time_to_refresh / 50
                     pulse.animate()
@@ -897,16 +1192,18 @@ class Macrokeypad():
         if y < 0 or y > 2:
             raise ValueError("Y position out of range.")
 
-        button = Button(x=50 * x,
-                        y=110 - (40 * (2 - y)),
-                        width=50,
-                        height=40,
-                        style=Button.ROUNDRECT,
-                        fill_color=WHITE,
-                        outline_color=RED,
-                        label=text,
-                        label_font=terminalio.FONT,
-                        label_color=BLACK)
+        button = Button(
+            x=50 * x,
+            y=110 - (40 * (2 - y)),
+            width=50,
+            height=40,
+            style=Button.ROUNDRECT,
+            fill_color=WHITE,
+            outline_color=RED,
+            label=text,
+            label_font=terminalio.FONT,
+            label_color=BLACK,
+        )
 
         return button
 
@@ -940,7 +1237,7 @@ class Macrokeypad():
 
         # Create a two color palette
         palette = displayio.Palette(2)
-        palette[0] = 0xffffff
+        palette[0] = 0xFFFFFF
         palette[1] = 0x000000
 
         # Create a TileGrid using the Bitmap and Palette
