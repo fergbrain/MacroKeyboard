@@ -42,7 +42,7 @@ BLACK = 0x000000
 WHITE = 0xFFFFFF
 RED = 0xFF0000
 
-ENABLE_EPAPER = False
+ENABLE_EPAPER = True
 
 
 class Macrokeypad:
