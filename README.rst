@@ -53,7 +53,7 @@ U401 (PI4ULS5V201TAEX), Pin 6:
 * IS: Connected to ground.
 * SHOULD BE: Connected to 5V+ via a 4.7K ohm resistor
 
-_Note: All annotations on the PCB were also reset and reassigned. However, the original annotation designations are used in this document._
+*Note: All annotations on the PCB were also reset and reassigned. However, the original annotation designations are used in this document.*
 
 R2 (fcf9d7e)
 ^^^^^^^^^^^^
@@ -85,7 +85,7 @@ S3001 (Rotary Encoder)
     * S3001 Pin 01 (red LED) connects to 2701 Pin 11 (red LED)
     * S3001 Pin 04 (blue LED) to U2701 Pin 13 (blue LED)
 
-_Note: This has been fixed in software for this version of the PCB_
+*Note: This has been fixed in software for this version of the PCB*
 
 R4 (3040ea1)
 ^^^^^^^^^^^^
@@ -101,7 +101,7 @@ J2901 (Connector for epaper) Pin 11 (Data/Command) and Pin 09 (Busy)
     * U2801 Pin 15 labeled as GPIO11 and connects to Pin 09
     * U2801 Pin 16 labeled as GPIO12 and connects to Pin 11
 
-_Note: This has been fixed in software for this version of the PCB_
+*Note: This has been fixed in software for this version of the PCB*
 
 R5 (51e2212 / 8b634cf)
 ^^^^^^^^^^^^
@@ -114,7 +114,7 @@ R5 (51e2212 / 8b634cf)
 * IS: J2901 (Connector for epaper) Pin 10 (Reset) connected to +3.3V via R2902 (100k ohm)
 * SHOULD BE: J2901 Pin 10 connected to U2801 Pin 14 (GPIO10)
 
-_Note: This results in SWITCH 4 and ePaper Reset sharing a pin because there are no other pins available. The primary result is that careful context switching needs to managed in software to:_
+*Note: This results in SWITCH 4 and ePaper Reset sharing a pin because there are no other pins available. The primary result is that careful context switching needs to managed in software to:*
 
 1.	Deinitialize GPIO10 as an input for SWITCH 4
 2.	Setup the ePaper display interface (which uses GPIO10 as an output)
@@ -122,7 +122,7 @@ _Note: This results in SWITCH 4 and ePaper Reset sharing a pin because there are
 4.	Deinitialze the ePaper interface (which deinitializes GPIO10 as an output)
 5.	Re-initialize GPIO10 as an input for SWITCH 4
 
-_Also, while the ePaper is not enabled (i.e. not initialized/reinitialized), GPIO17 (ePaper CS) needs to be set HIGH to prevent the ePaper controller from thinking that data on the SPI line is intended for it._
+*Also, while the ePaper is not enabled (i.e. not initialized/reinitialized), GPIO17 (ePaper CS) needs to be set HIGH to prevent the ePaper controller from thinking that data on the SPI line is intended for it.*
 |se|
 
 R7 (80c609b)
@@ -133,12 +133,12 @@ R7 (80c609b)
 * IS: Component S201 and S3001 is SparkFun P/N COM-15141
 * SHOULD BE: Bournes P/N PEL12T-4225S-S1024
 
-_Note: COM-15141 was originally sourced as an alternate since the Bournes parts weren’t avaible. However, COM-15141 has quality control issues, including the Red LED not working well and the rotary action not registering correctly. SparkFun is aware of these issues._
+*Note: COM-15141 was originally sourced as an alternate since the Bournes parts weren’t avaible. However, COM-15141 has quality control issues, including the Red LED not working well and the rotary action not registering correctly. SparkFun is aware of these issues.*
 
 R8 (2cafc4d)
 ^^^^^^^^^^^^
 * IS: J2901 (Connector for epaper) Pin 10 (Reset) connected to +3.3V via R2902 (100k ohm)
 * SHOULD BE: J2901 Pin 10 connected to U2801 Pin 48 (GPIO25_LED aka TP5)
 
-_Note: This replaces R6 in its entirety._
+*Note: This replaces R6 in its entirety.*
 
