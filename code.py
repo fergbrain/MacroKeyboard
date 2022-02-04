@@ -660,7 +660,7 @@ class Macrokeypad:
             return False
 
         # Function for a single game of Tic Tac Toe
-        def single_game(cur_player):
+        def single_game():
 
             # Represents the Tic Tac Toe
             board = [x for x in range(9)]
@@ -931,8 +931,8 @@ class Macrokeypad:
                                 print("Draw Game")
                                 return True
 
-        if self.state == self.STATE_GAME:
-            single_game("1")
+        while self.state == self.STATE_GAME:
+            single_game()
 
     def run_admin(self):
 
@@ -1263,6 +1263,6 @@ class Macrokeypad:
 if __name__ == "__main__":
     macro = Macrokeypad()
     # macro.run_keypad()
-    macro.state = macro.STATE_GAME
+    macro.state = macro.STATE_ADMIN
     while True:
         macro.switch_state()
