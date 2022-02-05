@@ -110,7 +110,7 @@ R5 (51e2212 / 8b634cf)
 
 |ss| R6 (196a722) |ss|
 ^^^^^^^^^^^^
-
+|ss|
 * IS: J2901 (Connector for epaper) Pin 10 (Reset) connected to +3.3V via R2902 (100k ohm)
 * SHOULD BE: J2901 Pin 10 connected to U2801 Pin 14 (GPIO10)
 
