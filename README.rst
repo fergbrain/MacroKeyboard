@@ -110,10 +110,9 @@ R5 (51e2212 / 8b634cf)
 
 |ss| R6 (196a722) |se|
 ^^^^^^^^^^^^
+* |ss|IS: J2901 (Connector for epaper) Pin 10 (Reset) connected to +3.3V via R2902 (100k ohm)|se|
+* |ss|SHOULD BE: J2901 Pin 10 connected to U2801 Pin 14 (GPIO10)|se|
 |ss|
-* IS: J2901 (Connector for epaper) Pin 10 (Reset) connected to +3.3V via R2902 (100k ohm)
-* SHOULD BE: J2901 Pin 10 connected to U2801 Pin 14 (GPIO10)
-
 *Note: This results in SWITCH 4 and ePaper Reset sharing a pin because there are no other pins available. The primary result is that careful context switching needs to managed in software to:*
 
 1.	Deinitialize GPIO10 as an input for SWITCH 4
