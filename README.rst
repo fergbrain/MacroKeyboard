@@ -108,7 +108,7 @@ R5 (51e2212 / 8b634cf)
 * IS: R2901 is 470 ohms
 * SHOULD BE: R2901 is 0.47 ohms
 
-|ss| R6 (196a722) |ss|
+|ss| R6 (196a722) |se|
 ^^^^^^^^^^^^
 |ss|
 * IS: J2901 (Connector for epaper) Pin 10 (Reset) connected to +3.3V via R2902 (100k ohm)
